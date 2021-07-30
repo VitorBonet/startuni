@@ -39,6 +39,7 @@ export default function IndexPage() {
           <DesktopHeaderHome backHeaderAndIcon={true}/>
 
           <PrincipalSection>
+              <video src="/spaceWoman.mp4" width="100%" autoPlay={true} controls></video>
               <PrincipalSectionDegrade>
                 <PrincipalSectionDegradeHorizontal>
                   <PrincipalSectionDegradeHorizontalTitle>
