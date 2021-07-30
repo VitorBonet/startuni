@@ -45,7 +45,7 @@ export default function IndexPage() {
                     StartUni
                   </PrincipalSectionDegradeHorizontalTitle>
                   <PrincipalSectionDegradeHorizontalText>
-                    <p>The new social media platform for</p> <p>musicians. Join the community.</p>
+                    <p>The new social media platform for</p> <p> Startups. Join the community.</p>
                   </PrincipalSectionDegradeHorizontalText>
                 </PrincipalSectionDegradeHorizontal>
               </PrincipalSectionDegrade>
@@ -67,7 +67,7 @@ export default function IndexPage() {
               </FooterContentText>
               <FooterContentSepartor />
               <FooterContentMidia>
-                <FooterContentMidiaText>Copyright © 2020 Cisum.Club, All Rights Reserved.</FooterContentMidiaText>
+                <FooterContentMidiaText>Copyright © 2021 StartUni, All Rights Reserved.</FooterContentMidiaText>
                 <FooterContentMidiaItens>
                   <SocialMidiaDiv>
                     <SocialMidiaItem>
