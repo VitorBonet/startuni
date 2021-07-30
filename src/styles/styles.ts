@@ -2,6 +2,11 @@ import { url } from 'node:inspector';
 import styled, { keyframes } from 'styled-components';
 import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn } from 'react-icons/fa';
 
+export const DivTeste = styled.div`
+  color: red;
+  background-color: pink;
+`;
+
 export const Container = styled.div`
   width: 100%;
   height: 100%;

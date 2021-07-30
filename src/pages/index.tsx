@@ -1,7 +1,6 @@
 import Head from 'next/head'
-import React, { useState, useEffect, useRef } from 'react';
-import { GetServerSideProps, GetStaticProps } from 'next';
-import Link from 'next/link';
+import React from 'react';
+import { GetStaticProps } from 'next';
 
 import { 
   Container, 
@@ -28,13 +27,6 @@ import {
   Linkedin,
 } from '../styles/styles';
 import { DesktopHeaderHome } from '../components/DesktopHeaderHome';
-
-type Music = {
-  title: string;
-  duration: number;
-  url: string;
-  thumbnail: string;
-}
 
 export default function IndexPage() {
   return (
