@@ -60,12 +60,14 @@ export default createGlobalStyle`
     --gray-900: #121214;
     --gray-950: #0d1117;
 
+    --pink-50: #fbe6f1;
     --pink-200: #FFC8FB;
     --pink-300: #FB96F4;
     --pink-400: #FA7CF2;
     --pink-500: #FF5FF4;
     --pink-600: #FF40F2;
 
+    --purple-50: #6b04ff4d;
     --purple-200: #C18FEC;
     --purple-300: #AE70E2;
     --purple-400: #A055E0;
@@ -83,7 +85,6 @@ export default createGlobalStyle`
 
     --yellow-500: #eba417; 
 
-    --red-500: #bd2934;
-    --red-700: #b31d25; 
+    --red-500: #E73F5D;
   }
 `;
