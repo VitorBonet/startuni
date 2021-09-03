@@ -96,50 +96,6 @@ export function ProfileMenu({ dropdownOpen, refDropdown, openDropdown }: IProfil
                     </DropDownItemText>
                   </DropDownItem>
 
-                  <DropDownItem>
-                    <DropDownItemText>
-                      <DropDownItemIconDiv>
-                        <AiOutlineUsergroupAdd />
-                      </DropDownItemIconDiv>
-                      Supporters
-                    </DropDownItemText>
-                  </DropDownItem>
-
-                  <DropDownItem>
-                    <DropDownItemText>
-                      <DropDownItemIconDiv>
-                        <FaStream />
-                      </DropDownItemIconDiv>
-                      Supporting
-                    </DropDownItemText>
-                  </DropDownItem>
-
-                  <DropDownItem onClick={() => setActiveMenu('library')}>
-                    <DropDownItemText>
-                      <DropDownItemIconDiv>
-                        <RiFolderMusicFill />
-                      </DropDownItemIconDiv>
-                      My Library 
-                    </DropDownItemText>
-                    
-                    <DropDownItemIconDiv>
-                      <AiOutlineArrowRight />
-                    </DropDownItemIconDiv>
-                  </DropDownItem>
-
-                  <DropDownItem onClick={() => setActiveMenu('stage')}>
-                    <DropDownItemText>
-                      <DropDownItemIconDiv>
-                        <MdLibraryBooks />
-                      </DropDownItemIconDiv>
-                      My Stage 
-                    </DropDownItemText>
-                    
-                    <DropDownItemIconDiv>
-                      <AiOutlineArrowRight />
-                    </DropDownItemIconDiv>
-                  </DropDownItem>
-
                   <DropDownItem onClick={() => setActiveMenu('groups')}>
                     <DropDownItemText>
                       <DropDownItemIconDiv>
@@ -162,15 +118,6 @@ export function ProfileMenu({ dropdownOpen, refDropdown, openDropdown }: IProfil
                     </DropDownItemText>
                   </DropDownItem>
 
-                  <DropDownItem>
-                    <DropDownItemText>
-                      <DropDownItemIconDiv>
-                        <MdLibraryMusic />
-                      </DropDownItemIconDiv>
-                      My Page
-                    </DropDownItemText>
-                  </DropDownItem>
-
                   <DropDownItem onClick={signOut}>
                     <DropDownItemText>
                       <DropDownItemIconDiv>
@@ -178,90 +125,6 @@ export function ProfileMenu({ dropdownOpen, refDropdown, openDropdown }: IProfil
                       </DropDownItemIconDiv>
                       Logout
                     </DropDownItemText>                  
-                  </DropDownItem>
-                </div>
-              </CSSTransition>
-
-              <CSSTransition
-                in={activeMenu === 'library'}
-                unmountOnExit
-                timeout={500}
-                className="menu-secondary"
-              >
-                <div className="menu" >
-                  <DropDownItem onClick={() => setActiveMenu('main')}>
-                    <DropDownItemIconDiv>
-                      <AiOutlineArrowLeft />
-                    </DropDownItemIconDiv>
-                  </DropDownItem>
-
-                  <DropDownItem>
-                    <DropDownItemText>
-                      <DropDownItemIconDiv>
-                        <AiOutlineCloudUpload />
-                      </DropDownItemIconDiv>
-                      Upload a file
-                    </DropDownItemText>
-                  </DropDownItem>
-
-                  <DropDownItem>
-                    <DropDownItemText>
-                      <DropDownItemIconDiv>
-                        <BsMusicNoteBeamed />
-                      </DropDownItemIconDiv>
-                      My Music
-                    </DropDownItemText>
-                  </DropDownItem>
-
-                  <DropDownItem>
-                    <DropDownItemText>
-                      <DropDownItemIconDiv>
-                        <GiMusicalScore />
-                      </DropDownItemIconDiv>
-                      My Lyrics
-                    </DropDownItemText>
-                  </DropDownItem>
-
-                  <DropDownItem>
-                    <DropDownItemText>
-                      <DropDownItemIconDiv>
-                        <AiOutlineCloudDownload />
-                      </DropDownItemIconDiv>
-                      My Downloads
-                    </DropDownItemText>
-                  </DropDownItem>
-                </div>
-              </CSSTransition>
-
-              <CSSTransition
-                in={activeMenu === 'stage'}
-                unmountOnExit
-                timeout={500}
-                className="menu-secondary"
-              >
-                <div className="menu" >
-                  <DropDownItem onClick={() => setActiveMenu('main')}>
-                    <DropDownItemIconDiv>
-                      <AiOutlineArrowLeft />
-                    </DropDownItemIconDiv>
-                  </DropDownItem>
-
-                  <DropDownItem>
-                    <DropDownItemText>
-                      <DropDownItemIconDiv>
-                        <BiCalendarEvent />
-                      </DropDownItemIconDiv>
-                      Events
-                    </DropDownItemText>
-                  </DropDownItem>
-                  
-                  <DropDownItem>
-                    <DropDownItemText>
-                      <DropDownItemIconDiv>
-                        <MdEventAvailable />
-                      </DropDownItemIconDiv>
-                      Attending
-                    </DropDownItemText>
                   </DropDownItem>
                 </div>
               </CSSTransition>

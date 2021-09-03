@@ -91,12 +91,12 @@ export function NotificationMenu({ dropdownOpen, refDropdown, openDropdown }: IN
 
   return (
     <>
-      <Container onClick={openDropdown} >
+      <Container onClick={() => openDropdown} >
         <AiOutlineBell/>
         { notifications.length > 0 && (<NotificationWarn>{notifications.filter(notification => notification.read === false)?.length}</NotificationWarn> ) }
       </Container>
 
-      <DropDownDiv ref={refDropdown}>
+      <DropDownDiv ref={() => refDropdown}>
         {dropdownOpen && (
           <DropDown>
             <DropDownTitle>

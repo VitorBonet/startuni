@@ -2,20 +2,25 @@ import styled, { css } from 'styled-components';
 import { AiFillHome, AiOutlineBell } from 'react-icons/ai';
 
 export const Container = styled.div`
-  border-bottom: 1px solid #323238;
-  background-color: var(--gray-950);
+  border-bottom: 1px solid var(--gray-100);
+  background-color: transparent;
   padding: 0 30px;
 
   position: fixed;
   top: 0;
-  left: 0;
   right: 0;
   z-index: 2;
+  width: calc(100% - 60px);
+  transition: 0.2s;
 
   display: none;
 
   @media (min-width: 870px) {
     display: block;
+  }
+
+  &.open {
+    width: calc(100% - 203px);
   }
 `;
 

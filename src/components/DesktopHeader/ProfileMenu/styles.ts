@@ -22,8 +22,8 @@ export const ProfileIconCircle = styled.div`
   justify-content: center;
   width: 35px;
   height: 35px;
-  color: var(--gray-100);
-  background-color: var(--gray-800);
+  color: var(--purple-600);    
+  background: linear-gradient(90deg,var(--pink-50) 0%,var(--purple-50) 120%);
   border-radius: 50%;
   margin-right: 10px;
 `;
@@ -52,10 +52,10 @@ export const DropDownDiv = styled.div`
 
 export const DropDown = styled.div`
   width: 190px;
-  background-color: var(--gray-700);
+  /* color: var(--purple-600);     */
+  background: linear-gradient(90deg,var(--pink-50) 0%,var(--purple-50) 120%);
   padding: 0.5rem;  
   overflow: hidden; 
-  border: 1px solid var(--gray-700);
   border-radius: 5px;
   box-shadow: 0 0 0 1px rgb(0 0 0 / 15%), 0 2px 3px rgb(0 0 0 / 20%);
   transform: translateX(0%);
@@ -101,11 +101,12 @@ export const DropDownItem  = styled.a`
   align-items: center;
   border-radius: var(--gray-300);
   transition: 0.2s;
-  padding: 0.5rem;
-  color: var(--gray-100);
+  padding: 0.2rem;
+  margin: 0.2rem;
+  color: var(--purple-700);
 
-  border: 1px solid var(--gray-700);
-  background-color: var(--gray-700);
+  border: 1px solid linear-gradient(90deg,var(--pink-50) 0%,var(--purple-50) 120%);
+  background: linear-gradient(90deg,var(--pink-50) 0%,var(--purple-50) 120%);
   border-radius: 5px;
 
   cursor: pointer;
@@ -123,7 +124,6 @@ export const DropDownItemText = styled.div`
 `;
 
 export const DropDownItemIconDiv = styled.div`
-  background-color: var(--gray-700);
   filter: brightness(0.8);
   border-radius: 50%; 
   font-size: 15px;

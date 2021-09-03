@@ -15,7 +15,7 @@ export const Container = styled.div`
   top: 0;
   left: 0;
   right: 0;
-  z-index: 2;
+  z-index: 3;
 
   @media (min-width: 870px) {
     /* display: none; */
@@ -65,22 +65,25 @@ export const CaretDownIconProfileIcon = styled(AiFillCaretDown)`    width: 10px;
 `;
 
 export const SideBarContainer = styled.div`
+  background-color: var(--white-100);
   border-right: 1px solid var(--gray-100);
   height: 100vh;
   justify-content: center;
   position: fixed;
   top: 0;
-  z-index: 2;
-  transition: 0.2s;
-  width: 52px;
+  z-index: 3;
+  transition: 0.4s;
+  width: 60px;
 
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
 
-  &.active {
-    width: 80%;
+  &.open {
+    width: 188px;
+    align-items: center;
+    margin-left: 15px;
   }
 `;
 
@@ -91,6 +94,10 @@ export const HeaderSideBar = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  
+  &.open {  
+    justify-content: flex-end;
+  }
 `;
 
 export const HeaderSideBarCloseIcon = styled(AiOutlineClose)`
@@ -115,6 +122,7 @@ export const ItemSideBar = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 
   &:hover {
     border-right: 1.5px solid var(--purple-400);
@@ -128,7 +136,16 @@ export const ItemSideBar = styled.div`
     color: var(--gray-300);
     padding: 8px 10px;
     border-radius: 8px;
-    cursor: pointer;
+    transition: opacity 1s ease-out;
+    overflow: hidden;
+    display: flex;
+    flex-wrap: nowrap;
+
+    label {
+      margin-left: 12px;
+      display: none;
+      opacity: 0;
+    }
 
     &:hover {
       background: rgb(250,124,242);
@@ -142,13 +159,71 @@ export const ItemSideBar = styled.div`
       color: var(--purple-600);
     }
   }
+
+  &.open {
+    justify-content: start;
+
+    >div {
+      label {
+        display: unset;
+        opacity: 1;
+        cursor: pointer;
+      }
+
+      width: 170px;
+    }
+  }
   
+`;
+
+export const ImageSideBar = styled.div`
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  margin-bottom: 26px;
+  margin-top: -42px;
+  transition: opacity 0.2s ease-out;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+
+  img {
+    height: 5rem;
+    transform: rotate(50deg);
+    margin-bottom: 16px;
+  }
+  
+  h3 {
+    font-size: 1rem;
+    color: var(--purple-600);
+  }
+
+  label {
+    font-size: 0.7rem;
+    color: var(--purple-400);
+  }
+
+  &.open {
+    opacity: 1;
+  }
+`;
+
+export const ImageSideBarText = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const FooterSideBar = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-right: 15px;
+  gap: 8px;
+  overflow: hidden;
+  flex-wrap: nowrap; 
+  white-space: nowrap;
+  width: 100%;
 `;
 
 export const SideBarUser = styled.div`
@@ -156,4 +231,25 @@ export const SideBarUser = styled.div`
   margin: 10px 0;
   border-radius: 50%;
   background: var(--gray-100);
+  color: var(--purple-600);
+`;
+
+export const SideBarUserText = styled.div`
+  display: none;
+  opacity: 0;
+  
+  h3 {
+    font-size: 1rem;
+    color: var(--purple-600);
+  }
+
+  label {
+    font-size: 0.7rem;
+    color: var(--purple-400);
+  }
+
+  &.open {
+    display: unset;
+    opacity: 1;
+  }
 `;

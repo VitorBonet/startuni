@@ -8,8 +8,8 @@ export const Container = styled.div`
   justify-content: center;
   width: 35px;
   height: 35px;
-  color: var(--gray-100);
-  background-color: var(--gray-800);
+  color: var(--purple-600);    
+  background: linear-gradient(90deg,var(--pink-50) 0%,var(--purple-50) 120%);
   border-radius: 50%;
   margin-right: 10px;
 `;
@@ -31,7 +31,8 @@ export const NotificationWarn = styled.div`
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background-color: var(--red-500);
+  background-color: var(--green-700);
+  color: var(--gray-100);
   margin-left: 10px;
   margin-top: -13px;
   font-size: 6px;

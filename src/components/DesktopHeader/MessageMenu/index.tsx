@@ -27,7 +27,7 @@ import {
 } from './styles';
 import { useToast } from '../../../contexts/ToastContext';
 import getValidationErrors from '../../../utils/getValidationErrors';
-import { TextArea } from '../../TextArea';
+// import { TextArea } from '../../TextArea';
 
 interface IMessageMenu {
   dropdownOpen : boolean;
@@ -137,12 +137,12 @@ export function MessageMenu({ dropdownOpen, refDropdown, openDropdown, closeDrop
 
   return (
     <>
-      <Container onClick={openDropdown}>
+      <Container onClick={() => openDropdown}>
         <AiOutlineMessage/>
         { messages.length > 0 && (<NotificationWarn>{messages.length}</NotificationWarn> ) }
       </Container>
 
-      <DropDownDiv ref={refDropdown}>
+      <DropDownDiv ref={() =>refDropdown}>
       {dropdownOpen && (
         <DropDown>
           <DropDownTitle>
@@ -181,7 +181,7 @@ export function MessageMenu({ dropdownOpen, refDropdown, openDropdown, closeDrop
       )}
       </DropDownDiv>
 
-      <Modal title="Messages" isOpen={modalOpen} setIsOpen={toggleModal}>
+      {/* <Modal title="Messages" isOpen={modalOpen} setIsOpen={toggleModal}>
         <Form ref={formRef} onSubmit={handleSubmit} style={{ padding: '0 3rem' }}>
           <InputAutocomplete 
             name="user" 
@@ -191,7 +191,7 @@ export function MessageMenu({ dropdownOpen, refDropdown, openDropdown, closeDrop
           <TextArea name="message" label="Message" />
           <Button type="submit">Send</Button>
         </Form>
-      </Modal>
+      </Modal> */}
     </>
   );
 }
