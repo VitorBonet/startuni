@@ -26,19 +26,19 @@ export function ProfilePanel() {
             <AiOutlineUser size={30} />
           </AvatarIcon>
         ) }
-        <h1>{user ? user.profileName: user.name}</h1>
-        {/* <h2>Software Engineer @ WEG</h2> */}
+        <h1>{user ? user.profileName: user?.name} Vitor Bonet</h1>
+        <h2>Aspirante</h2>
 
-        {/* <div className="separator"></div> */}
+        <div className="separator"></div>
 
-        {/* <div className="key-value">
-          <span className="key">Quem viu seu perfil</span>
+        <div className="key-value">
+          <span className="key">Visualizações</span>
           <span className="value">1.558</span>
         </div>
         <div className="key-value">
-          <span className="key">Viram sua publicação</span>
+          <span className="key">Sua galáxia</span>
           <span className="value">388</span>
-        </div> */}
+        </div>
       </Container>
     </Panel>
   );

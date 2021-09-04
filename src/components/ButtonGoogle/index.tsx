@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import React, { ButtonHTMLAttributes } from "react";
 import { GoogleLogin } from 'react-google-login';
-import { FaGooglePlusSquare } from 'react-icons/fa';
+import { FcGoogle } from 'react-icons/fc';
 import { useAuth } from "../../contexts/AuthContext";
 import { useToast } from "../../contexts/ToastContext";
 
@@ -57,7 +57,7 @@ export function ButtonGoogle({ title, loading, ...rest }: ButtonProps) {
       autoLoad={false}
       render={renderProps => (
         <Container onClick={renderProps.onClick} type="button" {...rest}>
-          <FaGooglePlusSquare size={20} />
+          <FcGoogle size={18} />
           {loading ? "Loading..." : title}
         </Container>
       )}

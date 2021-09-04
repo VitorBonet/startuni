@@ -68,6 +68,7 @@ export default createGlobalStyle`
     --pink-600: #FF40F2;
 
     --purple-50: #6b04ff4d;
+    --purple-100: #954cff;
     --purple-200: #C18FEC;
     --purple-300: #AE70E2;
     --purple-400: #A055E0;
@@ -82,9 +83,17 @@ export default createGlobalStyle`
     --cyan-500: #61dafb;
 
     --blue-500: #0073b1;
+    --blue-700: #1C1BAB;
 
     --yellow-500: #eba417; 
 
     --red-500: #E73F5D;
+    --red-600: #c53030;
+
+    --scaffold-layout-gutter: 1.2rem;
+    --scaffold-layout-none-max-width: 576px;
+    --scaffold-layout-md-max-width: 720px;
+    --scaffold-layout-lg-max-width: 960px;
+    --scaffold-layout-xl-max-width: 1128px;
   }
 `;

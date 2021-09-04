@@ -1,6 +1,6 @@
 import { formatDistance } from 'date-fns';
 import React, { useCallback, useRef, useState } from 'react';
-import { useApplicationCisum } from '../../../contexts/ApplicationCisumContext';
+import { useApplicationStartUni } from '../../../contexts/ApplicationStartUniContext';
 
 import { AiOutlineUser, AiOutlineEllipsis } from 'react-icons/ai';
 
@@ -91,7 +91,7 @@ interface IFeedPostProps {
 }
 
 export function FeedPost({ post }: IFeedPostProps) {
-  const { isLoading } = useApplicationCisum();
+  const { isLoading } = useApplicationStartUni();
   const [isLike, setIsLike] = useState(post.like);
 
   const dropdownMenuRef = useRef<HTMLDivElement>(null);

@@ -9,29 +9,29 @@ interface InputProps {
 }
 
 export const Container = styled.div<InputProps>`
-  color: var(--gray-300);
+  color: var(--purple-900);
   outline: none;  
   text-align: left;
 
   ${props =>
     props.isFocused &&
     css`
-      border-color: var(--gray-100);
-      color: var(--gray-100);
+      border-color: var(--purple-900);
+      color: var(--purple-900);
     `}
   ${props =>
     props.isFilled &&
     css`
-      color: var(--gray-100);
+      color: var(--purple-900);
     `}
 `;
 
 export const InputContainer = styled.div<InputProps>`
-  background: #232129;
+  background: var(--white-100);
   border-radius: 5px;
   padding: 5px;
   width: 100%;
-  border: 2px solid #232129;
+  border: 1px solid var(--gray-300);
   color: var(--gray-300);
   display: flex;
   align-items: center;
@@ -42,26 +42,26 @@ export const InputContainer = styled.div<InputProps>`
   ${props =>
     props.isErrored &&
     css`
-      border-color: var(--red-700);
+      border-color: var(--red-600);
     `}
   ${props =>
     props.isFocused &&
     css`
-      border-color: var(--gray-100);
-      color: var(--gray-100);
+      border-color: var(--purple-900);
+      color: var(--purple-900);
     `}
   ${props =>
     props.isFilled &&
     css`
-      color: var(--gray-100);
+      color: var(--purple-900);
     `}
   input {
     flex: 1;
     background: transparent;
     border: 0;
-    color: #f4edef;
+    color: var(--purple-900);
     &::placeholder {
-      color: #666360;
+      color: var(--gray-300);
     }
 
     &:focus{
@@ -80,10 +80,10 @@ export const Error = styled(Tooltip)`
     margin-right: 0;
   }
   span {
-    background: #c53030;
+    background: var(--red-600);
     color: #fff;
     &::before {
-      border-color: #c53030 transparent;
+      border-color: var(--red-600) transparent;
     }
   }
 `;

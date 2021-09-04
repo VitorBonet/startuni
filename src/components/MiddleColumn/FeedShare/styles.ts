@@ -1,12 +1,8 @@
 import styled, { css } from 'styled-components';
-import { BsPencilSquare, BsMusicNoteBeamed, BsFillCalendarFill } from 'react-icons/bs';
-import {
-  AiFillPlusCircle,
-  AiOutlineProfile,
-} from 'react-icons/ai';
+import { BsPencilSquare, BsCardImage, BsFillCalendarFill, BsFillCollectionPlayFill, BsFileEarmarkText } from 'react-icons/bs';
 
 export const Container = styled.div`
-  color: var(--gray-100);
+  color: var(--gray-700);
 
   .write {
     display: flex;
@@ -36,7 +32,7 @@ export const Container = styled.div`
         align-items: center;
         background: none;
         border: none;
-        color: var(--gray-100);
+        color: var(--gray-300);
         font-weight: 600;
 
         cursor: pointer;
@@ -60,17 +56,22 @@ const iconCSS = css`
   margin-right: 4px;
 `;
 
-export const MusicIcon = styled(BsMusicNoteBeamed)`
+export const ImageIcon = styled(BsCardImage)`
   ${iconCSS}
-  color: var(--red-500);
+  color: var(--purple-600);
 `;
 
-export const PlusIcon = styled(AiFillPlusCircle)`
+export const VideoIcon = styled(BsFillCollectionPlayFill)`
   ${iconCSS}
-  color: var(--red-500);
+  color: var(--purple-600);
+`;
+
+export const TextIcon = styled(BsFileEarmarkText)`
+  ${iconCSS}
+  color: var(--purple-600);
 `;
 
 export const CalendarIcon = styled(BsFillCalendarFill)`
   ${iconCSS}
-  color: var(--red-500);
+  color: var(--purple-600);
 `;

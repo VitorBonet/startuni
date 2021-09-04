@@ -1,20 +1,20 @@
 import router from 'next/router';
 import React, { useState } from 'react';
-import { useApplicationCisum } from '../../../contexts/ApplicationCisumContext';
+import { useApplicationStartUni } from '../../../contexts/ApplicationStartUniContext';
 
 import Panel from '../../Panel';
 import LoadingFeedShare from '../../Shimmer/LoadingFeedShare';
 
 import {
   Container,
-  WriteIcon,
-  MusicIcon,
-  PlusIcon,
+  ImageIcon,
+  VideoIcon,
+  TextIcon,
   CalendarIcon,
 } from './styles';
 
 export function FeedShare() {
-  const { isLoading } = useApplicationCisum();
+  const { isLoading } = useApplicationStartUni();
 
   return (
     <>
@@ -29,21 +29,21 @@ export function FeedShare() {
             <span>Começar uma publicação</span>
           </div> */}
           <div className="attachment">
-            <button onClick={() => router.push('tracks')} >
-              <MusicIcon />
-              Upload Track
-            </button>
             <button onClick={() => router.push('images')} >
-              <PlusIcon />
-              Add Image
+              <ImageIcon />
+              Foto
             </button>
-            <button onClick={() => router.push('lyrics')} >
-              <MusicIcon />
-              Add Lyrics
+            <button onClick={() => router.push('videos')} >
+              <VideoIcon />
+              Video
             </button>
             <button onClick={() => router.push('events')} >
               <CalendarIcon />
-              Creat an Event
+              Evento
+            </button>
+            <button onClick={() => router.push('texts')} >
+              <TextIcon />
+              Texto
             </button>
           </div>
         </Container>

@@ -60,6 +60,10 @@ export const InputContainer = styled.div<InputProps>`
     &:focus{
       outline: none;
     }
+
+    &::checked {
+      background-color: red;
+    }
   }
 `;
 

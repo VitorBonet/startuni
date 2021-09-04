@@ -1,5 +1,5 @@
 import React from 'react';
-import { useApplicationCisum } from '../../../contexts/ApplicationCisumContext';
+import { useApplicationStartUni } from '../../../contexts/ApplicationStartUniContext';
 
 import Panel from '../../Panel';
 // import LoadingMainCarousel from '../../Shimmer/LoadingMainCarousel';
@@ -13,7 +13,7 @@ import {
 } from './styles';
 
 export function MainCarousel() {
-  const { isLoading } = useApplicationCisum();
+  const { isLoading } = useApplicationStartUni();
   return (
     <>
     {isLoading ? (

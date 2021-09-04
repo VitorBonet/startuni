@@ -13,12 +13,13 @@ export function LoadingSpinner({ visible }: ILoadingSpinnerProps) {
   return (
     <Container>
       <Loader
-          type="Bars"
-          color="#b31d25"
-          height={80}
-          width={80}
+          type="TailSpin"
+          color="#8231C7"
+          secondaryColor="#FF40F2"
+          height={50}
+          width={50}
           visible={visible}
-          //timeout={3000} //3 secs
+          // timeout={3000} //3 secs
         />
     </Container>
   );

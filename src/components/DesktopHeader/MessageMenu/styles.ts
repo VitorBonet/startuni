@@ -10,7 +10,7 @@ export const Container = styled.div`
   height: 35px;
   color: var(--purple-600);    
   background: linear-gradient(90deg,var(--pink-50) 0%,var(--purple-50) 120%);
-  border-radius: 50%;
+  border-radius: 12px;
   margin-right: 10px;
 `;
 

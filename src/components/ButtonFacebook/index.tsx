@@ -47,7 +47,7 @@ export function ButtonFacebook({ title, loading, ...rest }: ButtonProps) {
       callback={responseFacebook}
       render={renderProps => (
           <Container onClick={renderProps.onClick}  type="button" {...rest}>
-            <FaFacebookSquare size={20} />
+            <FaFacebookSquare size={18} />
             {loading ? "Loading..." : title}
           </Container>
       )}

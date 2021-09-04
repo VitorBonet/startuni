@@ -80,7 +80,7 @@ export function LeftSideBar() {
         <ImageSideBar className={sideBarOpen ? 'open' : ''}>
           <img src="/rocketIcon.svg" alt="rocket" />
           <ImageSideBarText>
-            <h3>Start Universe</h3>
+            <h3>Startup Universe</h3>
             <label>O espaço é apenas o começo...</label>
           </ImageSideBarText>
         </ImageSideBar>

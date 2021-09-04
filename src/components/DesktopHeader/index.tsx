@@ -60,7 +60,13 @@ function DesktopHeader() {
     <Container>
       <Wrapper>
         <div className="left" onClick={() => router.push('feed')} >
-          <Logo src="/logoText.png" alt="startuni"/>
+          {/* <Logo src="/logoText.png" alt="startuni"/> */}
+          <img src="/rocketIcon.svg" alt="rocket" />
+          <div className="titleDiv">
+            <h3>StartUni</h3>
+            <label>STARTUP UNIVERSE</label>
+          </div>
+
         </div>
         <div className="right">
           <nav>

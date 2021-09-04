@@ -6,11 +6,11 @@ import { ProfilePanel } from './ProfilePanel';
 
 import { Container } from './styles';
 import MenuPanel from './MenuPanel';
-import { useApplicationCisum } from '../../contexts/ApplicationCisumContext';
+import { useApplicationStartUni } from '../../contexts/ApplicationStartUniContext';
 import LoadingProfilePanel from '../Shimmer/LoadingProfilePanel';
 
 export function LeftColumn() {
-  const { isLoading } = useApplicationCisum();
+  const { isLoading } = useApplicationStartUni();
 
   return (
     <Container className="left-column">
@@ -21,7 +21,7 @@ export function LeftColumn() {
         <>
         {/* <PlayerPanel /> */}
         <ProfilePanel />
-        <MenuPanel />
+        {/* <MenuPanel /> */}
         </>
       )}
     </Container>

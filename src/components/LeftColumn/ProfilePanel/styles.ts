@@ -7,7 +7,8 @@ export const Container = styled.div`
     object-fit: cover;
     width: 100%;
     height: 54px;
-    background: var(--gray-800);
+    background: linear-gradient( 90deg,var(--pink-50) 0%,var(--purple-50) 120%);
+    border-radius: 5px;
   }
   .profile-picture {
     width: 72px;
@@ -25,7 +26,7 @@ export const Container = styled.div`
     font-size: 16px;
     font-weight: 600;
     text-align: center;
-    color: var(--gray-100);
+    color: var(--purple-600);
   }
   h2 {
     margin-top: 4px;
@@ -36,7 +37,7 @@ export const Container = styled.div`
   }
   .separator {
     width: 100%;
-    border-bottom: 1px solid var(--gray-800);
+    border-bottom: 1px solid var(--gray-100);
     margin: 16px 0 12px;
   }
   .key-value {
@@ -48,10 +49,10 @@ export const Container = styled.div`
     font-weight: 600;
 
     .key {
-      color: var(--color-gray);
+      color: var(--gray-300);
     }
     .value {
-      color: var(--color-link);
+      color: var(--purple-700);
     }
   }
 `;
@@ -60,7 +61,7 @@ export const AvatarIcon = styled.div`
   width: 72px;
   height: 72px;
   border-radius: 50%;
-  border: 2px solid var(--color-white);
+  border: 2px solid var(--gray-100);
   box-shadow: inset 0 1.5px 3px 0 var(--black-a15, rgba(0, 0, 0, 0.15)),
     0 1.5px 3px 0 var(--black-a15, rgba(0, 0, 0, 0.15));
 
@@ -68,6 +69,6 @@ export const AvatarIcon = styled.div`
   align-items: center;
   justify-content: center;
   margin: -38px auto 12px;
-  background-color: var(--gray-800);
-  color: var(--gray-100)
+  background-color: var(--white-100);
+  color: var(--purple-600);
 `;

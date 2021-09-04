@@ -4,11 +4,11 @@ import LoadingTrendingPanel from '../Shimmer/LoadingTrendingPanel';
 import TrendingPanel from './TrendingPanel';
 
 import { Container } from './styles';
-interface IRightColumnProps {
-  isLoading: boolean;
-}
+import { useApplicationStartUni } from '../../contexts/ApplicationStartUniContext';
 
-export function RightColumn({ isLoading }: IRightColumnProps) {
+export function RightColumn() {
+  const { isLoading } = useApplicationStartUni();
+
   return (
     <Container className="right-column">
       { isLoading ? (

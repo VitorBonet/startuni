@@ -4,6 +4,7 @@ import React, {
   useState,
   useCallback,
 } from "react";
+import { BsCalendar } from "react-icons/bs";
 import { FiAlertCircle } from "react-icons/fi";
 import { useField } from "@unform/core";
 import ReactDatePicker, { ReactDatePickerProps } from 'react-datepicker';
@@ -15,9 +16,10 @@ import 'react-datepicker/dist/react-datepicker.css';
 interface IProps extends Omit<ReactDatePickerProps, 'onChange'> {
   label: string;
   name: string;
+  dateTime?: boolean;
 }
 
-export function DatePicker({ label, name, ...rest }: IProps) {
+export function DatePicker({ label, name, dateTime, ...rest }: IProps) {
   const multiple = true;
   const datepickerRef = useRef(null);
   const [isFocused, setIsFocused] = useState(false);
@@ -46,6 +48,8 @@ export function DatePicker({ label, name, ...rest }: IProps) {
       },
     });
   }, [fieldName, registerField]);
+
+  const stringDate = dateTime ? "dd/MM/yyyy HH:mm a" : "MM/dd/yyyy";
   
   return (
     <Container>
@@ -56,14 +60,15 @@ export function DatePicker({ label, name, ...rest }: IProps) {
         isFocused={isFocused}
         isFilled={isFilled}
       >
+        <BsCalendar size={20} />
         <ReactDatePicker
           ref={datepickerRef}
           selected={date}
           onChange={setDate}
-          showTimeSelect
+          showTimeSelect={dateTime}
           // timeFormat="HH:mm"
           timeIntervals={30}
-          dateFormat="MM/dd/yyyy HH:mm a"
+          dateFormat={stringDate}
           onBlur={habdleSelectBlur}
           onFocus={handlenputFocus}
           {...rest}

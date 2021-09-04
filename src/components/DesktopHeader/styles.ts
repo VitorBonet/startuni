@@ -2,8 +2,8 @@ import styled, { css } from 'styled-components';
 import { AiFillHome, AiOutlineBell } from 'react-icons/ai';
 
 export const Container = styled.div`
+  background-color: var(--white-100);
   border-bottom: 1px solid var(--gray-100);
-  background-color: transparent;
   padding: 0 30px;
 
   position: fixed;
@@ -44,6 +44,29 @@ export const Wrapper = styled.div`
   }
 
   .left {
+    img {
+      height: 35px;
+      transform: rotate(50deg);
+      margin-bottom: 6px;
+    }
+
+    .titleDiv {
+      display: flex;
+      flex-direction: column;
+
+      h3 {
+        font-family: 'Roboto', sans-serif;
+        color: var(--blue-700);
+        font-size: 13px;
+      }
+
+      label {
+        font-family: 'Lato', sans-serif;
+        color: var(--gray-300);
+        font-size: 7px;
+      }
+    }
+
     p {
       color: var(--white);
       margin-left: 0.5rem;

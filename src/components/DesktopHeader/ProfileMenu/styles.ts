@@ -24,7 +24,7 @@ export const ProfileIconCircle = styled.div`
   height: 35px;
   color: var(--purple-600);    
   background: linear-gradient(90deg,var(--pink-50) 0%,var(--purple-50) 120%);
-  border-radius: 50%;
+  border-radius: 12px;
   margin-right: 10px;
 `;
 
@@ -37,9 +37,9 @@ export const CaretDownIcon = styled(AiFillCaretDown)`
 
 export const CaretDownIconProfileIcon = styled(AiFillCaretDown)`    width: 10px;
   height: 10px;
-  color: var(--gray-300);
-  margin-left: 27px;
-  margin-top: 24px;
+  color: var(--green-700);
+  margin-left: 29px;
+  margin-top: 28px;
   position: absolute;
 `;
 
@@ -53,7 +53,7 @@ export const DropDownDiv = styled.div`
 export const DropDown = styled.div`
   width: 190px;
   /* color: var(--purple-600);     */
-  background: linear-gradient(90deg,var(--pink-50) 0%,var(--purple-50) 120%);
+  background: linear-gradient(90deg,var(--pink-50) 0%,var(--purple-100) 120%);
   padding: 0.5rem;  
   overflow: hidden; 
   border-radius: 5px;
