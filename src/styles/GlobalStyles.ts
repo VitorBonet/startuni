@@ -66,7 +66,8 @@ export default createGlobalStyle`
     --pink-400: #FA7CF2;
     --pink-500: #FF5FF4;
     --pink-600: #FF40F2;
-
+    
+    --purple-30: #6b04ff1a;
     --purple-50: #6b04ff4d;
     --purple-100: #954cff;
     --purple-200: #C18FEC;

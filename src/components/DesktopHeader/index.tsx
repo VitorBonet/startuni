@@ -70,7 +70,7 @@ function DesktopHeader() {
         </div>
         <div className="right">
           <nav>
-              <MessageMenu dropdownOpen={dropdownMessagesOpen} openDropdown={openDropdownMessages} closeDropdown={closeDropdownMessages} refDropdown={dropdownMessagesMenuRef} />
+              {/* <MessageMenu dropdownOpen={dropdownMessagesOpen} openDropdown={openDropdownMessages} closeDropdown={closeDropdownMessages} refDropdown={dropdownMessagesMenuRef} /> */}
               <NotificationMenu dropdownOpen={dropdownNotificationsOpen} openDropdown={openDropdownNotifications} refDropdown={dropdownNotificationMenuRef} />
               <ProfileMenu dropdownOpen={dropdownProfileOpen} openDropdown={openDropdownProfile} refDropdown={dropdownProfileMenuRef}/>
           </nav>

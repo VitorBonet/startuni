@@ -47,26 +47,26 @@ export const DropDownDiv = styled.div`
 
 export const DropDown = styled.div`
   width: 350px;
-  background-color: var(--gray-700);
+  background: linear-gradient(90deg,var(--pink-50) 0%,var(--purple-100) 120%);
   padding: 0.5rem;  
   overflow: hidden; 
-  border: 1px solid var(--gray-700);
+  border: 1px solid var(--gray-300);
   border-radius: 5px;
   box-shadow: 0 0 0 1px rgb(0 0 0 / 15%), 0 2px 3px rgb(0 0 0 / 20%);
 `;
 
-export const DropDownTitle = styled.h3`
+export const DropDownTitle = styled.h4`
   display: flex;
   align-items: center;
   justify-content: space-between;
   
-  color: var(--gray-100);
+  color: var(--purple-900);
   margin-bottom: 0.5rem;
   padding: 0.5rem;
 
   p {
     font-size: 0.6rem;
-    color: var(--gray-300);
+    color: var(--purple-600);
     cursor: pointer;
     transition: 0.2s;
 
@@ -79,7 +79,7 @@ export const DropDownTitle = styled.h3`
 export const DropDownItems = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 8px;
   width: 100%;
   max-height: 300px;
   overflow-y: auto;
@@ -111,15 +111,17 @@ export const DropDownItem  = styled.a`
   border-radius: var(--gray-300);
   transition: 0.2s;
   padding: 0.5rem;
-  color: var(--gray-100);
+  color: var(--purple-900);
+  background-color: var(--purple-30);
 
-  border: 1px solid var(--gray-700);
-  background-color: var(--gray-700);
+  border: none;
+  background-color: translate;
   border-radius: 5px;
 
   cursor: pointer;
 
   &:hover { 
+    background-color: var(--purple-50);
     filter: brightness(0.8);
   }
 `;
@@ -144,10 +146,11 @@ export const DropDownItemIcon = styled.div`
 
 export const DropDownItemText = styled.div`
   text-align: left;
+  font-size: 0.825rem;
 
   p {
-    font-size: 10px;
-    color: var(--gray-300);
+    font-size: 0.725rem;
+    color: var(--purple-600);
   }
 `;
 
@@ -180,14 +183,12 @@ export const DropDownViewAll = styled.div`
   justify-content: center;
 
   font-size: 0.8rem;
-  border-radius: var(--gray-300);
   transition: 0.2s;
-  padding: 0.5rem;
-  color: var(--gray-100);
+  padding: 0.3rem;
+  color: var(--green-700);
   margin-top: 1rem;
 
-  border: 1px solid var(--gray-850);
-  background-color: var(--gray-850);
+  background-color: transparent;
   border-radius: 5px;
 
   cursor: pointer;

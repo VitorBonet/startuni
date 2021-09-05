@@ -1,7 +1,9 @@
 import { ReactNode, useEffect, useState } from 'react';
 import { AiOutlineBell, AiOutlineUser, AiOutlineLike } from 'react-icons/ai'
 import { FiAlertCircle } from 'react-icons/fi';
+import { AiOutlineArrowDown } from 'react-icons/ai';
 import { BsMusicNoteBeamed } from 'react-icons/bs';
+import { IoIosRocket } from 'react-icons/io';
 import { formatDistance } from 'date-fns';
 import { useQuery } from 'react-query';
 
@@ -46,15 +48,22 @@ export function NotificationMenu({ dropdownOpen, refDropdown, openDropdown }: IN
   const router = useRouter();
   const [notifications, setNotifications] = useState([] as INotification[]);
 
-  const { data, status } = useQuery('notifications', async () => {
-    const response = await api.get<INotification[]>(`/notifications`, {
-      params: {
-        read: false,
-      },
-    });
-    setNotifications(response.data);
-    return response.data;
-  }, {staleTime: 5000, cacheTime: 10})
+  // const { data, status } = useQuery('notifications', async () => {
+  //   const response = await api.get<INotification[]>(`/notifications`, {
+  //     params: {
+  //       read: false,
+  //     },
+  //   });
+  //   setNotifications(response.data);
+  //   return response.data;
+  // }, {staleTime: 5000, cacheTime: 10})
+
+  useEffect(() => {
+    setNotifications([ 
+      { id: '1', code: 'startups', message: 'solicitou um Match com sua Startup', sender: { name: 'Rodrigo Issense'}, read: false, createdAt: new Date(), distanceDate: '3 min atrás' },
+      { id: '1', code: 'likes', message: 'curtiu sua publicação', sender: { name: 'Rodrigo Issense'}, read: false, createdAt: new Date(), distanceDate: '10 min atrás' }
+    ]);
+  }, []);
 
   function handleMarkAll() {
     const notificationItems = notifications;
@@ -91,17 +100,17 @@ export function NotificationMenu({ dropdownOpen, refDropdown, openDropdown }: IN
 
   return (
     <>
-      <Container onClick={() => openDropdown} >
+      <Container onClick={openDropdown} >
         <AiOutlineBell/>
         { notifications.length > 0 && (<NotificationWarn>{notifications.filter(notification => notification.read === false)?.length}</NotificationWarn> ) }
       </Container>
 
-      <DropDownDiv ref={() => refDropdown}>
+      <DropDownDiv ref={refDropdown}>
         {dropdownOpen && (
           <DropDown>
             <DropDownTitle>
               Notifications
-              <p onClick={handleMarkAll}>MARK ALL AS READ</p>
+              <p onClick={handleMarkAll}>MARCAR TODAS COMO LIDA</p>
             </DropDownTitle>
 
             <DropDownItems>
@@ -113,6 +122,7 @@ export function NotificationMenu({ dropdownOpen, refDropdown, openDropdown }: IN
                     { notification.code.split('.')[0] === 'posts' && <BsMusicNoteBeamed /> }
                     { notification.code.split('.')[0] === 'info' && <FiAlertCircle /> }
                     { notification.code.split('.')[0] === 'likes' && <AiOutlineLike /> }
+                    { notification.code.split('.')[0] === 'startups' && <IoIosRocket /> }
                     
                   </DropDownItemIcon>
                   <DropDownItemText>
@@ -128,7 +138,7 @@ export function NotificationMenu({ dropdownOpen, refDropdown, openDropdown }: IN
             </DropDownItems>
 
             <DropDownViewAll>
-              VIEW ALL
+              <AiOutlineArrowDown /> Ver Todos
             </DropDownViewAll>
           </DropDown>
         )}
