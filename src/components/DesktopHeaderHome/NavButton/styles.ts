@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 import { GrLinkedin } from 'react-icons/gr';
 import { AiFillHome, AiOutlineBell, AiFillCaretDown } from 'react-icons/ai';
 
-export const Container = styled.div`
+export const Container = styled.button`
   height: 2.5rem;
   border-radius: 0.5rem;
   padding: 0 1.5rem;
@@ -14,6 +14,8 @@ export const Container = styled.div`
   color: var(--gray-100);
   font-weight: bold;
   transition: filter 0.2s;
+  background: transparent;
+  border: none;
 
   cursor: pointer;
 

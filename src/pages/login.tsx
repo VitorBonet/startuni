@@ -1,4 +1,4 @@
-import React, { useRef, useCallback } from 'react';
+import React, { useRef, useCallback, useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -36,6 +36,7 @@ interface SingUpFormData {
 
 export default function Login() {
   const formRef = useRef<FormHandles>(null);
+  const [requestLoading, setRequestLoading] = useState(false);
   const router = useRouter();
   const { addToast } = useToast();
   const { signIn } = useAuth();
@@ -43,6 +44,7 @@ export default function Login() {
 
   const handleSubmit = useCallback(
     async (data: SingUpFormData) => {
+      setRequestLoading(true);
       try {
         formRef.current?.setErrors({});
 
@@ -87,14 +89,10 @@ export default function Login() {
               break;
           }
           
-          setTimeout(() => {
-            router.push('/login');
-          }, 1000);
-          
-          return;
+          router.push('/login');
+        } else {
+          router.push('/home');
         }
-
-        router.push('/home');
         
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
@@ -109,6 +107,7 @@ export default function Login() {
           });
         }
       }
+      setRequestLoading(false);
     },
     // [addToast, history]
     [addToast]
@@ -145,7 +144,7 @@ export default function Login() {
                       type="password"
                       label="Senha"
                     />
-                    <Button type="submit">Entrar</Button>
+                    <Button loading={requestLoading} type="submit">Entrar</Button>
                     
                     <ButtonMidia>
                       <ButtonFacebook title="Entrar com Facebook" />

@@ -47,32 +47,32 @@ export const Wrapper = styled.div`
       }
     }
     
+    img {
+      height: 35px;
+      transform: rotate(50deg);
+      margin-bottom: 6px;
+    }
+
+    .titleDiv {
+      display: flex;
+      flex-direction: column;
+
+      h3 {
+        font-family: 'Roboto', sans-serif;
+        color: var(--blue-700);
+        font-size: 13px;
+      }
+
+      label {
+        font-family: 'Lato', sans-serif;
+        color: var(--gray-300);
+        font-size: 7px;
+      }
+    }
   }
 
   .right nav {
     height: 100%;
-
-    button {
-      background: none;
-      border: 0;
-      outline: 0;
-
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-width: 90px;
-      min-height: 100%;
-
-      color: var(--pink-400);
-      cursor: pointer;
-      &:hover {
-        color: var(--pink-600);
-      }
-      &.active {
-        border-bottom: 2px solid var(--white);
-      }
-    }
   }
 `;
 

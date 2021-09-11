@@ -9,6 +9,7 @@ import {
   PrincipalSectionDegradeHorizontal,
   PrincipalSectionDegradeHorizontalTitle,
   PrincipalSectionDegradeHorizontalText,
+  SecondSection,
   Footer,
   FooterContent,
   FooterContentText,
@@ -39,18 +40,21 @@ export default function IndexPage() {
           <DesktopHeaderHome backHeaderAndIcon={true}/>
 
           <PrincipalSection>
-              <video src="/spaceWoman.mp4" width="100%" autoPlay={true} controls></video>
               <PrincipalSectionDegrade>
                 <PrincipalSectionDegradeHorizontal>
                   <PrincipalSectionDegradeHorizontalTitle>
-                    StartUni
+                    <span>Start</span><div className="marginDiv" >Up</div><span>Uni</span><div>verse</div>
                   </PrincipalSectionDegradeHorizontalTitle>
                   <PrincipalSectionDegradeHorizontalText>
-                    <p>The new social media platform for</p> <p> Startups. Join the community.</p>
+                    <p>Não fique de fora dessa! Um universo rico em inovação e properidade, conheça novas tecnologias, novas ideias e novas possibilidades</p>
                   </PrincipalSectionDegradeHorizontalText>
                 </PrincipalSectionDegradeHorizontal>
               </PrincipalSectionDegrade>
+              <img src="/images/Startup_SVG.svg" alt="Startup" />
           </PrincipalSection>
+
+          <SecondSection>
+          </SecondSection>
 
           <Footer>
             <FooterContent>

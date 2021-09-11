@@ -49,12 +49,16 @@ export const Container = styled.div`
 `;
 
 export const PrincipalSection = styled.section`
-  position: fixed;
-  background-size: cover;
-  background-position: center;
-  background-image: url('/images/dj-mixer.jpg');
+  display: flex;
   height: 40rem;
   width: 100%;
+  justify-content: center;
+  align-items: center;
+  padding: 0 10rem 0 3rem;
+
+  img {
+    height: 20rem;
+  }
 `;
 
 export const PrincipalSectionDegrade = styled.div`
@@ -108,107 +112,74 @@ export const PrincipalSectionDegradeHorizontal = styled.div`
   }
 `;
 
-export const PrincipalSectionDegradeHorizontalTitle = styled.h1`
+const appearDiagonalAnimation = keyframes`
+  from {
+    opacity: 0;
+    transform: translate(-200px, 100px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0px, 0px);
+  }
+`;
+
+const appearAnimation = keyframes`
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+`;
+
+
+export const PrincipalSectionDegradeHorizontalTitle = styled.div`
   font-size: 3.5rem;
   font-weight: bold;
-  color: var(--purple-900);
+  display: flex;
 
   span {
-    color: var(--red-700);
+    color: var(--purple-100);
+    animation: ${appearAnimation} 4s;
+  }
+
+  .marginDiv {
+    margin-right: 8px;
+  }
+
+  div {
+    -webkit-text-stroke-width: 1.5px;
+    -webkit-text-stroke-color: var(--purple-900);
+    color: transparent;
+    animation: ${appearDiagonalAnimation} 1s;
   }
 
   img {
     margin-right: 1rem;
     margin-bottom: -0.5rem;
+    animation: ${appearAnimation} 3s;
   }
 `;
 
-export const PrincipalSectionDegradeHorizontalText = styled.h1`
+export const PrincipalSectionDegradeHorizontalText = styled.p`
   margin-top: 1rem;
-  font-size: 1.5rem;
+  font-size: 1rem;
   color: var(--purple-900);
-  max-width: 40%;
+  max-width: 65%;
+  animation: ${appearDiagonalAnimation} 1s;
   
   @media (max-width: 1080px) {
     max-width: 100%;
   }
 `;
 
-export const FourthSection = styled.section`
+export const SecondSection = styled.section`
   position: relative;
   
-  top: 40rem; 
-  background-color: var(--gray-100);
+  background-color: var(--purple-100);
   height: 40rem;
   width: 100%;
 `;
-
-export const FourthSectionContentDiv = styled.div`
-  width: inherit;
-  height: inherit;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
-
-export const FourthSectionContent = styled.div`
-  padding: 0 30px;
-  max-width: 1128px;
-  text-align: center;
-  margin-top: 4rem;
-  margin-bottom: 4rem;
-  color: var(--gray-300);
-  display: flex;
-
-  @media (max-width: 720px) {
-    flex-direction: column;
-    gap: 4rem;
-  }
-`;
-
-export const FourthSectionContentleft = styled.div`
-  width: 42%;
-  color: var(--gray-950);
-  text-align: left;
-
-  p {
-    margin-top: 1rem; 
-    padding-right: 4rem;
-  }
-
-  @media (max-width: 720px) {
-   width: 100%;
-  }
-`;
-
-export const FourthSectionContentRight = styled.div`
-  width: 50%;
-  position: relative;
-`;
-
-export const FourthSectionContentRightImgDivAbsolut = styled.div`
-  position: absolute;
-  left: 75px;
-  bottom: 50px;
-
-  img {
-    width: 135%;
-    box-shadow: 0 16px 40px 20% red;
-    box-shadow: 0 19px 38px rgb(0 0 0 / 30%), 0 15px 12px rgb(0 0 0 / 22%);
-    border-radius: 10px;
-  }
-`;
-
-export const FourthSectionContentRightImgDiv = styled.div`
-  img {
-    width: 120%;
-    box-shadow: 0 16px 40px 20% red;
-    box-shadow: 0 19px 38px rgb(0 0 0 / 30%), 0 15px 12px rgb(0 0 0 / 22%);
-    border-radius: 10px;
-  }
-`;
-
 
 export const Footer = styled.footer`
   position: relative;

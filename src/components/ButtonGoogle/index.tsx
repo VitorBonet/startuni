@@ -52,7 +52,7 @@ export function ButtonGoogle({ title, loading, ...rest }: ButtonProps) {
       clientId="258164373274-v9fsnaiatjmde1n9l851se3pmad51vjv.apps.googleusercontent.com"
       buttonText="Login"
       onSuccess={success}
-      onFailure={failure}
+      onFailure={() => failure}
       isSignedIn={false}
       autoLoad={false}
       render={renderProps => (

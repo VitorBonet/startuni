@@ -1,5 +1,6 @@
 import React from 'react';
-import SingInButton from './SingInButton';
+import NavButton from './NavButton';
+import SingInButton from './NavButton';
 import { SingUpButton } from './SingUpButton';
 
 import { 
@@ -18,14 +19,20 @@ export function DesktopHeaderHome({ backHeaderAndIcon }: DesktopHeaderHomeProps)
       <Wrapper>
         <div className="left">
           {backHeaderAndIcon && (
-            <>
-            <Logo src="/logoText.png" alt="startuni"/>
-            </>
+            <div className="left">
+              {/* <Logo src="/logoText.png" alt="startuni"/> */}
+              <img src="/rocketIcon.svg" alt="rocket" />
+              <div className="titleDiv">
+                <h3>StartUni</h3>
+                <label>STARTUP UNIVERSE</label>
+              </div>
+    
+            </div>
           )}
         </div>
         <div className="right">
           <nav>
-              <SingInButton />
+              <NavButton text="Sobre" />
               <SingUpButton />
           </nav>
         </div>

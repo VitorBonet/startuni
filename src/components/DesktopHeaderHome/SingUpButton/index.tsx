@@ -11,7 +11,7 @@ export function SingUpButton() {
        type="button"
      >
        <Link href={"/join"} >
-        <p>Sign Up</p>
+        <p>Embarcar nesse foguete</p>
         </Link>
       </Container>
    );

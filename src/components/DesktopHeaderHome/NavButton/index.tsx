@@ -6,7 +6,11 @@ import {
   Container
 } from './styles';
 
-export default function SingInButton() {
+interface INavButtonProps {
+  text: string;
+}
+
+export default function NavButton({ text }: INavButtonProps) {
   // const [ session ] = useSession();
   const [ session ] = [0];
 
@@ -25,7 +29,7 @@ export default function SingInButton() {
        type="button"
      >
       <Link href={"/login"} >
-          <p>Sign in</p>
+          <p>{text}</p>
       </Link>
       </Container>
    );

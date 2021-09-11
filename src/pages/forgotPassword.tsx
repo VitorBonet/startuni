@@ -1,4 +1,4 @@
-import React, { useRef, useCallback } from 'react';
+import React, { useRef, useCallback, useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -36,14 +36,16 @@ interface ResetPasswordFormData {
   confirmPassword: string;
 }
 
-export default function resetPassword() {
+export default function forgotPassword() {
   const formRef = useRef<FormHandles>(null);
+  const [requestLoading, setRequestLoading] = useState(false);
   const router = useRouter();
   const { addToast } = useToast();
 
 
   const handleSubmit = useCallback(
     async (data: ResetPasswordFormData) => {
+      setRequestLoading(true);
       try {
         formRef.current?.setErrors({});
 
@@ -88,6 +90,7 @@ export default function resetPassword() {
           });
         }
       }
+      setRequestLoading(false);
     },
     [addToast, router.query]
   );
@@ -127,7 +130,7 @@ export default function resetPassword() {
                         type="password"
                         label="Confirm Password"
                       />
-                    <Button type="submit">Alterar</Button>
+                    <Button loading={requestLoading} type="submit">Alterar</Button>
                   </FormDiv>
                 </Form>
                   

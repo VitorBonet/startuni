@@ -43,6 +43,7 @@ interface ISingUpFormData {
 
 export default function Join() {
   const formRef = useRef<FormHandles>(null);
+  const [requestLoading, setRequestLoading] = useState(false);
   const router = useRouter();
   const { addToast } = useToast();
   const { signIn } = useAuth();
@@ -68,6 +69,7 @@ export default function Join() {
 
   const handleSubmit = useCallback(
     async (data: ISingUpFormData) => {
+      setRequestLoading(true);
       try {
         formRef.current?.setErrors({});
 
@@ -124,6 +126,8 @@ export default function Join() {
           
         }
       }
+      
+      setRequestLoading(false);
     },
     // [addToast, history]
     [addToast]
@@ -195,7 +199,7 @@ export default function Join() {
                       <InputCheckBoxText>Eu concordo com a <a href="/content/privacy" target="_blank">Política de Privacidade</a></InputCheckBoxText>
                     </InputCheckBox>
 
-                    <Button type="submit">Criar conta</Button>
+                    <Button loading={requestLoading} type="submit">Criar conta</Button>
                   </FormDiv>
                 </Form>
               </RightBodyCntent>

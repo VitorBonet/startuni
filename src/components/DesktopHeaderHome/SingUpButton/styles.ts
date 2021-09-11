@@ -5,14 +5,16 @@ import { AiFillHome, AiOutlineBell, AiFillCaretDown } from 'react-icons/ai';
 export const Container = styled.button`
   height: 2.2rem;
   border-radius: 0.5rem;
-  border: 1px solid var(--gray-100);
   padding: 0 0.5rem;
+
+  border: 1px solid var(--green-700);
+  color: var(--green-700);
+  background: transparent;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  color: var(--gray-100);
   font-weight: bold;
   transition: filter 0.2s;
 
@@ -36,6 +38,7 @@ export const Container = styled.button`
   }
 
   &:hover {
-    filter: brightness(0.8);
+  color: var(--white-100);
+  background: var(--green-700);
   }
 `;
