@@ -54,7 +54,7 @@ export const PrincipalSection = styled.section`
   width: 100%;
   justify-content: center;
   align-items: center;
-  padding: 0 10rem 0 3rem;
+  padding: 0 10rem 0 10rem;
 
   img {
     height: 20rem;
