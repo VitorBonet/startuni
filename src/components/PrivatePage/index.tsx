@@ -11,9 +11,11 @@ import DesktopHeader from '../DesktopHeader';
 interface IPrivatePageProps {
   children?: ReactNode;
   title: string;
+  withLeftBar?: boolean;
+  withHeader?: boolean;
 }
 
-export function PrivatePage({ children, title }: IPrivatePageProps) {
+export function PrivatePage({ children, title, withLeftBar = true, withHeader = true }: IPrivatePageProps) {
   return (
     <>
       <Head>
@@ -21,8 +23,8 @@ export function PrivatePage({ children, title }: IPrivatePageProps) {
       </Head>
       <main>
         <Container>
-          <LeftSideBar />
-          <DesktopHeader />
+          {withLeftBar && (<LeftSideBar />)}
+          {withHeader && (<DesktopHeader />)}
 
           {children}
         </Container>

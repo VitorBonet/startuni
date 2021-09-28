@@ -7,10 +7,10 @@ import {
   Option,
   StartupCards,
   NotFoundStartupsDiv,
-} from '../styles/startups/styles';
-import { PrivatePage } from '../components/PrivatePage';
-import { useApplicationStartUni } from '../contexts/ApplicationStartUniContext';
-import { StartupCard } from '../components/Cards/StartupCard';
+} from '../../styles/startups/styles';
+import { PrivatePage } from '../../components/PrivatePage';
+import { useApplicationStartUni } from '../../contexts/ApplicationStartUniContext';
+import { StartupCard } from '../../components/Cards/StartupCard';
 
 export default function Startups() {
   const { isLoading, loading } = useApplicationStartUni();
@@ -184,7 +184,7 @@ export default function Startups() {
               { startups.length === 0 && (
                 <NotFoundStartupsDiv>
                   <img src="/images/countingStars.svg" alt="countingStars" />
-                  <h3>Nenhuma Startup encontrada!</h3>
+                  <h3>Nenhuma Startup avistada nos radares!</h3>
                 </NotFoundStartupsDiv>
               ) }
             </StartupCards>

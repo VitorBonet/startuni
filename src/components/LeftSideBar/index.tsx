@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
+import Link from 'next/link';
 import { 
   AiOutlineUser,
   AiFillHome,
@@ -31,9 +32,15 @@ export function LeftSideBar() {
   const { user, signOut } = useAuth();
   const router = useRouter();
   const [sideBarOpen, setSideBarOpen] = useState(false);
+  const [menuURL, setMenuURL] = useState('');
 
   const showSideBar = () => setSideBarOpen(!sideBarOpen);
 
+  useEffect(() => {
+    if (window && window.location && window.location.href) {
+      setMenuURL(window.location.href);
+    }
+  }, []) 
   return (
     <>
     {/* <Container> */}
@@ -56,23 +63,29 @@ export function LeftSideBar() {
       </HeaderSideBar>
 
       <BodySideBar>
-        <ItemSideBar className={`active ${sideBarOpen && 'open' }`}>
-          <div className={'active'}>
-            <AiFillHome />
-            <label>Home</label>
-          </div>
+        <ItemSideBar className={`${menuURL.indexOf("startups") > -1 && 'active'} ${sideBarOpen && 'open' }`}>
+          <Link href="/startups">
+            <div className={menuURL.indexOf("startups") > -1 && 'active'}>
+              <IoIosRocket />
+              <label>Startups</label>
+            </div>
+          </Link>
         </ItemSideBar>
-        <ItemSideBar className={sideBarOpen ? 'open' : ''}>
-          <div>
-            <IoIosRocket />
-            <label>Startups</label>
-          </div>
+        <ItemSideBar className={`${menuURL.indexOf("wallet") > -1 && 'active'} ${sideBarOpen && 'open' }`}>
+          <Link href="/wallet">
+            <div className={menuURL.indexOf("wallet") > -1 && 'active'}>
+              <BiWallet />
+              <label>Wallet</label>
+            </div>
+          </Link>
         </ItemSideBar>
-        <ItemSideBar className={sideBarOpen ? 'open' : ''}>
-          <div>
-            <BiWallet />
-            <label>Wallet</label>
-          </div>
+        <ItemSideBar className={`${menuURL.indexOf("home") > -1 && 'active'} ${sideBarOpen && 'open' }`}>
+          <Link href="/home">
+            <div className={menuURL.indexOf("home") > -1 && 'active'}>
+              <AiFillHome />
+              <label>Feed</label>
+            </div>
+          </Link>
         </ItemSideBar>
       </BodySideBar>
 
