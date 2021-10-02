@@ -7,6 +7,7 @@ import { Form } from "@unform/web";
 import * as Yup from "yup";
 import { FiUser, FiMail, FiLock, FiLogIn} from 'react-icons/fi'
 import { AiOutlineDoubleRight} from 'react-icons/ai'
+import { IoIosRocket} from 'react-icons/io'
 
 import { 
   Body, 
@@ -40,6 +41,7 @@ import { DatePicker } from '../../components/Forms/DatePicker';
 import InputCheckBox from '../../components/Forms/InputCheckBox';
 import { Button } from '../../components/Button';
 import Select from '../../components/Forms/Select';
+import { TextArea } from '../../components/Forms/TextArea';
 
 interface ISingUpFormData {
   name: string;
@@ -186,7 +188,10 @@ export default function Join() {const formRef = useRef<FormHandles>(null);
 
                   <Form ref={formRef} onSubmit={handleSubmit}>
                     <FormDiv>         
-                      <Input name="name" icon={FiUser} label="Nome" />
+                      <Input name="name" icon={IoIosRocket} label="Nome" />
+                      <Input name="shortDescription" icon={IoIosRocket} label="Descrição curta" />
+                      <TextArea  name="description" label="Descrição" />
+                        
                       <Select name="state" options={[]} label="Estado" />
                       <Select name="city" options={[]} label="Cidade Sede" />
                       <DatePicker 

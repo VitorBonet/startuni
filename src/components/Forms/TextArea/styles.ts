@@ -1,18 +1,16 @@
 import styled, { css } from 'styled-components';
-
 import Tooltip from '../../Tooltip';
 
-interface InputProps {
+interface textAreaProps {
   isFocused: boolean;
   isFilled: boolean;
   isErrored: boolean;
 }
 
-export const Container = styled.div<InputProps>`
+export const Container = styled.div<textAreaProps>`
   color: var(--purple-900);
-  outline: none;  
+  outline: none;
   text-align: left;
-
   ${props =>
     props.isFocused &&
     css`
@@ -26,14 +24,16 @@ export const Container = styled.div<InputProps>`
     `}
 `;
 
-export const SelectContainer = styled.div<InputProps>`
+export const TextAreaContainer = styled.div<textAreaProps>`
   border-radius: 5px;
+  padding: 5px;
   width: 100%;
   border: 1px solid var(--gray-300);
-  color: var(--purple-900);
+  color: var(--gray-300);
   display: flex;
   align-items: center;
   margin-top: 7px;
+  
   & + div {
     margin-top: 8px;
   }
@@ -45,7 +45,6 @@ export const SelectContainer = styled.div<InputProps>`
   ${props =>
     props.isFocused &&
     css`
-      border-color: var(--purple-900);
       color: var(--purple-900);
     `}
   ${props =>
@@ -53,9 +52,8 @@ export const SelectContainer = styled.div<InputProps>`
     css`
       color: var(--purple-900);
     `}
-
-  select {
-    padding: 5px;
+  textarea {
+    height: 60px;
     flex: 1;
     background: transparent;
     border: 0;
@@ -63,17 +61,8 @@ export const SelectContainer = styled.div<InputProps>`
     &::placeholder {
       color: #666360;
     }
-
     &:focus{
       outline: none;
-    }
-
-    option {
-      background: var(--white-100);
-      color: var(--purple-900);
-      border-radius: 5px;
-      padding: 5px;
-      width: 100%;
     }
   }
   svg {
@@ -89,7 +78,7 @@ export const Error = styled(Tooltip)`
   }
   span {
     background: var(--red-600);
-    color: var(white-100);
+    color: var(--white-100);
     &::before {
       border-color: var(--red-600) transparent;
     }
