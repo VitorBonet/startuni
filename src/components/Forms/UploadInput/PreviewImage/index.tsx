@@ -18,7 +18,6 @@ const PreviewImage: React.FC<PreviewTrackProps> = ({ image }: PreviewTrackProps)
       <PreviewDiv >
         <img 
           src={window.URL.createObjectURL(image)}
-          style={{ width: '100%' }}
         />
       </PreviewDiv>
     </Container>

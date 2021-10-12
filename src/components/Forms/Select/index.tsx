@@ -15,6 +15,7 @@ interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   name: string;
   containerStyle?: object;
   label?: string;
+  icon?: React.ComponentType<IconBaseProps>;
   options: {
     label: string;
     value: string;
@@ -26,6 +27,7 @@ const Select: React.FC<SelectProps> = ({
   containerStyle = {},
   label,
   options,
+  icon: Icon,
   ...rest
 }) => {
   const SelectRef = useRef<HTMLSelectElement>(null);
@@ -61,12 +63,14 @@ const Select: React.FC<SelectProps> = ({
         isFocused={isFocused}
         isFilled={isFilled}
       >
+        {Icon && <Icon size={20} />}
         <select
           name={name}
           onFocus={handlenputFocus}
           onBlur={habdleSelectBlur}
           defaultValue={defaultValue}
           ref={SelectRef}
+          className={Icon && ('withIcon')}
           {...rest}
         >
           <option></option>

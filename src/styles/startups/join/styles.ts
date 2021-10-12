@@ -9,7 +9,6 @@ export const Body = styled.div`
 export const Content = styled.div`
   display: flex;
   background: linear-gradient(90deg, var(--pink-50) 0%, var(--purple-100) 120%);
-  height: 100vh;
 `;
 
 const appearWithOpacity = keyframes`
@@ -22,15 +21,19 @@ const appearWithOpacity = keyframes`
 `;
 
 export const LeftContainer = styled.div`
-  display: flex;
-  flex-direction: column;
   width: 30%;
-  align-items: center;
-  justify-content: center;
-  padding: 70px;
+  padding: 0 70px;
   gap: 16px;
 
   animation: ${appearWithOpacity} 3s;
+
+  div {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
 
   img {
     width: 15rem;
@@ -104,7 +107,7 @@ export const TimeLineHeader  = styled.div`
   
   background: linear-gradient(90deg, var(--pink-50) 0%, var(--purple-100) 120%);
   border-radius: 20px;
-  width: 500px;
+  width: 600px;
   padding: 0 50px;
 `;
 export const TimeLineItem  = styled.div`
@@ -140,7 +143,7 @@ export const RightBody = styled.div`
 `;
 
 export const RightBodyCntent = styled.div `
-  max-width: 405px;
+  max-width: 500px;
   width: 100%;
 `;
 
@@ -149,6 +152,10 @@ export const FormDiv = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
+
+  &.formSpaceRange {
+    gap: 35px;
+  }
 `;
 
 export const BodyTitle = styled.div`
@@ -196,6 +203,23 @@ export const Buttons = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  gap: 8px;
+
+  a {
+    transition: filter 2s;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 35px;
+    padding: 0 16px;
+    margin-top: 16px;
+    border-radius: 5px;
+
+    &:hover {
+      border: 1px solid var(--green-700);
+    }
+  }
 `;
 
 export const RightFooter = styled.div`

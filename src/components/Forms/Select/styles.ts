@@ -9,7 +9,6 @@ interface InputProps {
 }
 
 export const Container = styled.div<InputProps>`
-  color: var(--purple-900);
   outline: none;  
   text-align: left;
 
@@ -27,10 +26,10 @@ export const Container = styled.div<InputProps>`
 `;
 
 export const SelectContainer = styled.div<InputProps>`
+  color: var(--gray-300);
   border-radius: 5px;
   width: 100%;
   border: 1px solid var(--gray-300);
-  color: var(--purple-900);
   display: flex;
   align-items: center;
   margin-top: 7px;
@@ -60,6 +59,12 @@ export const SelectContainer = styled.div<InputProps>`
     background: transparent;
     border: 0;
     color: var(--purple-900);
+
+    &.withIcon {
+      margin-left: -41px;
+      padding-left: 30px;
+    }
+
     &::placeholder {
       color: #666360;
     }
@@ -76,8 +81,10 @@ export const SelectContainer = styled.div<InputProps>`
       width: 100%;
     }
   }
+
   svg {
     margin-right: 16px;
+    margin-left: 5px;
   }
 `;
 

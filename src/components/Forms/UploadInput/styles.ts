@@ -46,8 +46,24 @@ export const UploadMessage = styled.p`
 `;
 
 export const DropzoneDiv = styled.div`
-  border: 1px dashed var(--gray-700);
+  border: 1px dashed var(--gray-300);
   padding: 10px;
   border-radius: 5px;
   cursor: pointer;
+
+  color: var(--gray-300);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &.icon {
+    width: 150px;
+    min-height: 150px;
+    gap: 8px;
+  }
+
+  &.file {
+
+  }
 `;
