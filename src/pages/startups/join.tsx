@@ -86,6 +86,7 @@ interface IStartup {
   segment: string;
   clientsNumber: number;
   partnersNumber: number;
+  valuation: number;
   pitch: File;
   
   MRR: number;
@@ -197,14 +198,15 @@ export default function Join({states}: IJoinProps) {const formRef = useRef<FormH
           segment: Yup.string().required("Campo é obrigatório"),
           clientsNumber: Yup.number().required("Campo é obrigatório"),
           partnersNumber: Yup.number().required("Campo é obrigatório"),
+          valuation: Yup.number().required("Campo é obrigatório"),
           // birthDate: Yup.date().required(),
           // agreeTermsUse: Yup.string().oneOf(['true'], 'Confirm that you agree to the terms of use'),
           // agreePrivacyPolicy: Yup.string().oneOf(['true'], 'Confirm that you agree to the privacy of policy'),
         });
 
-        await schema.validate(data, {
-          abortEarly: false,
-        });
+        // await schema.validate(data, {
+        //   abortEarly: false,
+        // });
       
         changeStage(2);
       } catch (error) {
@@ -431,7 +433,6 @@ export default function Join({states}: IJoinProps) {const formRef = useRef<FormH
                          ]} 
                         label="Segmento do negócio" 
                       />
-
                       
                       <Input 
                         type="number"
@@ -440,7 +441,6 @@ export default function Join({states}: IJoinProps) {const formRef = useRef<FormH
                         icon={FiUsers} 
                         label="Número de clientes" 
                       />
-
                       
                       <Input 
                         type="number"
@@ -448,6 +448,14 @@ export default function Join({states}: IJoinProps) {const formRef = useRef<FormH
                         name="partnersNumber" 
                         icon={FiUsers} 
                         label="Número de parceiros" 
+                      />
+                      
+                      <Input 
+                        type="number"
+                        defaultValue="0"
+                        name="valuation" 
+                        icon={MdAttachMoney} 
+                        label="Valuation" 
                       />
 
                       <UploadInput 
