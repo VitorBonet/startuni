@@ -74,6 +74,7 @@ interface IJoinProps {
 }
 
 interface IStartup {
+  icon: File;
   name: string;
   shortDescription: string;
   description: string;
@@ -83,6 +84,9 @@ interface IStartup {
   phase: string;
   businessModel: string;
   segment: string;
+  clientsNumber: number;
+  partnersNumber: number;
+  pitch: File;
   
   MRR: number;
   ARR: number;
@@ -177,27 +181,42 @@ export default function Join({states}: IJoinProps) {const formRef = useRef<FormH
   }
 
   const handleSubmit1 = useCallback(
-    async (data: ISingUpFormData) => {
-      // formRef.current?.setErrors({});
+    async (data: IStartup) => {
+      try {
+        formRef1.current?.setErrors({});
 
-      // const schema = Yup.object().shape({
-      //   name: Yup.string().required("Name required"),
-      //   email: Yup.string()
-      //     .required("E-mail required")
-      //     .email("Enter a valid email address"),
-      //   password: Yup.string().min(6, "At least 6 digits"),
-      //   confirmPassword: Yup.string()
-      //   .oneOf([Yup.ref('password'), null], 'Passwords must match'),
-      //   birthDate: Yup.date().required(),
-      //   agreeTermsUse: Yup.string().oneOf(['true'], 'Confirm that you agree to the terms of use'),
-      //   agreePrivacyPolicy: Yup.string().oneOf(['true'], 'Confirm that you agree to the privacy of policy'),
-      // });
+        const schema = Yup.object().shape({
+          name: Yup.string().required("Nome é obrigatório"),
+          shortDescription: Yup.string().required("Descrição curta é obrigatório"),
+          description: Yup.string().required("Description é obrigatório"),
+          state: Yup.string().required("Estado é obrigatório"),
+          city: Yup.string().required("Cidade é obrigatório"),
+          fundationDate: Yup.date().required(),
+          phase: Yup.string().required("Campo é obrigatório"),
+          businessModel: Yup.string().required("Campo é obrigatório"),
+          segment: Yup.string().required("Campo é obrigatório"),
+          clientsNumber: Yup.number().required("Campo é obrigatório"),
+          partnersNumber: Yup.number().required("Campo é obrigatório"),
+          // birthDate: Yup.date().required(),
+          // agreeTermsUse: Yup.string().oneOf(['true'], 'Confirm that you agree to the terms of use'),
+          // agreePrivacyPolicy: Yup.string().oneOf(['true'], 'Confirm that you agree to the privacy of policy'),
+        });
 
-      // await schema.validate(data, {
-      //   abortEarly: false,
-      // });
-    
-      changeStage(2);
+        await schema.validate(data, {
+          abortEarly: false,
+        });
+      
+        changeStage(2);
+      } catch (error) {
+        if (error instanceof Yup.ValidationError) {
+          const validationErrors = {};
+          
+          error.inner.forEach(error => {
+            validationErrors[error.path] = error.message;
+          });
+          formRef1.current.setErrors(validationErrors);
+        }
+      }
     },
     // [addToast, history]
     [addToast]
@@ -416,6 +435,7 @@ export default function Join({states}: IJoinProps) {const formRef = useRef<FormH
                       
                       <Input 
                         type="number"
+                        defaultValue="0"
                         name="clientsNumber" 
                         icon={FiUsers} 
                         label="Número de clientes" 
@@ -424,6 +444,7 @@ export default function Join({states}: IJoinProps) {const formRef = useRef<FormH
                       
                       <Input 
                         type="number"
+                        defaultValue="0"
                         name="partnersNumber" 
                         icon={FiUsers} 
                         label="Número de parceiros" 
@@ -455,6 +476,7 @@ export default function Join({states}: IJoinProps) {const formRef = useRef<FormH
                     <FormDiv>
                       <Input 
                         type="number"
+                        defaultValue="0"
                         name="MRR" 
                         icon={MdAttachMoney} 
                         label="Receita bruta mensal (MRR)" 
@@ -462,6 +484,7 @@ export default function Join({states}: IJoinProps) {const formRef = useRef<FormH
 
                       <Input 
                         type="number"
+                        defaultValue="0"
                         name="ARR" 
                         icon={MdAttachMoney} 
                         label="Receita bruta que teve somada nos últimos 12 meses (ARR)" 
@@ -469,6 +492,7 @@ export default function Join({states}: IJoinProps) {const formRef = useRef<FormH
 
                       <Input 
                         type="number"
+                        defaultValue="0"
                         name="ARRSummed" 
                         icon={MdAttachMoney} 
                         label="Receita bruta somada para os próximos 12 meses? (sem contar com investimento externo)" 
@@ -490,6 +514,7 @@ export default function Join({states}: IJoinProps) {const formRef = useRef<FormH
 
                       <Input 
                         type="number"
+                        defaultValue="0"
                         name="negativeMonthlyMargin" 
                         icon={MdAttachMoney} 
                         label="Valor margem mensal negativa (despesa maior que a receita)" 
@@ -497,6 +522,7 @@ export default function Join({states}: IJoinProps) {const formRef = useRef<FormH
 
                       <Input 
                         type="number"
+                        defaultValue="0"
                         name="positiveMonthlyMargin" 
                         icon={MdAttachMoney} 
                         label="Valor margem mensal positiva (despesa menor que a receita)" 
@@ -515,6 +541,7 @@ export default function Join({states}: IJoinProps) {const formRef = useRef<FormH
 
                       <Input 
                         type="number"
+                        defaultValue="0"
                         name="valueCapture" 
                         icon={MdAttachMoney} 
                         label="Qual o valor que pretende captar?" 
@@ -522,6 +549,7 @@ export default function Join({states}: IJoinProps) {const formRef = useRef<FormH
 
                       <Input 
                         type="number"
+                        defaultValue="0"
                         name="equityPercentage" 
                         icon={AiOutlinePercentage} 
                         label="Percentual de equity para o investidor?" 

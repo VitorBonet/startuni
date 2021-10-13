@@ -94,9 +94,10 @@ export const Error = styled(Tooltip)`
   svg {
     margin-right: 0;
   }
+
   span {
     background: var(--red-600);
-    color: var(white-100);
+    color: var(--white-100);
     &::before {
       border-color: var(--red-600) transparent;
     }
