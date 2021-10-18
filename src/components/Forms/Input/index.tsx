@@ -7,15 +7,17 @@ import React, {
 } from "react";
 import { IconBaseProps } from "react-icons";
 import { FiAlertCircle } from "react-icons/fi";
+import { AiOutlineQuestionCircle } from "react-icons/ai";
 import { useField } from "@unform/core";
 
-import { Container, InputContainer, Error } from "./styles";
+import { Container, InputContainer, Title, Error, DescriptionTooltip } from "./styles";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
   containerStyle?: object;
   icon?: React.ComponentType<IconBaseProps>;
   label?: string;
+  description?: string;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -23,6 +25,7 @@ const Input: React.FC<InputProps> = ({
   icon: Icon,
   containerStyle = {},
   label,
+  description,
   ...rest
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -49,9 +52,12 @@ const Input: React.FC<InputProps> = ({
   }, [fieldName, registerField]);
 
   return (
-    <Container>
-      { label && (<label>{label}</label>) }
-      
+    <Container>      
+      <Title>
+        <div>{ label && (<label>{label}</label>) }</div>
+        {description && (<DescriptionTooltip title={description}><AiOutlineQuestionCircle /></DescriptionTooltip>)}
+      </Title>
+
       <InputContainer
         style={containerStyle}
         isErrored={!!error}

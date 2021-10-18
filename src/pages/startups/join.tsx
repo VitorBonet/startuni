@@ -9,7 +9,7 @@ import { FiUser, FiMail, FiLock, FiLogIn} from 'react-icons/fi';
 import { AiOutlineDoubleRight, AiOutlineNodeIndex, AiOutlinePercentage } from 'react-icons/ai';
 import { IoIosRocket, IoMdGlobe } from 'react-icons/io';
 import { BsBarChart, BsCardText } from 'react-icons/bs';
-import { MdAttachMoney } from 'react-icons/md';
+import { MdAttachMoney, MdComputer } from 'react-icons/md';
 import { FiUsers } from 'react-icons/fi';
 
 
@@ -74,10 +74,11 @@ interface IJoinProps {
 }
 
 interface IStartup {
-  icon: File;
+  logo: File;
   name: string;
-  shortDescription: string;
+  descriptionShort: string;
   description: string;
+  site: string;
   state: string;
   city: string;
   fundationDate: string;
@@ -187,11 +188,12 @@ export default function Join({states}: IJoinProps) {const formRef = useRef<FormH
         formRef1.current?.setErrors({});
 
         const schema = Yup.object().shape({
-          name: Yup.string().required("Nome é obrigatório"),
-          shortDescription: Yup.string().required("Descrição curta é obrigatório"),
-          description: Yup.string().required("Description é obrigatório"),
-          state: Yup.string().required("Estado é obrigatório"),
-          city: Yup.string().required("Cidade é obrigatório"),
+          name: Yup.string().required("Campo é obrigatório"),
+          descriptionShort: Yup.string().required("Campo curta é obrigatório"),
+          description: Yup.string().required("Campo é obrigatório"),
+          site: Yup.string(),
+          state: Yup.string().required("Campo é obrigatório"),
+          city: Yup.string().required("Campo é obrigatório"),
           fundationDate: Yup.date().required(),
           phase: Yup.string().required("Campo é obrigatório"),
           businessModel: Yup.string().required("Campo é obrigatório"),
@@ -366,8 +368,15 @@ export default function Join({states}: IJoinProps) {const formRef = useRef<FormH
                         size="icon"
                       />
                       <Input name="name" icon={IoIosRocket} label="Nome" />
-                      <Input name="shortDescription" icon={BsCardText} label="Descrição curta" />
+                      <Input 
+                        name="descriptionShort" 
+                        icon={BsCardText} 
+                        label="Descrição curta" 
+                        description="A descrição curta se refere a descrição que será mostrada no card na página de busca de Startup"
+                      />
                       <TextArea  name="description" label="Descrição" />
+
+                      <Input name="site" icon={MdComputer} label="Site" />
                         
                       <Select name="state" icon={IoMdGlobe} options={statesSelect} onClick={handleStates} label="Estado" />
                       <Select name="city" icon={IoMdGlobe} options={cities} label="Cidade Sede" />

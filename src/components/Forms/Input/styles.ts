@@ -73,6 +73,12 @@ export const InputContainer = styled.div<InputProps>`
   }
 `;
 
+export const Title = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+`;
+
 export const Error = styled(Tooltip)`
   height: 20px;
   margin-left: 16px;
@@ -84,6 +90,28 @@ export const Error = styled(Tooltip)`
     color: #fff;
     &::before {
       border-color: var(--red-600) transparent;
+    }
+  }
+`;
+
+export const DescriptionTooltip = styled(Tooltip)`
+  margin-left: 8px;
+  margin-top: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    margin-right: 0;
+  }
+  span {
+    font-size: 0.725rem;
+    text-align: left;
+
+    background: var(--purple-100);
+    color: #fff;
+    &::before {
+      border-color: var(--purple-100) transparent;
     }
   }
 `;
