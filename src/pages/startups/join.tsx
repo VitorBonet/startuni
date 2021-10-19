@@ -12,7 +12,6 @@ import { BsBarChart, BsCardText } from 'react-icons/bs';
 import { MdAttachMoney, MdComputer } from 'react-icons/md';
 import { FiUsers } from 'react-icons/fi';
 
-
 import { 
   Body, 
   Content,
@@ -51,6 +50,7 @@ import { TextArea } from '../../components/Forms/TextArea';
 import { setupAPIClient } from '../../services/api';
 import { GetServerSideProps } from 'next';
 import Range from '../../components/Forms/Range';
+import { format } from 'date-fns';
 
 interface IState {
   id: number;
@@ -87,57 +87,27 @@ interface IStartup {
   segment: string;
   clientsNumber: number;
   partnersNumber: number;
-  valuation: number;
-  pitch: File;
-  
-  MRR: number;
-  ARR: number;
-  ARRSummed: number;
   breakeven: string;
-  negativeMonthlyMargin: number;
-  positiveMonthlyMargin: number;
   searchInvestment: string;
   valueCapture: number;
   equityPercentage: number;
   timeBreakevenAfterInvestment: string;
   manyMonthsInvestmentLast: string;
-  
-  operationalPhase: string;
-  cac: string;
-  ltv: string;
-  salesCycle: string;
-  churn: string;
-  marketSize: string;
-  scalePotential: string;
-  futureSale: string;
-  pmf: string;
-  governance: string;
-  solveProblem: string;
-  competitiveDifferential: string;
-  mentors: string;
-  fullTimeFounders: string;
-  
-  regulatoryRisk: string;
-  competition: string;
-  abilityDeliverPromises: string;
-  ownTechnology: string;
-  riskConflictFounders: string;
-  professionalManagement: string;
-  politicalRisk: string;
-  legalRisk: string;
+  valuation: number;
+  pitch: File;
 }
 
 export default function Join({states}: IJoinProps) {const formRef = useRef<FormHandles>(null);
   const formRef1 = useRef<FormHandles>(null);
-  const formRef2 = useRef<FormHandles>(null);
-  const formRef3 = useRef<FormHandles>(null);
-  const formRef4 = useRef<FormHandles>(null);
   const [requestLoading, setRequestLoading] = useState(false);
   const [stage, setStage] = useState(1);
   const [statesSelect, setStatesSelect] = useState([]);
   const [cities, setCities] = useState([]);
   const router = useRouter();
   const { addToast } = useToast();
+
+  const [checkBoxAgreeTermsUse, setCheckBoxAgreeTermsUse] = useState('false');
+  const [checkBoxAgreePrivacyPolicy, setCheckBoxAgreePrivacyPolicy] = useState('false');
 
   async function getCities(stateId) {
     await api.get(`/countries/states/${stateId}/cities`).then(response => {
@@ -162,12 +132,12 @@ export default function Join({states}: IJoinProps) {const formRef = useRef<FormH
   }
 
   useEffect(() => {
-    // let countriesSelect = [];
-    if (states) {
-      states?.map(state => {
-        statesSelect.push({ label: state.name, value: state.id});
-      });
-    }
+      api.get('/countries/33/states').then(response => {
+        const statesRes = response.data;
+        statesRes?.map(state => {
+          statesSelect.push({ label: state.name, value: state.id});
+        });
+      }).catch((err) => { console.log(err); });
   }, []);
 
   function handleBackStage() {
@@ -182,33 +152,100 @@ export default function Join({states}: IJoinProps) {const formRef = useRef<FormH
     window.scrollTo(0, 0);
   }
 
+  const handleAgreeTermsUse = () => {
+    let value = 'true';
+    if(checkBoxAgreeTermsUse === 'true') {
+      value = 'false';
+    }
+    setCheckBoxAgreeTermsUse(value);
+  }
+
+  const handleAgreePrivacyPolicy = () => {
+    let value = 'true';
+    if(checkBoxAgreePrivacyPolicy === 'true') {
+      value = 'false';
+    }
+    setCheckBoxAgreePrivacyPolicy(value);
+  }
+
   const handleSubmit1 = useCallback(
     async (data: IStartup) => {
       try {
         formRef1.current?.setErrors({});
 
+        const requiredText = "Campo é obrigatório";
+
         const schema = Yup.object().shape({
-          name: Yup.string().required("Campo é obrigatório"),
+          name: Yup.string().required(requiredText),
           descriptionShort: Yup.string().required("Campo curta é obrigatório"),
-          description: Yup.string().required("Campo é obrigatório"),
+          description: Yup.string().required(requiredText),
           site: Yup.string(),
-          state: Yup.string().required("Campo é obrigatório"),
-          city: Yup.string().required("Campo é obrigatório"),
+          state: Yup.string().required(requiredText),
+          city: Yup.string().required(requiredText),
           fundationDate: Yup.date().required(),
-          phase: Yup.string().required("Campo é obrigatório"),
-          businessModel: Yup.string().required("Campo é obrigatório"),
-          segment: Yup.string().required("Campo é obrigatório"),
-          clientsNumber: Yup.number().required("Campo é obrigatório"),
-          partnersNumber: Yup.number().required("Campo é obrigatório"),
-          valuation: Yup.number().required("Campo é obrigatório"),
-          // birthDate: Yup.date().required(),
-          // agreeTermsUse: Yup.string().oneOf(['true'], 'Confirm that you agree to the terms of use'),
-          // agreePrivacyPolicy: Yup.string().oneOf(['true'], 'Confirm that you agree to the privacy of policy'),
+          phase: Yup.string().required(requiredText),
+          businessModel: Yup.string().required(requiredText),
+          segment: Yup.string().required(requiredText),
+          clientsNumber: Yup.number().required(requiredText),
+          partnersNumber: Yup.number().required(requiredText),
+          breakeven: Yup.number().required(requiredText),
+          searchInvestment:  Yup.number().required(requiredText),
+          valueCapture: Yup.number().required(requiredText),
+          equityPercentage: Yup.number().required(requiredText),
+          timeBreakevenAfterInvestment: Yup.number().required(requiredText),
+          manyMonthsInvestmentLast: Yup.number().required(requiredText),
+          valuation: Yup.number().required(requiredText),
+          agreeTermsUse: Yup.string().oneOf(['true'], 'Confirme que você concorda com os Termos de Uso.'),
+          agreePrivacyPolicy: Yup.string().oneOf(['true'], 'Confirme que você concorda com a Política de Privacidade.'),
         });
 
-        // await schema.validate(data, {
-        //   abortEarly: false,
-        // });
+        await schema.validate(data, {
+          abortEarly: false,
+        });
+
+        const formData = new FormData();
+        formData.append('surname', data.name.trim());
+        formData.append('name', data.name);
+        formData.append('descriptionShort', data.descriptionShort);
+        formData.append('description', data.description);
+        formData.append('site', data.site);
+        formData.append('country', '33');
+        formData.append('state', data.state);
+        formData.append('city', data.city);
+        formData.append('fundationDate', format(new Date(data.fundationDate), 'yyyy-MM-dd'));
+        formData.append('phase', data.phase);
+        formData.append('businessModel', data.businessModel);
+        formData.append('segment', data.segment);
+        formData.append('clientsNumber', data.clientsNumber.toString());
+        formData.append('partnersNumber', data.partnersNumber.toString());
+        formData.append('breakeven', data.breakeven);
+        formData.append('searchInvestment', data.searchInvestment);
+        formData.append('valueCapture', data.valueCapture.toString());
+        formData.append('equityPercentage', data.equityPercentage.toString());
+        formData.append('timeBreakevenAfterInvestment', data.timeBreakevenAfterInvestment);
+        formData.append('manyMonthsInvestmentLast', data.manyMonthsInvestmentLast);
+        formData.append('valuation', data.valuation.toString());
+
+        if (data.logo) {
+          formData.append('logo', data.logo);
+        }
+
+        if (data.pitch) {
+          formData.append('pitchdeck', data.pitch);
+        }
+        
+        const response = await api.post(`/startups`, formData);
+          
+        if (response.status !== 200) {
+          throw new Error("");          
+        }
+
+        addToast({
+          type: "success",
+          title: "Statup criada!",
+          description:
+            "Startup criada com sucesso.",
+        });
       
         changeStage(2);
       } catch (error) {
@@ -221,89 +258,6 @@ export default function Join({states}: IJoinProps) {const formRef = useRef<FormH
           formRef1.current.setErrors(validationErrors);
         }
       }
-    },
-    // [addToast, history]
-    [addToast]
-  );
-  
-  const handleSubmit2 = useCallback(
-    async (data: ISingUpFormData) => {
-      // formRef.current?.setErrors({});
-
-      // const schema = Yup.object().shape({
-      //   name: Yup.string().required("Name required"),
-      //   email: Yup.string()
-      //     .required("E-mail required")
-      //     .email("Enter a valid email address"),
-      //   password: Yup.string().min(6, "At least 6 digits"),
-      //   confirmPassword: Yup.string()
-      //   .oneOf([Yup.ref('password'), null], 'Passwords must match'),
-      //   birthDate: Yup.date().required(),
-      //   agreeTermsUse: Yup.string().oneOf(['true'], 'Confirm that you agree to the terms of use'),
-      //   agreePrivacyPolicy: Yup.string().oneOf(['true'], 'Confirm that you agree to the privacy of policy'),
-      // });
-
-      // await schema.validate(data, {
-      //   abortEarly: false,
-      // });
-    
-      changeStage(3);
-    },
-    // [addToast, history]
-    [addToast]
-  );
-  
-  
-  const handleSubmit3 = useCallback(
-    async (data: ISingUpFormData) => {
-      formRef.current?.setErrors({});
-
-      // const schema = Yup.object().shape({
-      //   name: Yup.string().required("Name required"),
-      //   email: Yup.string()
-      //     .required("E-mail required")
-      //     .email("Enter a valid email address"),
-      //   password: Yup.string().min(6, "At least 6 digits"),
-      //   confirmPassword: Yup.string()
-      //   .oneOf([Yup.ref('password'), null], 'Passwords must match'),
-      //   birthDate: Yup.date().required(),
-      //   agreeTermsUse: Yup.string().oneOf(['true'], 'Confirm that you agree to the terms of use'),
-      //   agreePrivacyPolicy: Yup.string().oneOf(['true'], 'Confirm that you agree to the privacy of policy'),
-      // });
-
-      // await schema.validate(data, {
-      //   abortEarly: false,
-      // });
-      
-      changeStage(4);
-    },
-    // [addToast, history]
-    [addToast]
-  );
-
-  const handleSubmit4 = useCallback(
-    async (data: ISingUpFormData) => {
-      setRequestLoading(true);
-      formRef.current?.setErrors({});
-
-      const schema = Yup.object().shape({
-        name: Yup.string().required("Name required"),
-        email: Yup.string()
-          .required("E-mail required")
-          .email("Enter a valid email address"),
-        password: Yup.string().min(6, "At least 6 digits"),
-        confirmPassword: Yup.string()
-        .oneOf([Yup.ref('password'), null], 'Passwords must match'),
-        birthDate: Yup.date().required(),
-        agreeTermsUse: Yup.string().oneOf(['true'], 'Confirm that you agree to the terms of use'),
-        agreePrivacyPolicy: Yup.string().oneOf(['true'], 'Confirm that you agree to the privacy of policy'),
-      });
-
-      await schema.validate(data, {
-        abortEarly: false,
-      });
-    
-      setRequestLoading(false);
     },
     // [addToast, history]
     [addToast]
@@ -329,7 +283,7 @@ export default function Join({states}: IJoinProps) {const formRef = useRef<FormH
                 </div>
               </RightHeader>
 
-              <TimeLineHeaderDiv>
+              {/* <TimeLineHeaderDiv>
                 <TimeLineHeader>
                   <TimeLineItem className={ stage >= 1 && ("active")}>
                     <h6>Start</h6>
@@ -348,7 +302,7 @@ export default function Join({states}: IJoinProps) {const formRef = useRef<FormH
                     <TimeLineBall className={ stage >= 4 && ("active")}/>
                   </TimeLineItem>  
                 </TimeLineHeader>
-              </TimeLineHeaderDiv>
+              </TimeLineHeaderDiv> */}
 
               <RightBody>
                 <RightBodyCntent>
@@ -361,7 +315,7 @@ export default function Join({states}: IJoinProps) {const formRef = useRef<FormH
                   <Form ref={formRef1} onSubmit={handleSubmit1}>
                     <FormDiv>         
                       <UploadInput 
-                        name="icon"
+                        name="logo"
                         accept="image/JPG, image/JPEG, image/PNG"
                         // title="Icone" 
                         type="image"
@@ -389,12 +343,14 @@ export default function Join({states}: IJoinProps) {const formRef = useRef<FormH
                         name="phase" 
                         icon={BsBarChart}
                         options={[ 
-                          { label: 'Aceleração', value: '1' },
-                          { label: 'Inestimento Anjo', value: '2' },
-                          { label: 'Pré-Seed', value: '3' },
-                          { label: 'Seed', value: '4' },
-                          { label: 'Série A', value: '5' },
-                          { label: 'Nenhuma das anteriores', value: '6' },
+                          { label: 'Ideia', value: '1' },
+                          { label: 'Validação', value: '2' },
+                          { label: 'Aceleração', value: '3' },
+                          { label: 'Investimento Anjo', value: '4' },
+                          { label: 'Pré-Seed', value: '5' },
+                          { label: 'Seed', value: '6' },
+                          { label: 'Série A', value: '7' },
+                          { label: 'Nenhuma das anteriores', value: '8' },
                         ]} 
                         label="Estágio atual" 
                       />
@@ -458,6 +414,74 @@ export default function Join({states}: IJoinProps) {const formRef = useRef<FormH
                         icon={FiUsers} 
                         label="Número de parceiros" 
                       />
+
+                      <Select 
+                        name="breakeven" 
+                        icon={BsBarChart}
+                        options={[ 
+                          {label:'Sim, já foi atingido', value:'1'},
+                          {label:'Atingiremos em menos de 6 meses', value:'2'},
+                          {label:'Atingiremos 7 a 12 meses', value:'3'},
+                          {label:'Atingiremos 12 a 18 meses', value:'4'},
+                          {label:'Atingiremos 19 a 24 meses', value:'5'},
+                          {label:'Atingiremos m mais de 24 meses', value:'6'},
+                         ]} 
+                        label="Ponto de equilibrio - Breakeven (receita maior ou igual a despesa)" 
+                      />
+
+                      <Select 
+                        name="timeBreakevenAfterInvestment" 
+                        icon={BsBarChart}
+                        options={[ 
+                          {label:'Vamos continuar no Breakeven', value:'1'},
+                          {label:'Menos de 6 meses', value:'2'},
+                          {label:'De 7 a 12 meses', value:'3'},
+                          {label:'De 12 a 18 meses', value:'4'},
+                          {label:'De 19 a 24 meses', value:'5'},
+                          {label:'Mais de 24 meses', value:'6'},
+                        ]} 
+                        label="Meses para sua Startup atinger o Breakeven depois do investimento" 
+                      />
+                      
+                      <Select 
+                        name="searchInvestment" 
+                        icon={BsBarChart}
+                        options={[ 
+                          {label:'Sim, estou em captação', value:'1'},
+                          {label:'Ainda não, mas pretendo em breve', value:'2'},
+                          {label:'Não', value:'3'},
+                        ]} 
+                        label="Atualmente está procurando investimento?" 
+                      />
+
+                      <Input 
+                        type="number"
+                        defaultValue="0"
+                        name="valueCapture" 
+                        icon={MdAttachMoney} 
+                        label="Qual o valor que pretende captar?" 
+                      />
+
+                      <Input 
+                        type="number"
+                        defaultValue="0"
+                        name="equityPercentage" 
+                        icon={AiOutlinePercentage} 
+                        label="Percentual de equity para o investidor?" 
+                      />
+
+                      <Select 
+                        name="manyMonthsInvestmentLast" 
+                        icon={BsBarChart}
+                        options={[ 
+                          {label:'Menos de 6 meses', value:'1'},
+                          {label:'De 7 a 12 meses', value:'2'},
+                          {label:'De 12 a 18 meses', value:'3'},
+                          {label:'De 19 a 24 meses', value:'4'},
+                          {label:'Mais de 24 meses', value:'5'},
+                        ]} 
+                        label="Quantos meses vai durar esse investimento?" 
+                      />
                       
                       <Input 
                         type="number"
@@ -475,23 +499,38 @@ export default function Join({states}: IJoinProps) {const formRef = useRef<FormH
                         size="file"
                       />
 
+                      <InputCheckBox
+                        name="agreeTermsUse"
+                        value={checkBoxAgreeTermsUse}
+                        onClick={handleAgreeTermsUse}
+                      >
+                        <InputCheckBoxText>Eu concordo com os <a href="/content/terms-of-use" target="_blank">Termos de Uso</a></InputCheckBoxText>
+                      </InputCheckBox>
+                      <InputCheckBox
+                        name="agreePrivacyPolicy"
+                        value={checkBoxAgreePrivacyPolicy}
+                        onClick={handleAgreePrivacyPolicy}
+                      >
+                        <InputCheckBoxText>Eu concordo com a <a href="/content/privacy" target="_blank">Politica de Privacidade</a></InputCheckBoxText>
+                      </InputCheckBox>
+
                       <Buttons>
-                        <Button style={{ maxWidth: '100px' }} loading={requestLoading} type="submit">Avançar <AiOutlineDoubleRight /></Button>
+                        <Button style={{ maxWidth: '100px' }} loading={requestLoading} type="submit">Salvar </Button>
                       </Buttons>
                     </FormDiv>
                   </Form>
                   </>
                   )}
 
-                  {stage === 2 && (
+                  {/* {stage === 2 && (
                   <>
                   <BodyTitle>
                     <h3>Informações financeiras</h3>
                   </BodyTitle>
 
                   <Form ref={formRef2} onSubmit={handleSubmit2}>
-                    <FormDiv>
-                      <Input 
+                    <FormDiv> */}
+                      {/* <Input 
                         type="number"
                         defaultValue="0"
                         name="MRR" 
@@ -513,9 +552,9 @@ export default function Join({states}: IJoinProps) {const formRef = useRef<FormH
                         name="ARRSummed" 
                         icon={MdAttachMoney} 
                         label="Receita bruta somada para os próximos 12 meses? (sem contar com investimento externo)" 
-                      />
+                      /> */}
 
-                      <Select 
+                      {/* <Select 
                         name="breakeven" 
                         icon={BsBarChart}
                         options={[ 
@@ -527,9 +566,9 @@ export default function Join({states}: IJoinProps) {const formRef = useRef<FormH
                           {label:'Atingiremos m mais de 24 meses', value:'6'},
                          ]} 
                         label="Ponto de equilibrio - Breakeven (receita maior ou igual a despesa)" 
-                      />
+                      /> */}
 
-                      <Input 
+                      {/* <Input 
                         type="number"
                         defaultValue="0"
                         name="negativeMonthlyMargin" 
@@ -543,9 +582,9 @@ export default function Join({states}: IJoinProps) {const formRef = useRef<FormH
                         name="positiveMonthlyMargin" 
                         icon={MdAttachMoney} 
                         label="Valor margem mensal positiva (despesa menor que a receita)" 
-                      />
+                      /> */}
                       
-                      <Select 
+                      {/* <Select 
                         name="searchInvestment" 
                         icon={BsBarChart}
                         options={[ 
@@ -601,13 +640,13 @@ export default function Join({states}: IJoinProps) {const formRef = useRef<FormH
 
                       <Buttons>
                         <a style={{ maxWidth: '100px' }} type="submit" onClick={handleBackStage}>Voltar</a>
-                        <Button style={{ maxWidth: '100px' }} loading={requestLoading} type="submit">Avançar <AiOutlineDoubleRight /></Button>
-                      </Buttons>
-                    </FormDiv>
+                        <Button style={{ maxWidth: '100px' }} loading={requestLoading} type="submit">Salvar </Button>
+                      </Buttons> */}
+                    {/* </FormDiv>
                   </Form>
                   </>
-                  )}
-                  {stage === 3 && (
+                  )} */}
+                  {/* {stage === 3 && false && (
                   <>
                   <BodyTitle>
                     <h3>Scorecard</h3>
@@ -808,7 +847,7 @@ export default function Join({states}: IJoinProps) {const formRef = useRef<FormH
                     </FormDiv>
                   </Form>
                   </>
-                  )}
+                  )} */}
 
                 </RightBodyCntent>
               </RightBody>
@@ -821,18 +860,4 @@ export default function Join({states}: IJoinProps) {const formRef = useRef<FormH
       </PrivatePage>
     </>
   );
-}
-
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  let states = [] as IState[];
-  await setupAPIClient(ctx).get('/countries/33/states').then(response => {
-    const statesRes = response.data;
-    states = statesRes;
-  }).catch((err) => { console.log(err); });
-  
-  return {
-    props: {
-      states
-    }
-  }
 }
