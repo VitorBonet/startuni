@@ -8,7 +8,7 @@ export function withSSRGuest<P>(fn: GetServerSideProps<P>) {
     if (cookies['nextauth.token']) {
       return {
         redirect: {
-          destination: '/feed',
+          destination: '/startups',
           permanent: false,
         }
       }

@@ -19,6 +19,13 @@ export const ContentTitleDiv = styled.div`
   justify-content: space-between;
 `;
 
+export const ContentTitle = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+`;
+
 export const OptionsDiv = styled.div`
   display: flex;
   gap: 16px;

@@ -37,7 +37,7 @@ export function withSSRAuth<P>(fn: GetServerSideProps<P>, options?: WithSSRAuthO
         return {
           // notFound: true;
           redirect: {
-            destination: '/feed',
+            destination: '/startups',
             permanent: false
           }
         }

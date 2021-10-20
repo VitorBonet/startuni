@@ -3,11 +3,14 @@ import { FormHandles } from "@unform/core";
 import { Form } from "@unform/web";
 import * as Yup from "yup";
 import { AiOutlineSearch } from 'react-icons/ai';
+import { IoIosRocket } from 'react-icons/io';
+import Link from 'next/link';
 
 import { 
   Body, 
   Content,
   ContentTitleDiv,
+  ContentTitle,
   OptionsDiv,
   Option,
   StartupCards,
@@ -23,6 +26,7 @@ import Input from '../../components/Forms/Input';
 import { PrivatePage } from '../../components/PrivatePage';
 import { useApplicationStartUni } from '../../contexts/ApplicationStartUniContext';
 import { StartupCard } from '../../components/Cards/StartupCard';
+import { Button } from '../../components/Button';
 
 interface ISearchForm {
   search: string;
@@ -265,16 +269,19 @@ export default function Startups() {
         <Body>
           <Content>
             <ContentTitleDiv>
-            <h2>StartUps</h2>
-            <Form ref={formRefSearch} onSubmit={handleSubmitSearch}>
-            <Input 
-              type="text"
-              name="search" 
-              icon={AiOutlineSearch}
-              placeholder="Buscar Startup..."
-              onChange={(e) => search(e.currentTarget.value)}
-            />
-            </Form>
+              <h2>StartUps</h2>
+              <ContentTitle>
+                <Form ref={formRefSearch} onSubmit={handleSubmitSearch}>
+                  <Input 
+                    type="text"
+                    name="search" 
+                    icon={AiOutlineSearch}
+                    placeholder="Buscar Startup..."
+                    onChange={(e) => search(e.currentTarget.value)}
+                  />
+                </Form>
+                <Link href="/startups/join"><Button style={{ marginTop: '7px' }} ><IoIosRocket />Nova Startup</Button></Link>
+              </ContentTitle>
             </ContentTitleDiv>
             <OptionsDiv>
               <Option className={menu === 1 && 'active'} onClick={() => handleSelectMenu(1)}>

@@ -36,7 +36,7 @@ export function ButtonFacebook({ title, loading, ...rest }: ButtonProps) {
       return;
     }
     
-    router.push('/feed');
+    router.push('/startups');
   }
 
   return (    
