@@ -10,7 +10,13 @@ export const Body = styled.div`
 
 export const Content = styled.div`
   width: 100%;
-  padding: 0 0 50px 50px;
+  padding: 0 50px 50px 50px;
+`;
+
+export const ContentTitleDiv = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 export const OptionsDiv = styled.div`
@@ -72,5 +78,48 @@ export const NotFoundStartupsDiv = styled.div`
 
   img {
     height: 250px;
+  }
+`;
+
+export const FiltersDiv = styled.div`
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-bottom: 35px;
+`;
+
+export const FilterDiv = styled.div`
+
+`;
+
+export const FilterTitle = styled.div`
+
+`;
+
+export const FiltersIem = styled.div`
+  margin-top: 2px;
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  max-width: 670px;
+`;
+
+export const FilterIem = styled.div`
+  border: 1px solid var(--purple-500);
+  color: var(--purple-500);
+  border-radius: 5px;
+  padding: 4px;
+  font-size: 0.725rem;
+
+  cursor: pointer;
+
+  &.selected {
+    background-color: var(--purple-500);
+    color: var(--white-100);
+  }
+
+  &:hover {
+    background-color: var(--purple-500);
+    color: var(--white-100);
   }
 `;
