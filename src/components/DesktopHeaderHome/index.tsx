@@ -33,6 +33,7 @@ export function DesktopHeaderHome({ backHeaderAndIcon }: DesktopHeaderHomeProps)
         <div className="right">
           <nav>
               <NavButton text="Sobre" />
+              <NavButton text="Entrar" />
               <SingUpButton />
           </nav>
         </div>

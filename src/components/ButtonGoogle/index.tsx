@@ -36,7 +36,7 @@ export function ButtonGoogle({ title, loading, ...rest }: ButtonProps) {
       return;
     }
     
-    router.push('/feed');
+    router.push('/startups');
   }
 
   function failure(response) {
@@ -49,7 +49,7 @@ export function ButtonGoogle({ title, loading, ...rest }: ButtonProps) {
 
   return (
     <GoogleLogin
-      clientId="258164373274-v9fsnaiatjmde1n9l851se3pmad51vjv.apps.googleusercontent.com"
+      clientId="490724521153-s84umrf6imot75t7482ggfngjogg7fpc.apps.googleusercontent.com"
       buttonText="Login"
       onSuccess={success}
       onFailure={() => failure}

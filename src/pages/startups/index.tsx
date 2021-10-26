@@ -27,7 +27,37 @@ import { PrivatePage } from '../../components/PrivatePage';
 import { useApplicationStartUni } from '../../contexts/ApplicationStartUniContext';
 import { StartupCard } from '../../components/Cards/StartupCard';
 import { Button } from '../../components/Button';
+import { api } from '../../services/apiClient';
 
+interface IStartup {
+  id: string;
+  surname: string;
+  name: string;
+  descriptionShort: string;
+  description: string;
+  logo: string;
+  logoUrl: string;
+  site: string;
+  country: number;
+  state: number;
+  city: number;
+  phase: number;
+  businessModel: number;
+  segment: number;
+  clientsNumber: number;
+  partnersNumber: number;
+  pitchdeck?: string;
+  pitchdeckUrl?: string;
+  breakeven: number;
+  searchInvestment: number;
+  valueCapture: number;
+  equityPercentage: number;
+  timeBreakevenAfterInvestment: number;
+  manyMonthsInvestmentLast: number;
+  valuation: number;
+  status: string;
+  createdAt: Date;
+}
 interface ISearchForm {
   search: string;
 }
@@ -37,37 +67,40 @@ export default function Startups() {
   const formRefSearch = useRef<FormHandles>(null);
   const { addToast } = useToast();
   const [menu, setMenu] = useState(1);
-  const [startups, setStartups] = useState([]);
+  const [startups, setStartups] = useState<IStartup[]>([]);
 
-  const [phaseFilter, setPhaseFilter] = useState([1]);
-  const [businessModelFilter, setBusinessModelFilter] = useState([1]);
-  const [segmentFilter, setSegmentFilter] = useState([1]);
+  const [phaseFilter, setPhaseFilter] = useState([]);
+  const [businessModelFilter, setBusinessModelFilter] = useState([]);
+  const [segmentFilter, setSegmentFilter] = useState([]);
 
   function handlePhaseFilter(id: number) {
-    const findIndex = phaseFilter.findIndex(phaseFilt => phaseFilt === id);
+    const findIndex = phaseFilter?.findIndex(phaseFilt => phaseFilt === id);
     if (findIndex === -1) {
       setPhaseFilter([...phaseFilter, id]);
     } else {
-      setPhaseFilter(phaseFilter.filter(item => item !== id));
+      setPhaseFilter(phaseFilter?.filter(item => item !== id));
     }
+    selectStartups();
   }
 
   function handleBusinessModelFilter(id: number) {
-    const findIndex = businessModelFilter.findIndex(item => item === id);
+    const findIndex = businessModelFilter?.findIndex(item => item === id);
     if (findIndex === -1) {
       setBusinessModelFilter([...businessModelFilter, id]);
     } else {
-      setBusinessModelFilter(businessModelFilter.filter(item => item !== id));
+      setBusinessModelFilter(businessModelFilter?.filter(item => item !== id));
     }
+    selectStartups();
   }
 
   function handleSegmentFilter(id: number) {
-    const findIndex = segmentFilter.findIndex(item => item === id);
+    const findIndex = segmentFilter?.findIndex(item => item === id);
     if (findIndex === -1) {
       setSegmentFilter([...segmentFilter, id]);
     } else {
-      setSegmentFilter(segmentFilter.filter(item => item !== id));
+      setSegmentFilter(segmentFilter?.filter(item => item !== id));
     }
+    selectStartups();
   }  
 
   const phase = [
@@ -114,122 +147,70 @@ export default function Startups() {
     {label:'Outros', value: 20},
   ];
 
-  const startupsAux1 = [
-    { 
-      image: '/images/nubank.png', 
-      name: 'NuBank', 
-      foundedAt: new Date(),
-      category: 'BANCO DIGITAL', 
-      description: 'Pioneira no segmento de serviços financeiros, atuando como operadora de cartões de crédito e fintech.', 
-      valuation: '1.6 MM', 
-    },
-    { 
-      image: '/images/spacex.png', 
-      name: 'SpaceX', 
-      foundedAt: new Date(),
-      category: 'FABRICANTE DE FOGUETE', 
-      description: 'fabricante estadunidense de sistemas aeroespaciais, transporte espacial e comunicações.', 
-      valuation: '2 BI' 
-    },
-  ];
+  // const startupsAux1 = [
+  //   { 
+  //     image: '/images/nubank.png', 
+  //     name: 'NuBank', 
+  //     foundedAt: new Date(),
+  //     category: 'BANCO DIGITAL', 
+  //     description: 'Pioneira no segmento de serviços financeiros, atuando como operadora de cartões de crédito e fintech.', 
+  //     valuation: '1.6 MM', 
+  //   },
+  //   { 
+  //     image: '/images/spacex.png', 
+  //     name: 'SpaceX', 
+  //     foundedAt: new Date(),
+  //     category: 'FABRICANTE DE FOGUETE', 
+  //     description: 'fabricante estadunidense de sistemas aeroespaciais, transporte espacial e comunicações.', 
+  //     valuation: '2 BI' 
+  //   },
+  // ];
 
-  const startupsAux2 = [
-    { 
-      image: '/images/nubank.png', 
-      name: 'NuBank', 
-      foundedAt: new Date(),
-      category: 'BANCO DIGITAL', 
-      description: 'Pioneira no segmento de serviços financeiros, atuando como operadora de cartões de crédito e fintech.', 
-      valuation: '1.6 MM', 
-    },
-    { 
-      image: '/images/spacex.png', 
-      name: 'SpaceX', 
-      foundedAt: new Date(),
-      category: 'FABRICANTE DE FOGUETE', 
-      description: 'fabricante estadunidense de sistemas aeroespaciais, transporte espacial e comunicações.', 
-      valuation: '2 BI' 
-    },
-    { 
-      image: '/images/nubank.png', 
-      name: 'NuBank', 
-      foundedAt: new Date(),
-      category: 'BANCO DIGITAL', 
-      description: 'Pioneira no segmento de serviços financeiros, atuando como operadora de cartões de crédito e fintech.', 
-      valuation: '1.6 MM', 
-    },
-    { 
-      image: '/images/spacex.png', 
-      name: 'SpaceX', 
-      foundedAt: new Date(),
-      category: 'FABRICANTE DE FOGUETE', 
-      description: 'fabricante estadunidense de sistemas aeroespaciais, transporte espacial e comunicações.', 
-      valuation: '2 BI' 
-    },
-  ];
+  // const startupsAux2 = [
+  //   { 
+  //     imageUrl: '/images/nubank.png', 
+  //     name: 'NuBank', 
+  //     createdAt: new Date(),
+  //     category: 1, 
+  //     description: 'Pioneira no segmento de serviços financeiros, atuando como operadora de cartões de crédito e fintech.', 
+  //     valuation: '1.6 MM', 
+  //   },
+  //   { 
+  //     imageUrl: '/images/spacex.png', 
+  //     name: 'SpaceX', 
+  //     createdAt: new Date(),
+  //     category: 1, 
+  //     description: 'fabricante estadunidense de sistemas aeroespaciais, transporte espacial e comunicações.', 
+  //     valuation: '2 BI' 
+  //   },
+  //   { 
+  //     imageUrl: '/images/nubank.png', 
+  //     name: 'NuBank', 
+  //     createdAt: new Date(),
+  //     category: 1, 
+  //     description: 'Pioneira no segmento de serviços financeiros, atuando como operadora de cartões de crédito e fintech.', 
+  //     valuation: '1.6 MM', 
+  //   },
+  //   { 
+  //     imageUrl: '/images/spacex.png', 
+  //     name: 'SpaceX', 
+  //     createdAt: new Date(),
+  //     category: 1, 
+  //     description: 'fabricante estadunidense de sistemas aeroespaciais, transporte espacial e comunicações.', 
+  //     valuation: '2 BI' 
+  //   },
+  // ] as IStartup [];
 
-  const startupsAux3 = [
-    { 
-      image: '/images/nubank.png', 
-      name: 'NuBank', 
-      foundedAt: new Date(),
-      category: 'BANCO DIGITAL', 
-      description: 'Pioneira no segmento de serviços financeiros, atuando como operadora de cartões de crédito e fintech.', 
-      valuation: '1.6 MM', 
-    },
-    { 
-      image: '/images/spacex.png', 
-      name: 'SpaceX', 
-      foundedAt: new Date(),
-      category: 'FABRICANTE DE FOGUETE', 
-      description: 'fabricante estadunidense de sistemas aeroespaciais, transporte espacial e comunicações.', 
-      valuation: '2 BI' 
-    },
-    { 
-      image: '/images/nubank.png', 
-      name: 'NuBank', 
-      foundedAt: new Date(),
-      category: 'BANCO DIGITAL', 
-      description: 'Pioneira no segmento de serviços financeiros, atuando como operadora de cartões de crédito e fintech.', 
-      valuation: '1.6 MM', 
-    },
-    { 
-      image: '/images/spacex.png', 
-      name: 'SpaceX', 
-      foundedAt: new Date(),
-      category: 'FABRICANTE DE FOGUETE', 
-      description: 'fabricante estadunidense de sistemas aeroespaciais, transporte espacial e comunicações.', 
-      valuation: '2 BI' 
-    },
-    { 
-      image: '/images/nubank.png', 
-      name: 'NuBank', 
-      foundedAt: new Date(),
-      category: 'BANCO DIGITAL', 
-      description: 'Pioneira no segmento de serviços financeiros, atuando como operadora de cartões de crédito e fintech.', 
-      valuation: '1.6 MM', 
-    },
-    { 
-      image: '/images/spacex.png', 
-      name: 'SpaceX', 
-      foundedAt: new Date(),
-      category: 'FABRICANTE DE FOGUETE', 
-      description: 'fabricante estadunidense de sistemas aeroespaciais, transporte espacial e comunicações.', 
-      valuation: '2 BI' 
-    },
-  ];
-
-  function selectStartups(menu: number) {
+  function selectStartups() {
     switch (menu) {
       case 2:
-        setStartups(startupsAux2);
+        // setStartups(startupsAux2);
         break;
       case 3:
-        setStartups(startupsAux3);
         break;
     
       default:
-        setStartups(startupsAux1);
+        getStartupsOrbit();
         break;
     }
     
@@ -237,7 +218,7 @@ export default function Startups() {
 
   function handleSelectMenu(menu: number) {
     setMenu(menu);
-    selectStartups(menu);
+    selectStartups();
   }
 
   const handleSubmitSearch = useCallback(
@@ -251,6 +232,40 @@ export default function Startups() {
     if (term) {
       const startupsFilter = startups.filter(start => start.name.indexOf(term) >= 0)
       setStartups(startupsFilter);
+    }
+  }
+
+  function getStartupsFavorites(){
+    // const request = await api.get(`/startups`, {
+    //   params: {
+    //     filter: 
+    //   }
+    // })
+  }
+
+  // function getStartupsHighlights(){
+  //   setStartups();
+  // }
+
+  // function getStartupsReleases(){
+  //   setStartups();
+  // }
+
+  async function getStartupsOrbit(){
+    const request = await api.get(`/startups`, {
+      params: {
+        take: 200,
+        page: 1,
+        phase: phaseFilter,
+        businessModel: businessModelFilter,
+        segment: segmentFilter,
+      }
+    })
+
+    if (request.data.count > 0) {
+      setStartups(request.data.data);
+    } else {
+      setStartups([]);
     }
   }
 
@@ -329,7 +344,7 @@ export default function Startups() {
 
             <StartupCards>
               { startups?.map(startup => (
-                <StartupCard startup={startup} />
+                <StartupCard key={startup.id} startup={startup} />
               )) }
 
               { startups.length === 0 && (
