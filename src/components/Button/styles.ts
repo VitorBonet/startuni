@@ -17,6 +17,16 @@ export const Container = styled.button`
 
     gap: 4px;
 
+    &.revert {
+      background-color: var(--white-100);
+      color: var(--green-700);
+
+      &:hover {
+        background-color: var(--green-700);
+        color: var(--white-100);
+      }
+    }
+
     &:hover {
       background: transparent;
       color: var(--green-700);

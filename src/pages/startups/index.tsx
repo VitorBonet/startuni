@@ -28,36 +28,8 @@ import { useApplicationStartUni } from '../../contexts/ApplicationStartUniContex
 import { StartupCard } from '../../components/Cards/StartupCard';
 import { Button } from '../../components/Button';
 import { api } from '../../services/apiClient';
+import { IStartupDTOS } from '../../dtos/IStartupsDTOS';
 
-interface IStartup {
-  id: string;
-  surname: string;
-  name: string;
-  descriptionShort: string;
-  description: string;
-  logo: string;
-  logoUrl: string;
-  site: string;
-  country: number;
-  state: number;
-  city: number;
-  phase: number;
-  businessModel: number;
-  segment: number;
-  clientsNumber: number;
-  partnersNumber: number;
-  pitchdeck?: string;
-  pitchdeckUrl?: string;
-  breakeven: number;
-  searchInvestment: number;
-  valueCapture: number;
-  equityPercentage: number;
-  timeBreakevenAfterInvestment: number;
-  manyMonthsInvestmentLast: number;
-  valuation: number;
-  status: string;
-  createdAt: Date;
-}
 interface ISearchForm {
   search: string;
 }
@@ -67,7 +39,7 @@ export default function Startups() {
   const formRefSearch = useRef<FormHandles>(null);
   const { addToast } = useToast();
   const [menu, setMenu] = useState(1);
-  const [startups, setStartups] = useState<IStartup[]>([]);
+  const [startups, setStartups] = useState<IStartupDTOS[]>([]);
 
   const [phaseFilter, setPhaseFilter] = useState([]);
   const [businessModelFilter, setBusinessModelFilter] = useState([]);
@@ -80,7 +52,6 @@ export default function Startups() {
     } else {
       setPhaseFilter(phaseFilter?.filter(item => item !== id));
     }
-    selectStartups();
   }
 
   function handleBusinessModelFilter(id: number) {
@@ -90,7 +61,6 @@ export default function Startups() {
     } else {
       setBusinessModelFilter(businessModelFilter?.filter(item => item !== id));
     }
-    selectStartups();
   }
 
   function handleSegmentFilter(id: number) {
@@ -100,7 +70,6 @@ export default function Startups() {
     } else {
       setSegmentFilter(segmentFilter?.filter(item => item !== id));
     }
-    selectStartups();
   }  
 
   const phase = [
@@ -200,6 +169,10 @@ export default function Startups() {
   //     valuation: '2 BI' 
   //   },
   // ] as IStartup [];
+
+  useEffect(() => {
+    selectStartups();
+  }, [phaseFilter, businessModelFilter, segmentFilter]);
 
   function selectStartups() {
     switch (menu) {

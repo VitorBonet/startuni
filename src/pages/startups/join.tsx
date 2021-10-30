@@ -209,9 +209,9 @@ export default function Join({states}: IJoinProps) {const formRef = useRef<FormH
         formData.append('descriptionShort', data.descriptionShort);
         formData.append('description', data.description);
         formData.append('site', data.site);
-        formData.append('country', '33');
-        formData.append('state', data.state);
-        formData.append('city', data.city);
+        formData.append('countryId', '33');
+        formData.append('stateId', data.state);
+        formData.append('cityId', data.city);
         formData.append('fundationDate', format(new Date(data.fundationDate), 'yyyy-MM-dd'));
         formData.append('phase', data.phase);
         formData.append('businessModel', data.businessModel);

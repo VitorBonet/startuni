@@ -1,7 +1,8 @@
 import React from 'react';
 import { format } from 'date-fns';
 import { MdAttachMoney } from 'react-icons/md';
-import { BiTime } from 'react-icons/bi';
+import { BiTime, BiMap } from 'react-icons/bi';
+import Link from 'next/link';
 
 import { 
   Container, 
@@ -13,39 +14,10 @@ import {
 } from './styles';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-
-interface IStartup {
-  id: string;
-  surname: string;
-  name: string;
-  descriptionShort: string;
-  description: string;
-  logo: string;
-  logoUrl: string;
-  site: string;
-  country: number;
-  state: number;
-  city: number;
-  phase: number;
-  businessModel: number;
-  segment: number;
-  clientsNumber: number;
-  partnersNumber: number;
-  pitchdeck?: string;
-  pitchdeckUrl?: string;
-  breakeven: number;
-  searchInvestment: number;
-  valueCapture: number;
-  equityPercentage: number;
-  timeBreakevenAfterInvestment: number;
-  manyMonthsInvestmentLast: number;
-  valuation: number;
-  status: string;
-  createdAt: Date;
-}
+import { IStartupDTOS } from '../../../dtos/IStartupsDTOS';
 
 interface IStartupCardProps {
-  startup: IStartup
+  startup: IStartupDTOS
 }
 
 export function StartupCard({ startup }: IStartupCardProps) {
@@ -77,6 +49,7 @@ export function StartupCard({ startup }: IStartupCardProps) {
   const segmentDescription = segment.find(seg => seg.value === startup.segment);
 
   return (
+    <Link href={`/startups/${startup.id}`} replace>
     <Container>
       <Icon>
         <img src={startup.logoUrl} alt={startup.name} />
@@ -86,11 +59,13 @@ export function StartupCard({ startup }: IStartupCardProps) {
         <h6>{segmentDescription.label}</h6>
       </Title>
 
-      {/* <TextInfo><BiTime size={12}/><h6>{format(startup.createdAt, 'dd/MM/yyyy')}</h6></TextInfo> */}
+      <TextInfo><BiTime size={12}/><h6>{format(new Date(startup.fundationDate), 'dd/MM/yyyy')}</h6></TextInfo>
+      {startup?.country && (<TextInfo><BiMap size={12}/><h6>{startup.city.name} - {startup.state.code}, {startup.country.name}</h6></TextInfo>)}
       <Descriptiion>{startup.description}</Descriptiion>
 
       <Valuation><MdAttachMoney /><h4>{startup.valuation.toLocaleString('pt-br', {minimumFractionDigits: 2})}</h4></Valuation>
       
     </Container>
+    </Link>
   );
 }
