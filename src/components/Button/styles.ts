@@ -27,8 +27,23 @@ export const Container = styled.button`
       }
     }
 
+    &.refused {
+      border: 1px solid var(--red-600);
+      background-color: var(--white-100);
+      color: var(--red-600);
+      
+      &:hover {
+        background-color: var(--red-600);
+        color: var(--white-100);
+      }
+    }
+
     &:hover {
       background: transparent;
       color: var(--green-700);
+    }
+
+    &:focus-visible {
+      border: 1px solid var(--green-700);
     }
 `;

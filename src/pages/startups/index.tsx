@@ -253,7 +253,7 @@ export default function Startups() {
 
   return (
     <>
-      <PrivatePage title="">
+      <PrivatePage title="Startups | StartUni">
         <Body>
           <Content>
             <ContentTitleDiv>

@@ -53,10 +53,10 @@ export default function IndexPage() {
               <img src="/images/Startup_SVG.svg" alt="Startup" />
           </PrincipalSection>
 
-          <SecondSection>
-          </SecondSection>
+          {/* <SecondSection>
+          </SecondSection> */}
 
-          <Footer>
+          {/* <Footer>
             <FooterContent>
               <FooterContentText>
                 <FooterItem>
@@ -94,7 +94,7 @@ export default function IndexPage() {
                 </FooterContentMidiaItens>
               </FooterContentMidia>
             </FooterContent>
-          </Footer>
+          </Footer> */}
         </Container>
       </main>
     </>

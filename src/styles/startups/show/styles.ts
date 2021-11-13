@@ -59,30 +59,6 @@ export const ContainerRight = styled.div`
   margin: 10px;
 `;
 
-export const ContainerRightTitle = styled.div`
-  display: flex;
-  justify-content: center;
-`;
-
-export const ContainerRightContent = styled.div`
-  margin-top: 12px;
-`;
-
-export const InvestmentInfos = styled.div`
-  margin-top: 16px;
-`;
-
-export const InvestmentInfo = styled.div`
-  border-bottom: 1px solid var(--gray-300);
-  display: flex;
-  align-items: center;
-  padding: 6px 4px;
-
-  h5 {
-    width: 85px;
-  }
-`;
-
 interface IBackgroundImageProps {
   imageUrl: string;
 }
@@ -185,9 +161,6 @@ export const ContainerNeedMatch = styled.div`
   border-radius: 5px;
   background: #fff3cd;
   padding: 26px;
-`;
-
-export const ContainerNeedMatchIcon = styled.div`
 `;
 
 export const ContainerNeedMatchText = styled.div`

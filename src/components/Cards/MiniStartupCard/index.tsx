@@ -6,6 +6,7 @@ import Link from 'next/link';
 
 import { 
   Container, 
+  TitleDiv,
   Icon,
   Title,
   Descriptiion,
@@ -20,7 +21,7 @@ interface IStartupCardProps {
   startup: IStartupDTOS
 }
 
-export function StartupCard({ startup }: IStartupCardProps) {
+export function MiniStartupCard({ startup }: IStartupCardProps) {
   const router = useRouter();
 
   const segment = [
@@ -49,21 +50,22 @@ export function StartupCard({ startup }: IStartupCardProps) {
   const segmentDescription = segment.find(seg => seg.value === startup.segment);
 
   return (
-    <Link href={`/startups/${startup.id}`} replace>
+    <Link href={`/startups/dashboards/${startup.id}`} replace>
     <Container>
-      <Icon>
-        <img src={startup.logoUrl} alt={startup.name} />
-      </Icon>
-      <Title>
-        <h3>{startup.name}</h3>
-        <h6>{segmentDescription.label}</h6>
-      </Title>
+      <TitleDiv>
+        <Icon>
+          <img src={startup.logoUrl} alt={startup.name} />
+        </Icon>
+        <Title>
+          <h3>{startup.name}</h3>
+          <h6>{segmentDescription.label}</h6>
+        </Title>
+      </TitleDiv>
 
-      <TextInfo><BiTime size={12}/><h6>{format(new Date(startup.fundationDate), 'dd/MM/yyyy')}</h6></TextInfo>
-      {startup?.country && (<TextInfo><BiMap size={12}/><h6>{startup.city.name} - {startup.state.code}, {startup.country.name}</h6></TextInfo>)}
-      <Descriptiion>{startup.description.length > 75 ? startup.description.substr(0, 75) + '...' : startup.description}</Descriptiion>
+      {/* <TextInfo><BiTime size={12}/><h6>{format(new Date(startup.fundationDate), 'dd/MM/yyyy')}</h6></TextInfo>
+      {startup?.country && (<TextInfo><BiMap size={12}/><h6>{startup.city.name} - {startup.state.code}, {startup.country.name}</h6></TextInfo>)} */}
 
-      <Valuation><MdAttachMoney /><h4>{startup.valuation.toLocaleString('pt-br', {minimumFractionDigits: 2})}</h4></Valuation>
+      {/* <Valuation><MdAttachMoney /><h4>{startup.valuation.toLocaleString('pt-br', {minimumFractionDigits: 2})}</h4></Valuation> */}
       
     </Container>
     </Link>

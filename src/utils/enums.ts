@@ -26,32 +26,8 @@ export const enums = {
       PeopleIfollow: 'f'
     }
   },
-  tracks: {
-    type: {
-      demo: 'd',
-      track: 't'
-    },
-    trackType: {
-      video: 'v',
-      audio: 'a'
-    },
-    licensing: {
-      allRightReserved: 'a',
-      creativeCommons: 'c'
-    },
-    creativeComments: {
-      attibution: 'a',
-      nonCommercial: 'nc',
-      noDerivativeWorks: 'nd',
-      shareAlike: 's'
-    }
-  },
-  posts: {
-    type: {
-      image: 'i',
-      track: 't',
-      event: 'e',
-      lyric: 'l',
-    }
+  matchs: {
+    startups: 's',
+    investor: 'i',
   }
 }

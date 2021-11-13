@@ -2,8 +2,6 @@ import React from 'react';
 import Link from 'next/link';
 
 import Panel from '../../Panel';
-import { NewslatterSubscribe } from '../../NewslatterSubscribe';
-
 import { 
   Container, 
   MenuItem,
@@ -32,10 +30,6 @@ export default function MenuPanel() {
       </Panel>
 
       <Panel>
-        <Item>
-          <NewslatterSubscribe />
-        </Item>
-
         <Item>
           <SocialMidiaDiv>
             <SocialMidiaItem>

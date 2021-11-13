@@ -8,8 +8,18 @@ import { Container } from './styles';
 import MenuPanel from './MenuPanel';
 import { useApplicationStartUni } from '../../contexts/ApplicationStartUniContext';
 import LoadingProfilePanel from '../Shimmer/LoadingProfilePanel';
+import { UserPanel } from './UserPanel';
+import { UserInfosPanel } from './UserInfosPanel';
 
-export function LeftColumn() {
+interface ILeftColumnProps {
+  infos?: {
+    startups: number;
+    investiments: number;
+    matchs: number;
+  }
+}
+
+export function LeftColumn({ infos }: ILeftColumnProps) {
   const { isLoading } = useApplicationStartUni();
 
   return (
@@ -20,8 +30,8 @@ export function LeftColumn() {
       ) : (
         <>
         {/* <PlayerPanel /> */}
-        <ProfilePanel />
-        {/* <MenuPanel /> */}
+        <UserPanel />
+        <UserInfosPanel infos={infos}/>
         </>
       )}
     </Container>

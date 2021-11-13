@@ -4,6 +4,7 @@ import Router from 'next/router';
 import { api } from '../services/apiClient';
 
 type User = {
+  id: string;
   name: string;
   profileName: string;
   profileLink: string;
@@ -99,6 +100,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       const { user, permissions, roles } = response.data;
 
       setUser({ 
+        id: user.id, 
         name: user.name, 
         profileName: user.profileName, 
         profileLink: user.profileLink, 
@@ -185,6 +187,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     });
 
     setUser({
+      id: user.id, 
       name: user.name, 
       profileName: user.profileName, 
       profileLink: user.profileLink, 

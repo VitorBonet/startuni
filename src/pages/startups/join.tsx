@@ -276,11 +276,15 @@ export default function Join({states}: IJoinProps) {const formRef = useRef<FormH
 
             <RightContainer>
               <RightHeader>
-                <img src="/rocketIcon.svg" alt="rocket" />
-                <div className="titleDiv">
-                  <h3>StartUni</h3>
-                  <label>STARTUP UNIVERSE</label>
-                </div>
+                <Link href="/startups" replace>
+                <>
+                  <img src="/rocketIcon.svg" alt="rocket" />
+                  <div className="titleDiv">
+                    <h3>StartUni</h3>
+                    <label>STARTUP UNIVERSE</label>
+                  </div>
+                </>
+                </Link>
               </RightHeader>
 
               {/* <TimeLineHeaderDiv>

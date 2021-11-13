@@ -17,3 +17,29 @@ export const Content = styled.div`
   width: 100%;
   gap: 24px;
 `;
+
+export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 32px;
+`;
+
+export const Title = styled.div`
+
+`;
+
+export const Items = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+`;
+
+export const ItemMessageNot = styled.p`
+  color: var(--gray-300);
+`;
+
+export const ItemMessageNotDiv = styled.p`
+  display: flex;
+  flex-direction: column;
+`;

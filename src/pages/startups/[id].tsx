@@ -29,14 +29,9 @@ import {
   StartupInfoMoneyValuation,
   StartupInfoMoneyValuationAlter,
   StartupInfoButtons,
-  ContainerRightTitle,
-  ContainerRightContent,
-  InvestmentInfos,
-  InvestmentInfo,
   ContainerHeader,
   ContainerHeaderCenter,
   ContainerNeedMatch,
-  ContainerNeedMatchIcon,
   ContainerNeedMatchText,
   ThisIsDiv,
   ThisIsItem,
@@ -53,18 +48,20 @@ import {
 } from '../../styles/startups/show/styles';
 import { PrivatePage } from '../../components/PrivatePage';
 import { useApplicationStartUni } from '../../contexts/ApplicationStartUniContext';
-import { StartupCard } from '../../components/Cards/StartupCard';
 import { IStartupDTOS } from '../../dtos/IStartupsDTOS';
 import { setupAPIClient } from '../../services/api';
 import { GetServerSideProps } from 'next';
 import { format } from 'date-fns';
 import { BsBarChart } from 'react-icons/bs';
 import { MdAttachMoney, MdComputer } from 'react-icons/md';
-import Panel from '../../components/Panel';
-import CatchmentRange from '../../components/PageInternal/Startups/Page/CatchmentRange';
 import { Button } from '../../components/Button';
-import { IoIosRocket } from 'react-icons/io';
 import { FiAlertTriangle } from 'react-icons/fi';
+import { RoundInvestmentCard } from '../../components/Cards/RoundInvestmentCard';
+import { api } from '../../services/apiClient';
+import { useToast } from '../../contexts/ToastContext';
+import { enums } from '../../utils/enums';
+import { UserInfosPanel } from '../../components/LeftColumn/UserInfosPanel';
+import { useAuth } from '../../contexts/AuthContext';
 
 interface IStratupProps {
   startup: IStartupDTOS;
@@ -72,6 +69,10 @@ interface IStratupProps {
 
 export default function Startups({ startup }: IStratupProps) {
   const { isLoading, loading } = useApplicationStartUni();
+  const { user } = useAuth();
+  const { addToast } = useToast();
+  const [hasMatch, setHasMatch] = useState(false);
+
   const leaders = [
     { name: 'Vitor Bonet', position: 'Fundador e CTO', imageUrl: '/images/vitorbonet.jpg', instagram: '/', linkedin: '/', twitter: '/'},
     { name: 'Diego Alves', position: 'Fundador e CEO', imageUrl: '/images/diegoAlves.jpg', instagram: '/', linkedin: '/', twitter: '/'},
@@ -175,13 +176,57 @@ export default function Startups({ startup }: IStratupProps) {
       }, 1000);
     }
 
+    verifyMatch();
+
   }, []);
+
+  async function verifyMatch() {
+    try {
+      api.get(`/matchs/${startup.id}/permissions`).then(response => {
+        setHasMatch(response.data.data.permission);
+      });
+    } catch (error) {}
+  }
+
+  async function toggleMatch() {
+    try {
+      await api.post(`/matchs`, {
+        startupId: startup.id,
+        investorId: user.id,
+        type: enums.matchs.investor,
+      });
+      
+      addToast({
+        type: "success",
+        title: "Sucesso!",
+        description: "Uma solicitação foi enviada para a Startup, aguarde a liberação",
+      });
+    } catch (error) {
+      switch (error.data.code) {
+        case 'matchs.create.exists':
+          addToast({
+            type: "info",
+            title: "Aviso",
+            description: "Você já solicitou um match, aguarde a aprovação da Startup",
+          });
+          break;
+      
+        default:
+          addToast({
+            type: "error",
+            title: "Erro",
+            description: "Ocorreu um erro, por favor tente de novo.",
+          });
+          break;
+      }
+    }
+  }
 
   const formatCurrencyBRL = { minimumFractionDigits: 2 , style: 'currency', currency: 'BRL' };
 
   return (
     <>
-      <PrivatePage title="">
+      <PrivatePage title="Startup | StartUni">
         <Body>
           <Content>
             <ContainerPrimary>
@@ -244,9 +289,10 @@ export default function Startups({ startup }: IStratupProps) {
                         </StartupInfoMoneyValuationAlter>
                       </StartupInfoMoney>
                       
+                      
                       <StartupInfoButtons>
-                        <Button className="revert" >Match</Button>
-                        <Button>Investir</Button>
+                        {!hasMatch && (<Button  style={{ maxWidth: '50%' }} className="revert" onClick={toggleMatch}>Match</Button> )}
+                        {hasMatch && (<Button style={{ maxWidth: '50%' }} >Investir</Button> )}
                       </StartupInfoButtons>
                     </StartupInfo>
                   </StartupInfoDiv>
@@ -254,76 +300,19 @@ export default function Startups({ startup }: IStratupProps) {
               </ContainerPrimaryLeft>
 
               <ContainerPrimaryRight>
-                <Panel>
-                  <ContainerRight>
-                    <ContainerRightTitle>
-                      <h3>Rodada de Investimento</h3>
-                    </ContainerRightTitle>
-                    <ContainerRightContent>
-                      <CatchmentRange 
-                        defaultValue={60}
-                        label={`Captação em ${60}%`}
-                        labelStart="0%"
-                        labelEnd="100%"
-                      />
-
-                      <Button>Investir</Button>
-
-                      <InvestmentInfos>
-                        <InvestmentInfo>
-                          <h5>Rodada:</h5>
-                          <p>1</p>
-                        </InvestmentInfo>
-                        <InvestmentInfo>
-                          <h5>Captado:</h5>
-                          <p>{(1189000).toLocaleString('pt-BR', formatCurrencyBRL)}</p>
-                        </InvestmentInfo>
-                        <InvestmentInfo>
-                          <h5>Valuation:</h5>
-                          <p>{(10000000).toLocaleString('pt-BR', formatCurrencyBRL)}</p>
-                        </InvestmentInfo>
-                        <InvestmentInfo>
-                          <h5>Participação:</h5>
-                          <p>15%</p>
-                        </InvestmentInfo>
-                        <InvestmentInfo>
-                          <h5>Valor Ação:</h5>
-                          <p>{(10).toLocaleString('pt-BR', formatCurrencyBRL)}</p>
-                        </InvestmentInfo>
-                        <InvestmentInfo>
-                          <h5>Lote mínimo:</h5>
-                          <p>100</p>
-                        </InvestmentInfo>
-                        <InvestmentInfo>
-                          <h5>Valor Mínimo:</h5>
-                          <p>{(1000).toLocaleString('pt-BR', formatCurrencyBRL)}</p>
-                        </InvestmentInfo>
-                        <InvestmentInfo>
-                          <h5>Mínimo:</h5>
-                          <p>{(1000000).toLocaleString('pt-BR', formatCurrencyBRL)}</p>
-                        </InvestmentInfo>
-                        <InvestmentInfo>
-                          <h5>Máximo:</h5>
-                          <p>{(1500000).toLocaleString('pt-BR', formatCurrencyBRL)}</p>
-                        </InvestmentInfo>
-                        <InvestmentInfo>
-                          <h5>Fecha:</h5>
-                          <p>{format(new Date(), 'dd/MM/yyyy')}</p>
-                        </InvestmentInfo>
-                      </InvestmentInfos>
-                    </ContainerRightContent>
-                  </ContainerRight>
-                </Panel>
+                <RoundInvestmentCard hasMatch={hasMatch}/>
               </ContainerPrimaryRight>
             </ContainerPrimary>
 
-            <Container className="leftMargin">
-              <ContainerNeedMatch>
-                <ContainerNeedMatchText><FiAlertTriangle /> Para obter mais informações sobre a Startup é necessário solicitar o <a>Match</a>, assim eles irão avaliar 
-                  e liberar para você ter acesso a informações mais sensiveis e úteis para uma análise mais completa.
-                </ContainerNeedMatchText>
-              </ContainerNeedMatch>
-            </Container>
+            {!hasMatch && (
+              <Container className="leftMargin">
+                <ContainerNeedMatch>
+                  <ContainerNeedMatchText><FiAlertTriangle /> Para obter mais informações sobre a Startup é necessário solicitar o <a>Match</a>, assim eles irão avaliar 
+                    e liberar para você ter acesso a informações mais sensiveis e úteis para uma análise mais completa.
+                  </ContainerNeedMatchText>
+                </ContainerNeedMatch>
+              </Container>
+            )}
 
             <Container className="leftMargin">
               <ContainerHeader>
@@ -359,142 +348,146 @@ export default function Startups({ startup }: IStratupProps) {
               </div>
             </Container> */}
 
-            <Container className="space inverted">
-              <ContainerHeaderCenter>
-                <h1>Parceiros</h1>
-                <p>As pessoas que auxiliam no crescimento da {startup?.name}</p>
-                <Separator />
-              </ContainerHeaderCenter>
+            {hasMatch && (
+              <>
+              <Container className="space inverted">
+                <ContainerHeaderCenter>
+                  <h1>Parceiros</h1>
+                  <p>As pessoas que auxiliam no crescimento da {startup?.name}</p>
+                  <Separator />
+                </ContainerHeaderCenter>
 
-              <ContainerContent>
-                <DashNumberDiv>
-                  {startup.clientsNumber > 0 ? (
-                    <h1>{startup.clientsNumber.toLocaleString('pt-BR')}</h1>
-                  ) : (
-                    <h3>Em busca</h3>
-                  )}
-                  <p>Clientes</p>
-                </DashNumberDiv>
-                <DashNumberDiv>
-                  {startup.partnersNumber > 0 ? (
-                    <h1>{startup.partnersNumber.toLocaleString('pt-BR')}</h1>
-                  ) : (
-                    <h3>Em busca</h3>
-                  )}
-                  <p>Parceiros</p>
-                </DashNumberDiv>
-              </ContainerContent>
-            </Container>
+                <ContainerContent>
+                  <DashNumberDiv>
+                    {startup.clientsNumber > 0 ? (
+                      <h1>{startup.clientsNumber.toLocaleString('pt-BR')}</h1>
+                    ) : (
+                      <h3>Em busca</h3>
+                    )}
+                    <p>Clientes</p>
+                  </DashNumberDiv>
+                  <DashNumberDiv>
+                    {startup.partnersNumber > 0 ? (
+                      <h1>{startup.partnersNumber.toLocaleString('pt-BR')}</h1>
+                    ) : (
+                      <h3>Em busca</h3>
+                    )}
+                    <p>Parceiros</p>
+                  </DashNumberDiv>
+                </ContainerContent>
+              </Container>
 
-            <Container className="space">
-              <ContainerHeaderCenter>
-                <h1>Liderança</h1>
-                <p>Sócios da {startup?.name}</p>
-                <Separator />
-              </ContainerHeaderCenter>
+              <Container className="space">
+                <ContainerHeaderCenter>
+                  <h1>Liderança</h1>
+                  <p>Sócios da {startup?.name}</p>
+                  <Separator />
+                </ContainerHeaderCenter>
 
-              <Leaderships>
-                { leaders.map(leader => (
-                  <Leadership>
-                    <LeadershipImage>
-                      { leader.imageUrl ? (
-                        <>
-                          <img src={leader.imageUrl} alt={leader.name} />
+                <Leaderships>
+                  { leaders.map(leader => (
+                    <Leadership>
+                      <LeadershipImage>
+                        { leader.imageUrl ? (
+                          <>
+                            <img src={leader.imageUrl} alt={leader.name} />
+                            <LeadershipImageFunctionIcon>
+                              <FaUserTie />
+                            </LeadershipImageFunctionIcon>
+                          </>
+                        ) : (
+                          <>
+                          <LeadershipImageIcon>
+                            <FaUserAstronaut size={30} />
+                          </LeadershipImageIcon>
+
                           <LeadershipImageFunctionIcon>
-                            <FaUserTie />
+                            <FaUserAstronaut />
                           </LeadershipImageFunctionIcon>
-                        </>
-                      ) : (
-                        <>
-                        <LeadershipImageIcon>
-                          <FaUserAstronaut size={30} />
-                        </LeadershipImageIcon>
+                          </>
+                        )}
+                      </LeadershipImage>
+                      <LeadershipText>
+                        <h5>{leader.name}</h5>
+                        <p>{leader.position}</p>
+                        <LeadershipTextSocialIcons>
+                          {leader?.linkedin && (<AiFillLinkedin size={30} />)}
+                          {leader?.twitter && (<AiOutlineTwitter size={30} />)}
+                          {leader?.instagram && (<AiOutlineInstagram size={30} />)}
+                        </LeadershipTextSocialIcons>
+                      </LeadershipText>
+                    </Leadership>
+                  )) }                  
+                </Leaderships>
+              </Container>
 
-                        <LeadershipImageFunctionIcon>
-                          <FaUserAstronaut />
-                        </LeadershipImageFunctionIcon>
-                        </>
-                      )}
-                    </LeadershipImage>
-                    <LeadershipText>
-                      <h5>{leader.name}</h5>
-                      <p>{leader.position}</p>
-                      <LeadershipTextSocialIcons>
-                        {leader?.linkedin && (<AiFillLinkedin size={30} />)}
-                        {leader?.twitter && (<AiOutlineTwitter size={30} />)}
-                        {leader?.instagram && (<AiOutlineInstagram size={30} />)}
-                      </LeadershipTextSocialIcons>
-                    </LeadershipText>
-                  </Leadership>
-                )) }                  
-              </Leaderships>
-            </Container>
+              <Container className="space">
+                <ContainerHeaderCenter>
+                  <h1>Equipe</h1>
+                  <p>As pessoas por trás da {startup?.name}</p>
+                  <Separator />
+                </ContainerHeaderCenter>
 
-            <Container className="space">
-              <ContainerHeaderCenter>
-                <h1>Equipe</h1>
-                <p>As pessoas por trás da {startup?.name}</p>
-                <Separator />
-              </ContainerHeaderCenter>
+                <Leaderships>
+                  { team.map(people => (
+                    <Leadership>
+                      <LeadershipImage>
+                        { people.imageUrl ? (
+                          <>
+                            <img src={people.imageUrl} alt={people.name} />
+                            <LeadershipImageFunctionIcon>
+                              <BiCodeAlt />
+                            </LeadershipImageFunctionIcon>
+                          </>
+                        ) : (
+                          <>
+                          <LeadershipImageIcon>
+                            <FaUserAstronaut size={30} />
+                          </LeadershipImageIcon>
 
-              <Leaderships>
-                { team.map(people => (
-                  <Leadership>
-                    <LeadershipImage>
-                      { people.imageUrl ? (
-                        <>
-                          <img src={people.imageUrl} alt={people.name} />
                           <LeadershipImageFunctionIcon>
                             <BiCodeAlt />
                           </LeadershipImageFunctionIcon>
-                        </>
-                      ) : (
-                        <>
-                        <LeadershipImageIcon>
-                          <FaUserAstronaut size={30} />
-                        </LeadershipImageIcon>
+                          </>
+                        )}
+                      </LeadershipImage>
+                      <LeadershipText>
+                        <h5>{people.name}</h5>
+                        <p>{people.position}</p>
+                        <LeadershipTextSocialIcons>
+                          {people?.linkedin && (<AiFillLinkedin size={30} />)}
+                          {people?.twitter && (<AiOutlineTwitter size={30} />)}
+                          {people?.instagram && (<AiOutlineInstagram size={30} />)}
+                        </LeadershipTextSocialIcons>
+                      </LeadershipText>
+                    </Leadership>
+                  )) }                  
+                </Leaderships>
+              </Container>
 
-                        <LeadershipImageFunctionIcon>
-                          <BiCodeAlt />
-                        </LeadershipImageFunctionIcon>
-                        </>
-                      )}
-                    </LeadershipImage>
-                    <LeadershipText>
-                      <h5>{people.name}</h5>
-                      <p>{people.position}</p>
-                      <LeadershipTextSocialIcons>
-                        {people?.linkedin && (<AiFillLinkedin size={30} />)}
-                        {people?.twitter && (<AiOutlineTwitter size={30} />)}
-                        {people?.instagram && (<AiOutlineInstagram size={30} />)}
-                      </LeadershipTextSocialIcons>
-                    </LeadershipText>
-                  </Leadership>
-                )) }                  
-              </Leaderships>
-            </Container>
-
-            <Container className="space">
-              <ContainerHeaderCenter>
-                <h1>Isto é {startup.name}</h1>
-                <Separator />
-              </ContainerHeaderCenter>
-              <ThisIsDiv>
-                <ThisIsItem>
-                  <h3>Missão</h3>
-                  <p>Acelerar e facilitar o encontro entre investidores e startups, de forma segura e simples.</p>
-                </ThisIsItem>
-                <ThisIsItem>
-                  <h3>Visão</h3>
-                  <p>Ser referência nacional em apresentação e investimentos em startups, 
-                    com ampla linha de serviços, provendo soluções eficientes e completas.</p>
-                </ThisIsItem>
-                <ThisIsItem>
-                  <h3>Valores</h3>
-                  <p>Velocidade, Eficiência, Flexibilidade, Automação e Inovação são alguns de nossos valores mais importantes.</p>
-                </ThisIsItem>
-              </ThisIsDiv>
-            </Container>
+              <Container className="space">
+                <ContainerHeaderCenter>
+                  <h1>Isto é {startup.name}</h1>
+                  <Separator />
+                </ContainerHeaderCenter>
+                <ThisIsDiv>
+                  <ThisIsItem>
+                    <h3>Missão</h3>
+                    <p>Acelerar e facilitar o encontro entre investidores e startups, de forma segura e simples.</p>
+                  </ThisIsItem>
+                  <ThisIsItem>
+                    <h3>Visão</h3>
+                    <p>Ser referência nacional em apresentação e investimentos em startups, 
+                      com ampla linha de serviços, provendo soluções eficientes e completas.</p>
+                  </ThisIsItem>
+                  <ThisIsItem>
+                    <h3>Valores</h3>
+                    <p>Velocidade, Eficiência, Flexibilidade, Automação e Inovação são alguns de nossos valores mais importantes.</p>
+                  </ThisIsItem>
+                </ThisIsDiv>
+              </Container>
+              </>
+            )}
           </Content>
         </Body>
       </PrivatePage>

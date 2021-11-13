@@ -73,17 +73,19 @@ export default function Join() {
       try {
         formRef.current?.setErrors({});
 
+        const stringRequiredField = 'Campo obrigatório';
+
         const schema = Yup.object().shape({
-          name: Yup.string().required("Name required"),
+          name: Yup.string().required(stringRequiredField),
           email: Yup.string()
-            .required("E-mail required")
-            .email("Enter a valid email address"),
-          password: Yup.string().min(6, "At least 6 digits"),
+            .required(stringRequiredField)
+            .email("Entrar com e-mail válido"),
+          password: Yup.string().min(6, "Mínimo 6 dígitos"),
           confirmPassword: Yup.string()
-          .oneOf([Yup.ref('password'), null], 'Passwords must match'),
-          birthDate: Yup.date().required(),
-          agreeTermsUse: Yup.string().oneOf(['true'], 'Confirm that you agree to the terms of use'),
-          agreePrivacyPolicy: Yup.string().oneOf(['true'], 'Confirm that you agree to the privacy of policy'),
+          .oneOf([Yup.ref('password'), null], 'As senhas devem ser iguais'),
+          birthDate: Yup.date().required(stringRequiredField),
+          agreeTermsUse: Yup.string().oneOf(['true'], 'Confirme que você concorda com os termos de uso'),
+          agreePrivacyPolicy: Yup.string().oneOf(['true'], 'Confirme que você concorda com a política de privacidade'),
         });
 
         await schema.validate(data, {
@@ -98,14 +100,20 @@ export default function Join() {
         }
         
           const response = await api.post("/users", dataSend);
+          addToast({
+            type: "success",
+            title: "Cadastrado",
+            description: "Cadastro realizado com sucesso.",
+          });
+
+          router.push("/login");
       } catch (err) {
-        console.log(err);
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
 
           formRef.current?.setErrors(errors);
         } else {
-          switch (err.code) {
+          switch (err.data.code) {
             case 'users.create.exists':
               addToast({
                 type: "error",
@@ -146,11 +154,15 @@ export default function Join() {
 
           <RightContainer>
             <RightHeader>
-              <img src="/rocketIcon.svg" alt="rocket" />
-              <div className="titleDiv">
-                <h3>StartUni</h3>
-                <label>STARTUP UNIVERSE</label>
-              </div>
+              <Link href="/">
+              <>
+                <img src="/rocketIcon.svg" alt="rocket" />
+                <div className="titleDiv">
+                  <h3>StartUni</h3>
+                  <label>STARTUP UNIVERSE</label>
+                </div>
+              </>
+              </Link>
             </RightHeader>
             <RightBody>
               <RightBodyCntent>
