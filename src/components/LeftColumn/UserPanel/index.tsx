@@ -7,9 +7,22 @@ import {
 import Panel from '../../Panel';
 
 import { Container, AvatarIcon } from './styles';
+import { IUserDTOS } from '../../../dtos/IUserDTOS';
+import { IInvestorsDTOS } from '../../../dtos/IInvestorsDTOS';
 
-export function UserPanel() {
-  const { user } = useAuth();
+interface IUserPanelProps {
+  investor?: IInvestorsDTOS;
+}
+
+export function UserPanel({ investor }: IUserPanelProps) {
+  const auth = useAuth();
+
+  let user;
+  if (investor) {
+    user = investor.user;
+  } else {
+    user = auth.user;
+  }
   
   return (
     <Panel>
@@ -25,10 +38,10 @@ export function UserPanel() {
             <AiOutlineUser size={30} />
           </AvatarIcon>
         ) }
-        <h1>{user ? user.profileName: user?.name} Vitor Bonet</h1>
+        <h1>{user?.name}</h1>
         <h2>Aspirante</h2>
 
-        <h2>Joinville - SC, Brasil</h2>
+        <h2>{investor ? `${investor.city.name} - ${investor.state.code}, ${investor.country.name}` : 'Joinville - SC, Brasil'}</h2>
       </Container>
     </Panel>
   );

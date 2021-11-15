@@ -10,8 +10,11 @@ import { useApplicationStartUni } from '../../contexts/ApplicationStartUniContex
 import LoadingProfilePanel from '../Shimmer/LoadingProfilePanel';
 import { UserPanel } from './UserPanel';
 import { UserInfosPanel } from './UserInfosPanel';
+import { IUserDTOS } from '../../dtos/IUserDTOS';
+import { IInvestorsDTOS } from '../../dtos/IInvestorsDTOS';
 
 interface ILeftColumnProps {
+  investor?: IInvestorsDTOS;
   infos?: {
     startups: number;
     investiments: number;
@@ -19,7 +22,7 @@ interface ILeftColumnProps {
   }
 }
 
-export function LeftColumn({ infos }: ILeftColumnProps) {
+export function LeftColumn({ investor, infos }: ILeftColumnProps) {
   const { isLoading } = useApplicationStartUni();
 
   return (
@@ -30,7 +33,7 @@ export function LeftColumn({ infos }: ILeftColumnProps) {
       ) : (
         <>
         {/* <PlayerPanel /> */}
-        <UserPanel />
+        <UserPanel investor={investor}/>
         <UserInfosPanel infos={infos}/>
         </>
       )}

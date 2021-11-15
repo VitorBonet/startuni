@@ -63,6 +63,14 @@ export function LeftSideBar() {
       </HeaderSideBar>
 
       <BodySideBar>
+        <ItemSideBar className={`${menuURL.indexOf("home") > -1 && 'active'} ${sideBarOpen && 'open' }`}>
+          <Link href="/home">
+            <div className={menuURL.indexOf("home") > -1 && 'active'}>
+              <AiFillHome />
+              <label>Feed</label>
+            </div>
+          </Link>
+        </ItemSideBar>
         <ItemSideBar className={`${menuURL.indexOf("startups") > -1 && 'active'} ${sideBarOpen && 'open' }`}>
           <Link href="/startups">
             <div className={menuURL.indexOf("startups") > -1 && 'active'}>
@@ -76,14 +84,6 @@ export function LeftSideBar() {
             <div className={menuURL.indexOf("wallet") > -1 && 'active'}>
               <BiWallet />
               <label>Wallet</label>
-            </div>
-          </Link>
-        </ItemSideBar>
-        <ItemSideBar className={`${menuURL.indexOf("home") > -1 && 'active'} ${sideBarOpen && 'open' }`}>
-          <Link href="/home">
-            <div className={menuURL.indexOf("home") > -1 && 'active'}>
-              <AiFillHome />
-              <label>Feed</label>
             </div>
           </Link>
         </ItemSideBar>

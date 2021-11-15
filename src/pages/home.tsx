@@ -98,7 +98,7 @@ return (
                   <MiniStartupCard key={startup.id} startup={startup} />
                 )) }
 
-                {startups.lenght === 0 && (
+                {startups.length === 0 && (
                   <ItemMessageNotDiv>
                   <ItemMessageNot>Você ainda não possui nenhuma startup.</ItemMessageNot>
                   <ItemMessageNot>Ainda da tempo de criar a sua...</ItemMessageNot>
@@ -127,10 +127,10 @@ return (
               <Title>Meus Matchs</Title>
               <Items>      
                 { startupMatchs?.map(startup => (
-                    <MiniStartupCard key={startup.id} startup={startup} />
+                    <MiniStartupCard key={startup.id} startup={startup} type="m"/>
                   )) }
 
-                {startupMatchs.lenght === 0 && (
+                {startupMatchs.length === 0 && (
                   <ItemMessageNotDiv>
                     <ItemMessageNot>Você ainda não possui nenhum match.</ItemMessageNot>
                     <ItemMessageNot>Solicite um match para ter informações mais detalhadas sobre as startups</ItemMessageNot>

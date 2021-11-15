@@ -19,9 +19,10 @@ import { IStartupDTOS } from '../../../dtos/IStartupsDTOS';
 
 interface IStartupCardProps {
   startup: IStartupDTOS
+  type?: 's' | 'm'
 }
 
-export function MiniStartupCard({ startup }: IStartupCardProps) {
+export function MiniStartupCard({ startup, type = 's' }: IStartupCardProps) {
   const router = useRouter();
 
   const segment = [
@@ -50,7 +51,7 @@ export function MiniStartupCard({ startup }: IStartupCardProps) {
   const segmentDescription = segment.find(seg => seg.value === startup.segment);
 
   return (
-    <Link href={`/startups/dashboards/${startup.id}`} replace>
+    <Link href={ type === 'm' ? `/startups/${startup.id}` : `/startups/dashboards/${startup.id}`} replace>
     <Container>
       <TitleDiv>
         <Icon>

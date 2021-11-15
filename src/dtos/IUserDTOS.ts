@@ -16,4 +16,7 @@ export interface IUserDTOS {
   emailActiveToken: string;
   avatar?: string;
   avatarUrl?: string;
+  investor?: {
+    id: string;
+  }
 }

@@ -62,6 +62,7 @@ import { useToast } from '../../contexts/ToastContext';
 import { enums } from '../../utils/enums';
 import { UserInfosPanel } from '../../components/LeftColumn/UserInfosPanel';
 import { useAuth } from '../../contexts/AuthContext';
+import { useRouter } from 'next/router';
 
 interface IStratupProps {
   startup: IStartupDTOS;
@@ -71,6 +72,7 @@ export default function Startups({ startup }: IStratupProps) {
   const { isLoading, loading } = useApplicationStartUni();
   const { user } = useAuth();
   const { addToast } = useToast();
+  const router = useRouter();
   const [hasMatch, setHasMatch] = useState(false);
 
   const leaders = [
@@ -208,6 +210,18 @@ export default function Startups({ startup }: IStratupProps) {
             type: "info",
             title: "Aviso",
             description: "Você já solicitou um match, aguarde a aprovação da Startup",
+          });
+          break;
+        case 'matchs.create.notInvestor':
+          addToast({
+            type: "error",
+            title: "Erro",
+            description: "Você precisa finalizar seu cadastro como investidor para poder solicitar um Match",
+          });
+
+          router.push({
+            pathname: '/investors/join',
+            query: { code: startup.id, act: 'match' }
           });
           break;
       

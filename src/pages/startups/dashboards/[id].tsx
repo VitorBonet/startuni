@@ -11,6 +11,7 @@ import {
 import { FaLessThanEqual, FaUserAstronaut, FaUserTie } from 'react-icons/fa';
 import { BiCodeAlt, BiMap, BiTime } from 'react-icons/bi';
 import Link from 'next/link';
+import Router from 'next/router';
 
 import { 
   Body, 
@@ -36,19 +37,10 @@ import {
 } from '../../../styles/startups/dashboards/show/styles';
 import { PrivatePage } from '../../../components/PrivatePage';
 import { useApplicationStartUni } from '../../../contexts/ApplicationStartUniContext';
-import { StartupCard } from '../../../components/Cards/StartupCard';
 import { IStartupDTOS } from '../../../dtos/IStartupsDTOS';
 import { setupAPIClient } from '../../../services/api';
 import { GetServerSideProps } from 'next';
-import { format } from 'date-fns';
-import { BsBarChart } from 'react-icons/bs';
-import { MdAttachMoney, MdComputer } from 'react-icons/md';
-import Panel from '../../../components/Panel';
-import CatchmentRange from '../../../components/PageInternal/Startups/Page/CatchmentRange';
 import { Button } from '../../../components/Button';
-import { IoIosRocket } from 'react-icons/io';
-import { FiAlertTriangle } from 'react-icons/fi';
-import { RoundInvestmentCard } from '../../../components/Cards/RoundInvestmentCard';
 import { api } from '../../../services/apiClient';
 import { IMatchsDTOS } from '../../../dtos/IMatchsDTOS';
 import { useToast } from '../../../contexts/ToastContext';
@@ -171,7 +163,7 @@ export default function StartupsDashboards({ startup }: IStratupProps) {
                 <Table>
                   {matchs.map(match => (
                     <TableItem>
-                      <Link href="*" >
+                      <Link href={`/investors/${match.investor.id}?act=acceptance&code=${match.id}&ret=${match.startupId}`} >
                         <TableItemUser>
                           <TableItemImage>
                           { match.investor?.avatarUrl ? (
@@ -214,8 +206,17 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   let startup = {} as IStartupDTOS;
   await setupAPIClient(ctx).get(`/startups/${id}`).then(response => {
     startup = response.data;
-  }).catch((err) => { console.log(err); });
-  
+  }).catch((err) => {   });
+
+  if (!startup.id) {
+    return {
+      redirect: {
+        destination: '/home',
+        permanent: false,
+      }
+    }
+  }
+
   return {
     props: {
       startup,

@@ -39,13 +39,13 @@ export function UserInfosPanel({ infos }: IUserInfosPanelProps) {
     </Panel>
 
     
-    <Panel>
+    {/* <Panel>
       <Container>
         <div className="key-value">
           <span className="key">Sugestões de Matchs</span>
         </div>
       </Container>
-    </Panel>
+    </Panel> */}
     </>
   );
 };

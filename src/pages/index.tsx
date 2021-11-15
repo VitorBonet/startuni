@@ -46,7 +46,7 @@ export default function IndexPage() {
                     <span>Start</span><div className="marginDiv" >Up</div><span>Uni</span><div>verse</div>
                   </PrincipalSectionDegradeHorizontalTitle>
                   <PrincipalSectionDegradeHorizontalText>
-                    <p>Não fique de fora dessa! Um universo rico em inovação e properidade, conheça novas tecnologias, novas ideias e novas possibilidades</p>
+                    <p>Não fique de fora dessa! Um universo rico em inovação e prosperidade, conheça novas tecnologias, novas ideias e novas possibilidades</p>
                   </PrincipalSectionDegradeHorizontalText>
                 </PrincipalSectionDegradeHorizontal>
               </PrincipalSectionDegrade>
