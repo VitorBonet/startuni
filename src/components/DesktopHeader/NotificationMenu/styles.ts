@@ -9,7 +9,7 @@ export const Container = styled.div`
   width: 35px;
   height: 35px;
   color: var(--purple-600);    
-  background: linear-gradient(90deg,var(--pink-50) 0%,var(--purple-50) 120%);
+  background: var(--pink-50);
   border-radius: 12px;
   margin-right: 10px;
 `;
@@ -47,10 +47,10 @@ export const DropDownDiv = styled.div`
 
 export const DropDown = styled.div`
   width: 350px;
-  background: linear-gradient(90deg,var(--pink-50) 0%,var(--purple-100) 120%);
+  background: var(--pink-50);
   padding: 0.5rem;  
   overflow: hidden; 
-  border: 1px solid var(--gray-300);
+  /* border: 1px solid var(--gray-300); */
   border-radius: 5px;
   box-shadow: 0 0 0 1px rgb(0 0 0 / 15%), 0 2px 3px rgb(0 0 0 / 20%);
 `;
@@ -140,6 +140,9 @@ export const DropDownItemLefft = styled.div`
 `;
 
 export const DropDownItemIcon = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-size: 30px;
   margin-right: 20px;
 `;

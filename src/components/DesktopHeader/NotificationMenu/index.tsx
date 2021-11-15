@@ -39,6 +39,10 @@ interface INotification {
   sender: {
     name: string;
   };
+  startup: {
+    id: string;
+    name: string;
+  }
   read: boolean;
   createdAt: Date;
   distanceDate: string;
@@ -48,22 +52,23 @@ export function NotificationMenu({ dropdownOpen, refDropdown, openDropdown }: IN
   const router = useRouter();
   const [notifications, setNotifications] = useState([] as INotification[]);
 
-  // const { data, status } = useQuery('notifications', async () => {
-  //   const response = await api.get<INotification[]>(`/notifications`, {
-  //     params: {
-  //       read: false,
-  //     },
-  //   });
-  //   setNotifications(response.data);
-  //   return response.data;
-  // }, {staleTime: 5000, cacheTime: 10})
+  const { data, status } = useQuery('notifications', async () => {
+    const response = await api.get<INotification[]>(`/notifications`, {
+      params: {
+        read: false,
+      },
+    });
+    console.log(response.data);
+    setNotifications(response.data);
+    return response.data;
+  }, {staleTime: 5000, cacheTime: 10})
 
-  useEffect(() => {
-    setNotifications([ 
-      { id: '1', code: 'startups', message: 'solicitou um Match com sua Startup', sender: { name: 'Rodrigo Issense'}, read: false, createdAt: new Date(), distanceDate: '3 min atrás' },
-      { id: '1', code: 'likes', message: 'curtiu sua publicação', sender: { name: 'Rodrigo Issense'}, read: false, createdAt: new Date(), distanceDate: '10 min atrás' }
-    ]);
-  }, []);
+  // useEffect(() => {
+  //   setNotifications([ 
+  //     { id: '1', code: 'startups', message: 'solicitou um Match com sua Startup', sender: { name: 'Rodrigo Issense'}, read: false, createdAt: new Date(), distanceDate: '3 min atrás' },
+  //     { id: '1', code: 'likes', message: 'curtiu sua publicação', sender: { name: 'Rodrigo Issense'}, read: false, createdAt: new Date(), distanceDate: '10 min atrás' }
+  //   ]);
+  // }, []);
 
   function handleMarkAll() {
     const notificationItems = notifications;
@@ -98,6 +103,8 @@ export function NotificationMenu({ dropdownOpen, refDropdown, openDropdown }: IN
       }
   }
 
+  let message = '';
+
   return (
     <>
       <Container onClick={openDropdown} >
@@ -123,10 +130,18 @@ export function NotificationMenu({ dropdownOpen, refDropdown, openDropdown }: IN
                     { notification.code.split('.')[0] === 'info' && <FiAlertCircle /> }
                     { notification.code.split('.')[0] === 'likes' && <AiOutlineLike /> }
                     { notification.code.split('.')[0] === 'startups' && <IoIosRocket /> }
+                    { notification.code.split('.')[0] === 'matchs' && <IoIosRocket /> }
+                    { notification.code.split('.')[0] === 'matchs_response_startup' && <IoIosRocket /> }
                     
                   </DropDownItemIcon>
                   <DropDownItemText>
-                    {notification?.sender.name} {notification.message}
+
+                    { notification.code.split('.')[0] === 'matchs_response_startup' ? (
+                      <>{notification?.startup.name} {notification.message}</>
+                    ) : (
+                      <>{notification?.sender.name} {notification.message}</>
+                    )}
+
                     <p>{notification.distanceDate}</p>
                   </DropDownItemText>
                   </DropDownItemLefft>
