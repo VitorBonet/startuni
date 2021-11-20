@@ -6,7 +6,8 @@ import {
   AiOutlineInstagram, 
   AiOutlineNodeIndex, 
   AiOutlinePlus, 
-  AiOutlineUp 
+  AiOutlineUp, 
+  AiFillEdit
 } from 'react-icons/ai';
 import { FaUserAstronaut, FaUserTie } from 'react-icons/fa';
 import { BiCodeAlt, BiMap, BiTime } from 'react-icons/bi';
@@ -74,6 +75,12 @@ export default function Startups({ startup }: IStratupProps) {
   const { addToast } = useToast();
   const router = useRouter();
   const [hasMatch, setHasMatch] = useState(false);
+  const [canEdit, setCanEdit] = useState(false);
+
+  useEffect(() => {
+    setCanEdit(startup.users?.findIndex(userStart => userStart.userId === user?.id) >= 0);
+    console.log(startup);
+  }, [startup, user])
 
   const leaders = [
     { name: 'Vitor Bonet', position: 'Fundador e CTO', imageUrl: '/images/vitorbonet.jpg', instagram: '/', linkedin: '/', twitter: '/'},
@@ -190,6 +197,10 @@ export default function Startups({ startup }: IStratupProps) {
     } catch (error) {}
   }
 
+  function toggleEdit() {
+    router.push(`/startups/join/${startup.id}`);
+  }
+
   async function toggleMatch() {
     try {
       await api.post(`/matchs`, {
@@ -296,13 +307,14 @@ export default function Startups({ startup }: IStratupProps) {
                     </StartupInfo>
                     
                     <StartupInfo>
+                      {canEdit && (<div style={{ display: 'flex', justifyContent: 'flex-end' }}><Button  style={{ maxWidth: '30%' }} onClick={toggleEdit}><AiFillEdit /> Editar</Button></div>)}
+
                       <StartupInfoMoney>
                         <StartupInfoMoneyValuation>{Number(startup.valuation).toLocaleString('pt-BR', formatCurrencyBRL)}</StartupInfoMoneyValuation>
                         <StartupInfoMoneyValuationAlter>
                           <p><AiOutlineUp /> 5%</p>
                         </StartupInfoMoneyValuationAlter>
                       </StartupInfoMoney>
-                      
                       
                       <StartupInfoButtons>
                         {!hasMatch && (<Button  style={{ maxWidth: '50%' }} className="revert" onClick={toggleMatch}>Match</Button> )}

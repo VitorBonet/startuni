@@ -26,7 +26,7 @@ export function DatePicker({ label, name, dateTime, ...rest }: IProps) {
   const [isFilled, setIsFilled] = useState(false);
   const { fieldName, registerField, defaultValue, error } = useField(name);
 
-  const [date, setDate] = useState(defaultValue || null);
+  const [date, setDate] = useState(defaultValue ? new Date(defaultValue) : null);
 
   const handlenputFocus = useCallback(() => {
     setIsFocused(true);
@@ -49,7 +49,7 @@ export function DatePicker({ label, name, dateTime, ...rest }: IProps) {
     });
   }, [fieldName, registerField]);
 
-  const stringDate = dateTime ? "dd/MM/yyyy HH:mm a" : "MM/dd/yyyy";
+  const stringDate = dateTime ? "dd/MM/yyyy HH:mm a" : "dd/MM/yyyy";
   
   return (
     <Container>

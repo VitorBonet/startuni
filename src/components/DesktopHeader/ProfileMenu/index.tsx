@@ -78,45 +78,14 @@ export function ProfileMenu({ dropdownOpen, refDropdown, openDropdown }: IProfil
                 onEnter={caclHeight}
               >
                 <div className="menu" >
-                  <DropDownItem onClick={() => router.push('/feed')}>
-                    <DropDownItemText>
-                      <DropDownItemIconDiv>
-                        <RiPagesFill />
-                      </DropDownItemIconDiv>
-                      Feed
-                    </DropDownItemText>
-                  </DropDownItem>
-
-                  <DropDownItem>
-                    <DropDownItemText>
-                      <DropDownItemIconDiv>
-                        <AiOutlineMessage />
-                      </DropDownItemIconDiv>
-                      Messaging
-                    </DropDownItemText>
-                  </DropDownItem>
-
-                  <DropDownItem onClick={() => setActiveMenu('groups')}>
-                    <DropDownItemText>
-                      <DropDownItemIconDiv>
-                        <BiGroup />
-                      </DropDownItemIconDiv>
-                      My Groups 
-                    </DropDownItemText>
-                    
-                    <DropDownItemIconDiv>
-                      <AiOutlineArrowRight />
-                    </DropDownItemIconDiv>
-                  </DropDownItem>
-
-                  <DropDownItem onClick={() => router.push('/me')}>
+                  {/* <DropDownItem onClick={() => router.push('/investors/me')}>
                     <DropDownItemText>
                       <DropDownItemIconDiv>
                         <AiOutlineUser />
                       </DropDownItemIconDiv>
-                      Profile
+                      Perfil investidor
                     </DropDownItemText>
-                  </DropDownItem>
+                  </DropDownItem> */}
 
                   <DropDownItem onClick={signOut}>
                     <DropDownItemText>

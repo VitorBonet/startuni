@@ -29,28 +29,29 @@ import {
   Buttons,
   InputCheckBoxText,
   RightFooter,
-} from '../../styles/startups/join/styles';
+} from '../../../styles/startups/join/styles';
 
-import { PrivatePage } from '../../components/PrivatePage';
-import { useApplicationStartUni } from '../../contexts/ApplicationStartUniContext';
-import { StartupCard } from '../../components/Cards/StartupCard';
-import { useToast } from '../../contexts/ToastContext';
-import { useAuth } from '../../contexts/AuthContext';
-import { api } from '../../services/apiClient';
-import getValidationErrors from '../../utils/getValidationErrors';
-import { ButtonFacebook } from '../../components/ButtonFacebook';
-import { ButtonGoogle } from '../../components/ButtonGoogle';
-import Input from '../../components/Forms/Input';
-import UploadInput from '../../components/Forms/UploadInput';
-import { DatePicker } from '../../components/Forms/DatePicker';
-import InputCheckBox from '../../components/Forms/InputCheckBox';
-import { Button } from '../../components/Button';
-import Select from '../../components/Forms/Select';
-import { TextArea } from '../../components/Forms/TextArea';
-import { setupAPIClient } from '../../services/api';
+import { PrivatePage } from '../../../components/PrivatePage';
+import { useApplicationStartUni } from '../../../contexts/ApplicationStartUniContext';
+import { StartupCard } from '../../../components/Cards/StartupCard';
+import { useToast } from '../../../contexts/ToastContext';
+import { useAuth } from '../../../contexts/AuthContext';
+import { api } from '../../../services/apiClient';
+import getValidationErrors from '../../../utils/getValidationErrors';
+import { ButtonFacebook } from '../../../components/ButtonFacebook';
+import { ButtonGoogle } from '../../../components/ButtonGoogle';
+import Input from '../../../components/Forms/Input';
+import UploadInput from '../../../components/Forms/UploadInput';
+import { DatePicker } from '../../../components/Forms/DatePicker';
+import InputCheckBox from '../../../components/Forms/InputCheckBox';
+import { Button } from '../../../components/Button';
+import Select from '../../../components/Forms/Select';
+import { TextArea } from '../../../components/Forms/TextArea';
+import { setupAPIClient } from '../../../services/api';
 import { GetServerSideProps } from 'next';
-import Range from '../../components/Forms/Range';
+import Range from '../../../components/Forms/Range';
 import { format } from 'date-fns';
+import { IStartupDTOS } from '../../../dtos/IStartupsDTOS';
 
 interface IState {
   id: number;
@@ -69,8 +70,8 @@ interface ISingUpFormData {
   birthDate: string;
 }
 
-interface IJoinProps {
-  states: IState[];
+interface IJoinIdProps {
+  startup: IStartupDTOS;
 }
 
 interface IStartup {
@@ -97,7 +98,7 @@ interface IStartup {
   pitch: File;
 }
 
-export default function Join({states}: IJoinProps) {const formRef = useRef<FormHandles>(null);
+export default function JoinId({ startup }: IJoinIdProps) {const formRef = useRef<FormHandles>(null);
   const formRef1 = useRef<FormHandles>(null);
   const [requestLoading, setRequestLoading] = useState(false);
   const [stage, setStage] = useState(1);
@@ -105,6 +106,8 @@ export default function Join({states}: IJoinProps) {const formRef = useRef<FormH
   const [cities, setCities] = useState([]);
   const router = useRouter();
   const { addToast } = useToast();
+
+  console.log(startup);
 
   const [checkBoxAgreeTermsUse, setCheckBoxAgreeTermsUse] = useState('false');
   const [checkBoxAgreePrivacyPolicy, setCheckBoxAgreePrivacyPolicy] = useState('false');
@@ -234,7 +237,7 @@ export default function Join({states}: IJoinProps) {const formRef = useRef<FormH
           formData.append('pitchdeck', data.pitch);
         }
         
-        const response = await api.post(`/startups`, formData);
+        const response = await api.put(`/startups/${startup.id}`, formData);
           
         if (response.status !== 200) {
           throw new Error("");          
@@ -244,10 +247,11 @@ export default function Join({states}: IJoinProps) {const formRef = useRef<FormH
           type: "success",
           title: "Statup criada!",
           description:
-            "Startup criada com sucesso.",
+            "Startup atualizada com sucesso.",
         });
       
-        changeStage(2);
+        // changeStage(2);
+        router.push('/startups');
       } catch (error) {
         if (error instanceof Yup.ValidationError) {
           const validationErrors = {};
@@ -287,27 +291,6 @@ export default function Join({states}: IJoinProps) {const formRef = useRef<FormH
                 </Link>
               </RightHeader>
 
-              {/* <TimeLineHeaderDiv>
-                <TimeLineHeader>
-                  <TimeLineItem className={ stage >= 1 && ("active")}>
-                    <h6>Start</h6>
-                    <TimeLineBall className={ stage >= 1 && ("active")} />
-                  </TimeLineItem>
-                  <TimeLineItem className={ stage >= 2 && ("active")}>
-                    <h6>Finanças</h6>
-                    <TimeLineBall className={ stage >= 2 && ("active")} />
-                  </TimeLineItem>
-                  <TimeLineItem className={ stage >= 3 && ("active")}>
-                    <h6>Scorecard</h6>
-                    <TimeLineBall className={ stage >= 3 && ("active")}/>
-                  </TimeLineItem>
-                  <TimeLineItem className={ stage >= 4 && ("active")}>
-                    <h6>Fatores de Risco</h6>
-                    <TimeLineBall className={ stage >= 4 && ("active")}/>
-                  </TimeLineItem>  
-                </TimeLineHeader>
-              </TimeLineHeaderDiv> */}
-
               <RightBody>
                 <RightBodyCntent>
                   {stage === 1 && (
@@ -316,7 +299,7 @@ export default function Join({states}: IJoinProps) {const formRef = useRef<FormH
                     <h3>Nova StartUp</h3>
                   </BodyTitle>
 
-                  <Form ref={formRef1} onSubmit={handleSubmit1}>
+                  <Form ref={formRef1} onSubmit={handleSubmit1} initialData={startup}>
                     <FormDiv>         
                       <UploadInput 
                         name="logo"
@@ -405,7 +388,6 @@ export default function Join({states}: IJoinProps) {const formRef = useRef<FormH
                       
                       <Input 
                         type="number"
-                        defaultValue="0"
                         name="clientsNumber" 
                         icon={FiUsers} 
                         label="Número de clientes" 
@@ -413,7 +395,6 @@ export default function Join({states}: IJoinProps) {const formRef = useRef<FormH
                       
                       <Input 
                         type="number"
-                        defaultValue="0"
                         name="partnersNumber" 
                         icon={FiUsers} 
                         label="Número de parceiros" 
@@ -460,7 +441,6 @@ export default function Join({states}: IJoinProps) {const formRef = useRef<FormH
 
                       <Input 
                         type="number"
-                        defaultValue="0"
                         name="valueCapture" 
                         icon={MdAttachMoney} 
                         label="Qual o valor que pretende captar?" 
@@ -468,7 +448,6 @@ export default function Join({states}: IJoinProps) {const formRef = useRef<FormH
 
                       <Input 
                         type="number"
-                        defaultValue="0"
                         name="equityPercentage" 
                         icon={AiOutlinePercentage} 
                         label="Percentual de equity para o investidor?" 
@@ -489,7 +468,6 @@ export default function Join({states}: IJoinProps) {const formRef = useRef<FormH
                       
                       <Input 
                         type="number"
-                        defaultValue="0"
                         name="valuation" 
                         icon={MdAttachMoney} 
                         label="Valuation" 
@@ -526,333 +504,6 @@ export default function Join({states}: IJoinProps) {const formRef = useRef<FormH
                   </>
                   )}
 
-                  {/* {stage === 2 && (
-                  <>
-                  <BodyTitle>
-                    <h3>Informações financeiras</h3>
-                  </BodyTitle>
-
-                  <Form ref={formRef2} onSubmit={handleSubmit2}>
-                    <FormDiv> */}
-                      {/* <Input 
-                        type="number"
-                        defaultValue="0"
-                        name="MRR" 
-                        icon={MdAttachMoney} 
-                        label="Receita bruta mensal (MRR)" 
-                      />
-
-                      <Input 
-                        type="number"
-                        defaultValue="0"
-                        name="ARR" 
-                        icon={MdAttachMoney} 
-                        label="Receita bruta que teve somada nos últimos 12 meses (ARR)" 
-                      />
-
-                      <Input 
-                        type="number"
-                        defaultValue="0"
-                        name="ARRSummed" 
-                        icon={MdAttachMoney} 
-                        label="Receita bruta somada para os próximos 12 meses? (sem contar com investimento externo)" 
-                      /> */}
-
-                      {/* <Select 
-                        name="breakeven" 
-                        icon={BsBarChart}
-                        options={[ 
-                          {label:'Sim, já foi atingido', value:'1'},
-                          {label:'Atingiremos em menos de 6 meses', value:'2'},
-                          {label:'Atingiremos 7 a 12 meses', value:'3'},
-                          {label:'Atingiremos 12 a 18 meses', value:'4'},
-                          {label:'Atingiremos 19 a 24 meses', value:'5'},
-                          {label:'Atingiremos m mais de 24 meses', value:'6'},
-                         ]} 
-                        label="Ponto de equilibrio - Breakeven (receita maior ou igual a despesa)" 
-                      /> */}
-
-                      {/* <Input 
-                        type="number"
-                        defaultValue="0"
-                        name="negativeMonthlyMargin" 
-                        icon={MdAttachMoney} 
-                        label="Valor margem mensal negativa (despesa maior que a receita)" 
-                      />
-
-                      <Input 
-                        type="number"
-                        defaultValue="0"
-                        name="positiveMonthlyMargin" 
-                        icon={MdAttachMoney} 
-                        label="Valor margem mensal positiva (despesa menor que a receita)" 
-                      /> */}
-                      
-                      {/* <Select 
-                        name="searchInvestment" 
-                        icon={BsBarChart}
-                        options={[ 
-                          {label:'Sim, estou em captação', value:'1'},
-                          {label:'Ainda não, mas pretendo em breve', value:'2'},
-                          {label:'Não', value:'3'},
-                        ]} 
-                        label="Atualmente está procurando investimento?" 
-                      />
-
-                      <Input 
-                        type="number"
-                        defaultValue="0"
-                        name="valueCapture" 
-                        icon={MdAttachMoney} 
-                        label="Qual o valor que pretende captar?" 
-                      />
-
-                      <Input 
-                        type="number"
-                        defaultValue="0"
-                        name="equityPercentage" 
-                        icon={AiOutlinePercentage} 
-                        label="Percentual de equity para o investidor?" 
-                      />
-
-                      <Select 
-                        name="timeBreakevenAfterInvestment" 
-                        icon={BsBarChart}
-                        options={[ 
-                          {label:'Vamos continuar no Breakeven', value:'1'},
-                          {label:'Menos de 6 meses', value:'2'},
-                          {label:'De 7 a 12 meses', value:'3'},
-                          {label:'De 12 a 18 meses', value:'4'},
-                          {label:'De 19 a 24 meses', value:'5'},
-                          {label:'Mais de 24 meses', value:'6'},
-                        ]} 
-                        label="Meses para sua Startup atinger o Breakeven depois do investimento" 
-                      />
-
-                      <Select 
-                        name="manyMonthsInvestmentLast" 
-                        icon={BsBarChart}
-                        options={[ 
-                          {label:'Menos de 6 meses', value:'1'},
-                          {label:'De 7 a 12 meses', value:'2'},
-                          {label:'De 12 a 18 meses', value:'3'},
-                          {label:'De 19 a 24 meses', value:'4'},
-                          {label:'Mais de 24 meses', value:'5'},
-                        ]} 
-                        label="Quantos meses vai durar esse investimento?" 
-                      />
-
-                      <Buttons>
-                        <a style={{ maxWidth: '100px' }} type="submit" onClick={handleBackStage}>Voltar</a>
-                        <Button style={{ maxWidth: '100px' }} loading={requestLoading} type="submit">Salvar </Button>
-                      </Buttons> */}
-                    {/* </FormDiv>
-                  </Form>
-                  </>
-                  )} */}
-                  {/* {stage === 3 && false && (
-                  <>
-                  <BodyTitle>
-                    <h3>Scorecard</h3>
-                  </BodyTitle>
-
-                  <Form ref={formRef3} onSubmit={handleSubmit3}>
-                    <FormDiv className="formSpaceRange">
-                      <Select 
-                          name="operationalPhase" 
-                          icon={AiOutlineNodeIndex}
-                          options={[ 
-                            {label:'Ideação', value:'1'},
-                            {label:'Planejamento', value:'2'},
-                            {label:'Validação', value:'3'},
-                            {label:'Operação', value:'4'},
-                            {label:'Tração', value:'5'},
-                          ]} 
-                          label="Estágio operacional" 
-                      />
-
-                      <Range 
-                        name="cac" 
-                        label="Custo de Aquisição de Clientes (CAC)" 
-                        labelStart="Baixo"
-                        labelEnd="Alto"
-                        description="CAC é o custo de aquisição por cliente, para calcular divida a soma dos investimentos para adquirir um cliente pelo numero de cliente já conquistados por um período de tempo. 
-                                    Alto = Quando os gastos para trazer o cliente é maior que a receita que ele gera para a empresa;
-                                    Neutro = Equilibrado;
-                                    Baixo = Quando os gastos para trazer o cliente é menor que a receita que ele gera para a empresa;"
-                      />
-
-                      <Range 
-                        name="ltv" 
-                        label="Lifetime Value (LTV)" 
-                        labelStart="Baixo"
-                        labelEnd="Alto"
-                        description="O Life Time Value é o valor que um cliente retorna ao decorrer do tempo, sendo assim o LTV mostra o faturamento obtido com o cliente durante determinado período de tempo. 
-                                      Para calcular: LTV = Ticket médio das vendas X número de compras do cliente ao decorrer do tempo. "
-                      />
-
-                      <Range 
-                        name="salesCycle" 
-                        label="Ciclo de venda" 
-                        labelStart="Curto"
-                        labelEnd="Longo"
-                        description="O ciclo de vendas se refere ao tempo que envolve a relação entre o cliente e empresa, cada etapa do ciclo de vendas representa as fazes que são necessárias para venda do serviço ou produto."
-                      />
-
-                      <Range 
-                        name="churn" 
-                        label="Churn" 
-                        labelStart="Baixo"
-                        labelEnd="Alto"
-                      />
-
-                      <Range 
-                        name="marketSize" 
-                        label="Tamanho de mercado" 
-                        labelStart="Pequeno (menor que R$200M)"
-                        labelEnd="Grande (bilhões)"
-                      />
-
-                      <Range 
-                        name="scalePotential" 
-                        label="Potencial de escala" 
-                        labelStart="Baixo"
-                        labelEnd="Alto"
-                      />
-
-                      <Range 
-                        name="futureSale" 
-                        label="Possibilidade de saída (venda futura)" 
-                        labelStart="Baixo"
-                        labelEnd="Alto"
-                      />
-
-                      <Range 
-                        name="pmf" 
-                        label="Já atingiu PMF? (Product Market Fit)" 
-                        labelStart="Longe"
-                        labelEnd="Atingido"
-                        description=""
-                      />
-
-                      <Range 
-                        name="governance" 
-                        label="Governança" 
-                        labelStart="Fraca"
-                        labelEnd="Boa"
-                      />
-
-                      <Range 
-                        name="solveProblem" 
-                        label="Resolve um problema?" 
-                        labelStart="Pequeno"
-                        labelEnd="Grande"
-                      />
-
-                      <Range 
-                        name="competitiveDifferential" 
-                        label="Diferencial competitivo" 
-                        labelStart="Pequeno"
-                        labelEnd="Grande"
-                      />
-
-                      <Range 
-                        name="mentors" 
-                        label="Tem mentores?" 
-                        labelStart="Não"
-                        labelEnd="Sim, experientes"
-                      />
-
-                      <Range 
-                        name="fullTimeFounders" 
-                        label="Fundadores fulltime na operação?" 
-                        labelStart="Nenhum"
-                        labelEnd="Todos"
-                      />
-
-                      <Buttons>
-                        <a style={{ maxWidth: '100px' }} type="submit" onClick={handleBackStage} >Voltar</a>
-                        <Button style={{ maxWidth: '100px' }} loading={requestLoading} type="submit">Avançar <AiOutlineDoubleRight /></Button>
-                      </Buttons>
-                    </FormDiv>
-                  </Form>
-                  </>
-                  )}
-
-                  {stage === 4 && (
-                  <>
-                  <BodyTitle>
-                    <h3>Fatores de risco</h3>
-                  </BodyTitle>
-
-                  <Form ref={formRef4} onSubmit={handleSubmit4}>
-                    <FormDiv className="formSpaceRange">
-
-                      <Range 
-                        name="regulatoryRisk" 
-                        label="Risco técnico ou regulatório?" 
-                        labelStart="Baixo"
-                        labelEnd="Alto"
-                      />
-                    
-                      <Range 
-                        name="competition" 
-                        label="Existe concorrência/competidores?" 
-                        labelStart="Pouca"
-                        labelEnd="Muita"
-                      />
-                    
-                      <Range 
-                        name="abilityDeliverPromises" 
-                        label="Capacidade de entregar o que promete?" 
-                        labelStart="Pouca"
-                        labelEnd="Muita"
-                      />
-                    
-                      <Range 
-                        name="ownTechnology" 
-                        label="Tecnologia própria?" 
-                        labelStart="Não"
-                        labelEnd="Totalmente"
-                      />
-                    
-                      <Range 
-                        name="riskConflictFounders" 
-                        label="Risco de conflito entre fundadores?" 
-                        labelStart="Baixo"
-                        labelEnd="Alto"
-                      />
-                    
-                      <Range 
-                        name="professionalManagement" 
-                        label="Gestão profissional?" 
-                        labelStart="Não profissional"
-                        labelEnd="Profissional"
-                      />
-                    
-                      <Range 
-                        name="politicalRisk" 
-                        label="Risco político?" 
-                        labelStart="Baixo"
-                        labelEnd="Alto"
-                      />
-                    
-                      <Range 
-                        name="legalRisk" 
-                        label="Risco jurídico?" 
-                        labelStart="Baixo"
-                        labelEnd="Alto"
-                      />
-
-                      <Buttons>
-                        <a style={{ maxWidth: '100px' }} type="submit" onClick={handleBackStage}>Voltar</a>
-                        <Button style={{ maxWidth: '100px' }} loading={requestLoading} type="submit">Salvar </Button>
-                      </Buttons>
-                    </FormDiv>
-                  </Form>
-                  </>
-                  )} */}
-
                 </RightBodyCntent>
               </RightBody>
               <RightFooter>
@@ -864,4 +515,18 @@ export default function Join({states}: IJoinProps) {const formRef = useRef<FormH
       </PrivatePage>
     </>
   );
+}
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { id } = ctx.params;
+  let startup = {} as IStartupDTOS;
+  await setupAPIClient(ctx).get(`/startups/${id}`).then(response => {
+    startup = response.data;
+  }).catch((err) => { console.log(err); });
+  
+  return {
+    props: {
+      startup,
+    }
+  }
 }

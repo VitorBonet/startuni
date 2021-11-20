@@ -9,7 +9,7 @@ export const Container = styled.div`
 export const ProfileCircle = styled.img`
   width: 35px;
   height: 35px;
-  border-radius: 50%;
+  border-radius: 12px;
   border: 1px solid var(--color-icons);
   object-fit: cover;
 `;
@@ -23,7 +23,7 @@ export const ProfileIconCircle = styled.div`
   width: 35px;
   height: 35px;
   color: var(--purple-600);    
-  background: linear-gradient(90deg,var(--pink-50) 0%,var(--purple-50) 120%);
+  background: var(--pink-50);
   border-radius: 12px;
   margin-right: 10px;
 `;
@@ -53,7 +53,7 @@ export const DropDownDiv = styled.div`
 export const DropDown = styled.div`
   width: 190px;
   /* color: var(--purple-600);     */
-  background: linear-gradient(90deg,var(--pink-50) 0%,var(--purple-100) 120%);
+  background: var(--pink-50);
   padding: 0.5rem;  
   overflow: hidden; 
   border-radius: 5px;

@@ -26,7 +26,7 @@ export function ProfilePanel() {
             <AiOutlineUser size={30} />
           </AvatarIcon>
         ) }
-        <h1>{user ? user.profileName: user?.name} Vitor Bonet</h1>
+        <h1>{user?.name}</h1>
         <h2>Aspirante</h2>
 
         <div className="separator"></div>

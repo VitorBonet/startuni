@@ -48,4 +48,9 @@ export interface IStartupDTOS {
   status: string;
   createdAt: Date;
   fundationDate: Date;
+  users?: {
+    id: string;
+    userId: string;
+    startupId: string;
+  }[]
 }

@@ -17,7 +17,7 @@ const PreviewImage: React.FC<PreviewTrackProps> = ({ image }: PreviewTrackProps)
     <Container>
       <PreviewDiv >
         <img 
-          src={window.URL.createObjectURL(image)}
+          src={typeof image === 'string' ? `${process.env.APP_API_URL}/files/images/${image}` : window.URL.createObjectURL(image)}
         />
       </PreviewDiv>
     </Container>

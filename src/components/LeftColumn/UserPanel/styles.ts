@@ -12,7 +12,6 @@ export const Container = styled.div`
     object-fit: cover;
 
     display: flex;
-    margin: -38px auto 12px;
   }
 
   h1 {
@@ -64,4 +63,36 @@ export const AvatarIcon = styled.div`
   margin: -38px auto 12px;
   background-color: var(--white-100);
   color: var(--purple-600);
+  position: relative;
+
+  label {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    background: var(--white-100);;
+    border-radius: 50%;
+    right: 0;
+    bottom: 0;
+    border: 0;
+    cursor: pointer;
+    transition: backgound-color 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: filter 0.2s;
+
+    input {
+      display: none;
+    }
+
+    svg {
+      width: 15px;
+      height: 15px;
+      color: var(purple-900);
+    }
+
+    &:hover {
+      filter: brightness(0.8);
+    }
+  }
 `;

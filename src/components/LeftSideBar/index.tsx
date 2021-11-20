@@ -79,11 +79,11 @@ export function LeftSideBar() {
             </div>
           </Link>
         </ItemSideBar>
-        <ItemSideBar className={`${menuURL.indexOf("wallet") > -1 && 'active'} ${sideBarOpen && 'open' }`}>
-          <Link href="/wallet">
-            <div className={menuURL.indexOf("wallet") > -1 && 'active'}>
+        <ItemSideBar className={`${menuURL.indexOf("investors") > -1 && 'active'} ${sideBarOpen && 'open' }`}>
+          <Link href="/investors/me">
+            <div className={menuURL.indexOf("investors") > -1 && 'active'}>
               <BiWallet />
-              <label>Wallet</label>
+              <label>Investidor</label>
             </div>
           </Link>
         </ItemSideBar>
