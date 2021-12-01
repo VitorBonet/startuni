@@ -9,9 +9,15 @@ export const Container = styled.div`
 export const ProfileCircle = styled.img`
   width: 35px;
   height: 35px;
-  border-radius: 12px;
+  border-radius: 50%;
   border: 1px solid var(--color-icons);
   object-fit: cover;
+  
+  transition: filter 0.2s;
+
+  &:hover {
+    filter: brightness(0.9);
+  }
 `;
 
 export const ProfileIconCircle = styled.div`
@@ -22,10 +28,16 @@ export const ProfileIconCircle = styled.div`
   justify-content: center;
   width: 35px;
   height: 35px;
-  color: var(--purple-600);    
-  background: var(--pink-50);
-  border-radius: 12px;
+  /* color: var(--purple-600);     */
+  background: var(--gray-50);
+  border-radius: 50%;
   margin-right: 10px;
+  
+  transition: filter 0.2s;
+
+  &:hover {
+    filter: brightness(0.8);
+  }
 `;
 
 export const CaretDownIcon = styled(AiFillCaretDown)`
@@ -38,8 +50,8 @@ export const CaretDownIcon = styled(AiFillCaretDown)`
 export const CaretDownIconProfileIcon = styled(AiFillCaretDown)`    width: 10px;
   height: 10px;
   color: var(--green-700);
-  margin-left: 29px;
-  margin-top: 28px;
+  margin-left: 26px;
+  margin-top: 26px;
   position: absolute;
 `;
 
@@ -53,7 +65,7 @@ export const DropDownDiv = styled.div`
 export const DropDown = styled.div`
   width: 190px;
   /* color: var(--purple-600);     */
-  background: var(--pink-50);
+  background: var(--white-100);
   padding: 0.5rem;  
   overflow: hidden; 
   border-radius: 5px;
@@ -106,13 +118,14 @@ export const DropDownItem  = styled.a`
   color: var(--purple-700);
 
   border: 1px solid linear-gradient(90deg,var(--pink-50) 0%,var(--purple-50) 120%);
-  background: linear-gradient(90deg,var(--pink-50) 0%,var(--purple-50) 120%);
+  /* background: linear-gradient(90deg,var(--pink-50) 0%,var(--purple-50) 120%); */
+  background-color: var(--white-100);
   border-radius: 5px;
 
   cursor: pointer;
 
   &:hover { 
-    filter: brightness(0.8);
+    filter: brightness(0.9);
   }
 `;
 

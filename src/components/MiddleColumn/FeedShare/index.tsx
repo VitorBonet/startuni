@@ -7,6 +7,7 @@ import LoadingFeedShare from '../../Shimmer/LoadingFeedShare';
 
 import {
   Container,
+  WriteIcon,
   ImageIcon,
   VideoIcon,
   TextIcon,
@@ -24,10 +25,10 @@ export function FeedShare() {
       <>
       <Panel>
         <Container>
-          {/* <div className="write">
+          <div className="write">
             <WriteIcon />
             <span>Começar uma publicação</span>
-          </div> */}
+          </div>
           <div className="attachment">
             <button onClick={() => router.push('images')} >
               <ImageIcon />

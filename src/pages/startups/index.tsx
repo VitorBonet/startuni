@@ -174,16 +174,24 @@ export default function Startups() {
     selectStartups();
   }, [phaseFilter, businessModelFilter, segmentFilter]);
 
-  function selectStartups() {
-    switch (menu) {
+  function selectStartups(selected?: number) {
+    if (!selected && menu) {
+      selected = menu;
+    }
+
+    switch (selected) {
       case 2:
-        // setStartups(startupsAux2);
+        getStartupsOrbit();
         break;
       case 3:
+        setStartups([]);
+        break;
+      case 4: 
+        getStartupsOrbit();
         break;
     
       default:
-        getStartupsOrbit();
+        setStartups([]);
         break;
     }
     
@@ -191,7 +199,7 @@ export default function Startups() {
 
   function handleSelectMenu(menu: number) {
     setMenu(menu);
-    selectStartups();
+    selectStartups(menu);
   }
 
   const handleSubmitSearch = useCallback(

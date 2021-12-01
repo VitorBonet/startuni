@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
-import { AiOutlineLike, AiFillLike } from 'react-icons/ai';
+import { AiOutlineLike, AiFillLike, AiOutlineShareAlt, AiOutlineSend } from 'react-icons/ai';
+import { FaRegCommentDots } from 'react-icons/fa';
 import {
   RiMessage2Line,
   RiShareForwardLine,
@@ -25,19 +26,19 @@ export const Row = styled.div`
 
     h3 {
       font-size: 14px;
-      color: var(--white);
+      color: var(--gray-700);
     }
     h4,
     time {
       font-size: 12px;
       font-weight: normal;
-      color: var(--gray-100);
+      color: var(--gray-300);
     }
   }
   &.likes {
     padding: 8px 0;
     font-size: 12px;
-    color: var(--gray-100);
+    color: var(--gray-700);
     display: flex;
     justify-content: flex-start;
 
@@ -46,14 +47,8 @@ export const Row = styled.div`
       height: 16px;
       border-radius: 50%;
 
-      &.blue {
-        background: #1385bd;
-      }
       &.green {
-        background: #6dae4f;
-      }
-      &.red {
-        background: #df704c;
+        background: var(--green-700);
       }
 
       & + .circle {
@@ -75,7 +70,7 @@ export const Row = styled.div`
       background: none;
       border: none;
       outline: none;
-      color: var(--gray-100);
+      color: var(--gray-700);
       font-size: 14px;
       font-weight: 600;
 
@@ -107,14 +102,14 @@ export const HeaderLeft = styled.div`
   display: flex;
 `;
 export const HeaderRight = styled.div`
-  color: var(--gray-100);
+  color: var(--gray-700);
   cursor: pointer;
   transform: filter 0.2s;
 
   &:hover,
   &:focus {
     svg {
-      background: var(--gray-700);
+      background: var(--gray-100);
       border-radius: 50%;
     }
   }
@@ -123,7 +118,7 @@ export const HeaderRight = styled.div`
 export const Separator = styled.div`
   width: 100%;
   height: 1px;
-  border-top: 1px solid var(--gray-700);
+  border-top: 1px solid var(--gray-100);
 `;
 
 export const Avatar = styled.img`
@@ -169,14 +164,14 @@ export const LikedText = styled.span`
   color: var(--red-700);
 `;
 
-export const CommentIcon = styled(RiMessage2Line)`
+export const CommentIcon = styled(FaRegCommentDots)`
   ${iconCSS}
 `;
 
-export const ShareIcon = styled(RiShareForwardLine)`
+export const ShareIcon = styled(AiOutlineShareAlt)`
   ${iconCSS}
 `;
 
-export const SendIcon = styled(RiSendPlaneLine)`
+export const SendIcon = styled(AiOutlineSend)`
   ${iconCSS}
 `;

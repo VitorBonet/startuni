@@ -50,7 +50,8 @@ export default createGlobalStyle`
     --white: #FFFFFF;
     --white-100: #FFFFFF;
     --black: #000;
-
+    
+    --gray-50: #f5f5f5;
     --gray-100: #e1e1e6;
     --gray-300: #a8a8b3;
     --gray-700: #323238;
@@ -76,7 +77,9 @@ export default createGlobalStyle`
     --purple-500: #963BE3;
     --purple-600: #8231C7;
     --purple-900: #39274b;
-
+    
+    --green-50: #3baf860d;
+    --green-100: #f0fdfa;
     --green-300: #91F2D9;
     --green-500: #0EEDB3;
     --green-700: #0b9772;

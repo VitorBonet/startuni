@@ -4,11 +4,12 @@ import { Container } from './styles';
 
 interface IMiddleColumnProps {
   children: ReactNode;
+  className: string;
 }
 
-export function MiddleColumn({ children }: IMiddleColumnProps) {
+export function MiddleColumn({ children, className }: IMiddleColumnProps) {
   return (
-    <Container className="middle-column">
+    <Container className={`middle-column ${className}` }>
       {children}
     </Container>
   );

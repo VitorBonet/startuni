@@ -6,7 +6,7 @@ import {
 
 import Panel from '../../Panel';
 
-import { Container, AvatarIcon, AvatarIconImg } from './styles';
+import { Container, AvatarIcon } from './styles';
 import { IUserDTOS } from '../../../dtos/IUserDTOS';
 import { IInvestorsDTOS } from '../../../dtos/IInvestorsDTOS';
 import { FiCamera } from 'react-icons/fi';
@@ -50,7 +50,7 @@ export function UserPanel({ investor }: IUserPanelProps) {
   );
   
   return (
-    <Panel>
+    <Panel className="no-shadow">
       <Container>
         { user?.avatarUrl ? (
           <AvatarIcon>

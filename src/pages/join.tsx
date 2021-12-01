@@ -113,7 +113,7 @@ export default function Join() {
 
           formRef.current?.setErrors(errors);
         } else {
-          switch (err.data.code) {
+          switch (err?.data.code) {
             case 'users.create.exists':
               addToast({
                 type: "error",

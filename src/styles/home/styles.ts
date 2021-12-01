@@ -8,6 +8,7 @@ export const Body = styled.div`
   padding-top: 100px;
   display: flex;
   justify-content: center;
+  /* background-color: var(--gray-50); */
 `;
 
 export const Content = styled.div`

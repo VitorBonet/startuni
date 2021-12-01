@@ -117,7 +117,7 @@ export function NotificationMenu({ dropdownOpen, refDropdown, openDropdown }: IN
           <DropDown>
             <DropDownTitle>
               Notifications
-              <p onClick={handleMarkAll}>MARCAR TODAS COMO LIDA</p>
+              <p onClick={handleMarkAll}>Marcar todas como lida</p>
             </DropDownTitle>
 
             <DropDownItems>

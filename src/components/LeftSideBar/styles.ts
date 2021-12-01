@@ -148,14 +148,12 @@ export const ItemSideBar = styled.div`
     }
 
     &:hover {
-      background: rgb(250,124,242);
-      background: linear-gradient(90deg, var(--pink-50) 0%, var(--purple-50) 120%);
+      background: var(--gray-50);
       color: var(--purple-600);
     }
 
     &.active {
-      background: rgb(250,124,242);
-      background: linear-gradient(90deg, var(--pink-50) 0%, var(--purple-50) 120%);
+      background: var(--gray-50);
       color: var(--purple-600);
     }
   }

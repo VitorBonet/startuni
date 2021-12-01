@@ -3,15 +3,18 @@ import { BsPencilSquare, BsCardImage, BsFillCalendarFill, BsFillCollectionPlayFi
 
 export const Container = styled.div`
   color: var(--gray-700);
+  background-color: var(--white-100);
 
   .write {
     display: flex;
     align-items: center;
     padding: 18px 24px;
+    border-bottom: 1px solid var(--gray-100);
 
     > span {
       margin-left: 8px;
       font-weight: 600;
+      font-size: 0.825rem;
     }
   }
   .attachment {

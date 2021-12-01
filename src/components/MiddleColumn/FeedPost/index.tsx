@@ -37,31 +37,6 @@ interface IImage {
   name: string;
   imageUrl: string;
 }
-
-interface ITrack {
-  id: string;
-  title: string;
-  description: string;
-  trackUrl: string;
-  timeLength: string;
-  trackImageUrl?: string;
-  trackType: 'v' | 'a';
-}
-
-interface ILyric {
-  id: string;
-  name: string;
-  lyrics: string;
-}
-
-interface IEvent {
-  id: string;
-  name: string;
-  date: string;
-  address: string;
-  description: string;
-  imageUrl: string;
-}
 interface IPost {
   id: string;
   userId: string;
@@ -69,17 +44,10 @@ interface IPost {
     id: string;
     email: string;
     name: string;
-    profileName: string;
     avatarUrl: string;
   };
-  trackId?: string;
-  track?: ITrack;
   imageId?: string;
   image?: IImage;
-  eventId?: string;
-  event?: IEvent;
-  lyricId?: string;
-  lyric?: ILyric;
   type: 't' | 'i' | 'e' | 'l';
   like: boolean;
   createdAt: string;
@@ -129,7 +97,7 @@ export function FeedPost({ post }: IFeedPostProps) {
           <Row className="heading">
             <HeaderLeft>
               { post.user?.avatarUrl ? ( 
-                <Avatar src={post.user?.avatarUrl} alt={post.user?.profileName ? post.user.profileName : post.user.name} />
+                <Avatar src={post.user?.avatarUrl} alt={post.user.name} />
                 ) : (
                 <ProfileIconCircle>
                   <AiOutlineUser />
@@ -137,44 +105,22 @@ export function FeedPost({ post }: IFeedPostProps) {
               ) }
               
               <Column>
-                <h3>{post.user?.profileName ? post.user.profileName : post.user.name}</h3>
+                <h3>{post.user.name}</h3>
                 <time>{formatDistance(new Date(), new Date(post.updatedAt))}</time>
               </Column>
             </HeaderLeft>
             <HeaderRight>
               <AiOutlineEllipsis size={30} onClick={openDropdownMenu} />
-              <DropdownMore refDropdown={dropdownMenuRef} dropdownOpen={dropdownMenuOpen} openDropdown={openDropdownMenu} post={post}/>
+              {/* <DropdownMore refDropdown={dropdownMenuRef} dropdownOpen={dropdownMenuOpen} openDropdown={openDropdownMenu} post={post}/> */}
             </HeaderRight>
           </Row>
 
-          { post.type === enums.posts.type.image && (
-            <PostImage
-              image={post.image}
-            />
-          )}
-
-          { post.type === enums.posts.type.track && (
-            <PostTrack
-              track={post.track}
-            />
-          )}
-
-          { post.type === enums.posts.type.lyric && (
-            <PostLyric
-              lyric={post.lyric}
-            />
-          )}
-
-          { post.type === enums.posts.type.event && (
-            <PostEvent
-              event={post.event}
-            />
-          )}
+          <PostImage
+            image={post.image}
+          />
 
           <Row className="likes">
-            <span className="circle blue" />
             <span className="circle green" />
-            <span className="circle red" />
             <span className="number">49</span>
           </Row>
 

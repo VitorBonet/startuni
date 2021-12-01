@@ -8,10 +8,19 @@ export const Container = styled.div`
   justify-content: center;
   width: 35px;
   height: 35px;
-  color: var(--purple-600);    
-  background: var(--pink-50);
+  /* color: var(--purple-600);  */
+  /* border-bottom: 1px solid var(--gray-100);    */
+ //background: var(--pink-50);:
+  color: var(--gray-700);
+  /* border: 1px solid var(--gray-300); */
   border-radius: 12px;
   margin-right: 10px;
+  
+  transition: filter 0.2s;
+
+  &:hover {
+    filter: brightness(0.8);
+  }
 `;
 
 export const ProfileCircle = styled.div`
@@ -47,7 +56,7 @@ export const DropDownDiv = styled.div`
 
 export const DropDown = styled.div`
   width: 350px;
-  background: var(--pink-50);
+  background: var(--white-100);
   padding: 0.5rem;  
   overflow: hidden; 
   /* border: 1px solid var(--gray-300); */
@@ -112,7 +121,7 @@ export const DropDownItem  = styled.a`
   transition: 0.2s;
   padding: 0.5rem;
   color: var(--purple-900);
-  background-color: var(--purple-30);
+  background-color: var(--white-100);
 
   border: none;
   background-color: translate;
@@ -121,8 +130,7 @@ export const DropDownItem  = styled.a`
   cursor: pointer;
 
   &:hover { 
-    background-color: var(--purple-50);
-    filter: brightness(0.8);
+    filter: brightness(0.9);
   }
 `;
 
@@ -145,6 +153,8 @@ export const DropDownItemIcon = styled.div`
   align-items: center;
   font-size: 30px;
   margin-right: 20px;
+  
+  color: var(--purple-300);
 `;
 
 export const DropDownItemText = styled.div`
@@ -153,7 +163,7 @@ export const DropDownItemText = styled.div`
 
   p {
     font-size: 0.725rem;
-    color: var(--purple-600);
+    /* color: var(--purple-600); */
   }
 `;
 
@@ -177,7 +187,7 @@ export const DropDownItemTextHasNotifBall = styled.div`
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background-color: var(--red-500);
+  background-color: var(--purple-300);
 `;
 
 export const DropDownViewAll = styled.div`
@@ -197,6 +207,7 @@ export const DropDownViewAll = styled.div`
   cursor: pointer;
 
   &:hover { 
-    filter: brightness(0.8);
+    /* filter: brightness(0.8); */
+    background-color: var(--green-50);
   } 
 `;

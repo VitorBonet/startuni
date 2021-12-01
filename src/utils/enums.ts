@@ -29,5 +29,5 @@ export const enums = {
   matchs: {
     startups: 's',
     investor: 'i',
-  }
+  },
 }
