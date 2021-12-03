@@ -73,6 +73,13 @@ export default function StartupsDashboards({ startup }: IStratupProps) {
   }
 
   async function toggleAcceptance(matchId: string, acceptance: boolean) {
+    if (!acceptance) {
+      const conf = confirm("Tem certeza que deseja recusar esse investidor?");
+      if (!conf) {
+        return;
+      }
+    }
+
     try {
       api.post(`/matchs/${matchId}/acceptance`, {
           acceptance,

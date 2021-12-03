@@ -78,7 +78,7 @@ export default function InvestorShow({ investor }:IInvestorShowProps ) {
 
   async function getMyStartups() {
     try {
-      api.get(`/startups/my`).then(response => {
+      api.get(`/startups/users/${investor.id}`).then(response => {
         setStartups(response.data);
       });
     } catch (error) {}
@@ -128,6 +128,13 @@ export default function InvestorShow({ investor }:IInvestorShowProps ) {
   ];
 
   async function toggleAcceptance(matchId: string, acceptance: boolean) {
+    if (!acceptance) {
+      const conf = confirm("Tem certeza que deseja recusar esse investidor?");
+      if (!conf) {
+        return;
+      }
+    }
+
     try {
       api.post(`/matchs/${matchId}/acceptance`, {
           acceptance,
@@ -154,7 +161,7 @@ return (
   <PrivatePage title="Home | StartUni">
     <Body>
       <Content>
-        <LeftColumn infos={profileData}/>
+        <LeftColumn infos={profileData} investor={investor}/>
         <MiddleColumn>
           <div>
             <Container>
